@@ -23,6 +23,9 @@ def connect_to_database():
 
 # Using a DSN, but providing a password as well
 #cnxn = pyodbc.connect('DSN=QuickBooks')
+def function(x,y):
+    print(x*y**2)
+function(2,32)
 
 # Create a cursor from the connection
 
