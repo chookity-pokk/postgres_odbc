@@ -56,14 +56,20 @@ def disconnect_from_database(dbconnection, cursor):
 This is the main function, which is currently being used for testing purposes
 because I will be calling the other functions within it to make sure I can connect,
 disconnect and create tables in the postgres database. Fingers crossed. 7/28/2020, 4:16pm
+Ayo, seems to be working just fine now that I editted it to make the table name an input.
+Issue comes in when a table already exists with the name but that makes sense.
 """
 def main():
     connect_to_database()
     tb = str(input("Input new table name: \n " ))
     create_table(conn, cur, tb)
+    #The below line needs to be edited as it is trying to edit the rows of the
+    #database but those rows don't currently exist so I need to make a function
+    # to add rows to the database then have the line below edit those rows.
+    cur.execute("insert into products(id, name) values (?,?)", 'pyodbc', 'awesome library')
     conn.close()
 main()
 
-#cursor.execute("insert into products(id, name) values (?,?)", 'pyodbc', 'awesome library')
+#cur.execute("insert into products(id, name) values (?,?)", 'pyodbc', 'awesome library')
 #cursor.commit()
 print("Time to run function {0}. Could be faster though; I'm not impressed.".format(time.time()-start_time))
