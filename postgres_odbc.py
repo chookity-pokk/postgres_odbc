@@ -48,7 +48,6 @@ def create_table(dbconnection, cursor, newtablename):
 Takes the connection to the database and adds a new field information and updates the
 table with a new field.
 """
-
 def add_field(dbconnection, cursor, tablename, fieldname='newfield',fieldtype='TEXT'):
     sql = '''ALTER TABLE {0} ADD COLUMN {1} {2}'''.format(tablename, fieldname, fieldtype)
     cursor.execute(sql)
@@ -72,10 +71,14 @@ def main():
     connect_to_database()
     tb = str(input("Input new table name: \n " ))
     create_table(conn, cur, tb)
+    fieldnames = ['id', 'names']
     #The below line needs to be edited as it is trying to edit the rows of the
     #database but those rows don't currently exist so I need to make a function
     # to add rows to the database then have the line below edit those rows.
-    cur.execute("insert into products(id, name) values (?,?)", 'pyodbc', 'awesome library')
+    #cur.execute("insert into products(id, name) values (?,?)", 'pyodbc', 'awesome library')
+    for name in fieldnames:
+        #Going to need to change 'papers' to whatever the inventory table is called
+        add_field(conn, cur, tb, fieldname=name, fieldtype='TEXT')
     conn.close()
 main()
 
