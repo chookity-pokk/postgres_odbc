@@ -1,9 +1,11 @@
 import pyodbc
 import time
 """
-at some point I will switch all 'dbconnection.commit()' to
+At some point I will switch all 'dbconnection.commit()' to
 cnxn.commit() because I think that should be the proper syntax though
 'dbconnection.commit()' seems to be working just fine. So who knows.
+Will also add better comments and clean up the code as it is currently a bit messy
+7/29/2020 3:15pm
 """
 
 
@@ -41,6 +43,8 @@ def connect_to_database():
 #print("You have made it this far in {0} second. Good job,I guess. Set higher goals for yourself.".format(time.time()-start_time))
 
 conn, cur = connect_to_database()
+fieldnames = ['id', 'names']
+tb = str(input("Input name of the table: \n " ))
 """
 This will create a table in the postgres database.
 """
@@ -68,8 +72,8 @@ def add_to_row(dbconnection, cursor, tablename,fieldnames):
     This isn't working though the line that isn't calling sql but instead have it
     all within the 'execute()' function then it seems to be working.
     Maybe just adding in those functions into the execute function would
-    fix the error. I will try that post lunch. 7/29/2020 2:38
-
+    fix the error. I will try that post lunch. 7/29/2020 2:38pm
+    Jeez, this finally works now. 7/29/2020 2:43pm
     """
     sql = "insert into {0}(id, names) values (?,?)".format(tablename)#, 'pyodbc', 'awesome library' #cnxn.commit()
     #sql = '''INSERT INTO {0}({1},{2}) VALUES (?,?)'''.format(tablename,fieldnames[0],fieldnames[1]), 'pyodbc', 'awesome library'
@@ -108,7 +112,16 @@ def main():
     #cur.execute("insert into {}(id, names) values (?,?)".format(tb), 'pyodbc', 'awesome library')
     add_to_row(conn, cur, tb,fieldnames=fieldnames)
     conn.close()
-main()
+#main()
+
+"""
+Commented out the main function because I believe the testing on this is all but
+done. I added the line just below this one to get that one working and see if
+it was also adding entries into the columns to see if that was working and
+results were positive as it was able to add entries into the table.
+"""
+
+#add_to_row(conn,cur,tb,fieldnames=fieldnames)
 
 #cur.execute("insert into products(id, name) values (?,?)", 'pyodbc', 'awesome library')
 #cursor.commit()
