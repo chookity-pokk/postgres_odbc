@@ -38,8 +38,9 @@ conn, cur = connect_to_database()
 """
 This will create a table in the postgres database.
 """
-def create_table(dbconnection, cursor, newtablename):
-    sql = '''CREATE TABLE {0} (oid serial PRIMARY KEY)'''.format(newtablename)
+#changing newtablename to tb... I'll fix that later
+def create_table(dbconnection, cursor, tb):
+    sql = '''CREATE TABLE {0} (oid serial PRIMARY KEY)'''.format(tb)
     cursor.execute(sql)
     dbconnection.commit()
 #create_table(conn, cur, 'DeleteMe')
@@ -71,6 +72,7 @@ def main():
     connect_to_database()
     tb = str(input("Input new table name: \n " ))
     create_table(conn, cur, tb)
+    #This will be changed to the name of the columns
     fieldnames = ['id', 'names']
     #The below line needs to be edited as it is trying to edit the rows of the
     #database but those rows don't currently exist so I need to make a function
