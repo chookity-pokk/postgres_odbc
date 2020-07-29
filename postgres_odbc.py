@@ -22,10 +22,9 @@ def connect_to_database():
 #cnxn = pyodbc.connect('DRIVER={PostgreSQL Unicode};SERVER=localhost;DATABASE=testdb;UID=postgres;PWD=postgres')
 
 # Using a DSN, but providing a password as well
+#This will need to be adjusted for QuickBooks, I'll add a link when I find one
 #cnxn = pyodbc.connect('DSN=QuickBooks')
-def function(x,y):
-    print(x*y**2)
-function(2,32)
+
 
 # Create a cursor from the connection
 
@@ -44,6 +43,16 @@ def create_table(dbconnection, cursor, newtablename):
     cursor.execute(sql)
     dbconnection.commit()
 #create_table(conn, cur, 'DeleteMe')
+
+"""
+Takes the connection to the database and adds a new field information and updates the
+table with a new field.
+"""
+
+def add_field(dbconnection, cursor, tablename, fieldname='newfield',fieldtype='TEXT'):
+    sql = '''ALTER TABLE {0} ADD COLUMN {1} {2}'''.format(tablename, fieldname, fieldtype)
+    cursor.execute(sql)
+    dbconnection.commit()
 
 """
 This will disconnect you from the database
