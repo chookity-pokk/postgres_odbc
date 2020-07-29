@@ -1,5 +1,11 @@
 import pyodbc
 import time
+"""
+at some point I will switch all 'dbconnection.commit()' to
+cnxn.commit() because I think that should be the proper syntax though
+'dbconnection.commit()' seems to be working just fine. So who knows.
+"""
+
 
 start_time = time.time()
 
@@ -54,6 +60,24 @@ def add_field(dbconnection, cursor, tablename, fieldname='newfield',fieldtype='T
     cursor.execute(sql)
     dbconnection.commit()
 
+def add_to_row(dbconnection, cursor, tablename,fieldnames):
+    #sql = '''INSERT INTO {}(id,names) values(?,?)'''.format(tablename),'pyodbc','el biblioteca'
+    #sql = "insert into {}(id, names) values (?,?)".format(tablename), 'pyodbc', 'awesome library'
+    #cursor.execute(sql)
+    """
+    This isn't working though the line that isn't calling sql but instead have it
+    all within the 'execute()' function then it seems to be working.
+    Maybe just adding in those functions into the execute function would
+    fix the error. I will try that post lunch. 7/29/2020 2:38
+
+    """
+    sql = "insert into {0}(id, names) values (?,?)".format(tablename)#, 'pyodbc', 'awesome library' #cnxn.commit()
+    #sql = '''INSERT INTO {0}({1},{2}) VALUES (?,?)'''.format(tablename,fieldnames[0],fieldnames[1]), 'pyodbc', 'awesome library'
+    cursor.execute(sql, 'pyodbc', 'awesome library')
+    #So this seems to work below here but above here is having a problem. It is literally
+    #the same exact thing so I don't know what the hold up is.
+    #cur.execute("insert into {}(id, names) values (?,?)".format(tb), 'pyodbc', 'awesome library')
+    dbconnection.commit()
 """
 This will disconnect you from the database
 """
@@ -81,6 +105,8 @@ def main():
     for name in fieldnames:
         #Going to need to change 'papers' to whatever the inventory table is called
         add_field(conn, cur, tb, fieldname=name, fieldtype='TEXT')
+    #cur.execute("insert into {}(id, names) values (?,?)".format(tb), 'pyodbc', 'awesome library')
+    add_to_row(conn, cur, tb,fieldnames=fieldnames)
     conn.close()
 main()
 
