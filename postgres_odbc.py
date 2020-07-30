@@ -30,41 +30,35 @@ def connect_to_database():
 #This will need to be adjusted for QuickBooks, I'll add a link when I find one
 #cnxn = pyodbc.connect('DSN=QuickBooks')
 
+conn, cur = connect_to_database()
+fieldnames = ['id', 'names']
+tb = str(input("Input name of the table: \n " ))
 
 # Create a cursor from the connection
 
 #cursor = cnxn.cursor()
 
-#cnxn.setdecoding(pyodbc.SQL_WCHAR, encoding='utf-8')
-#cnxn.setencoding(encoding='utf-8')
-#print("You have made it this far in {0} second. Good job,I guess. Set higher goals for yourself.".format(time.time()-start_time))
 
-conn, cur = connect_to_database()
-fieldnames = ['id', 'names']
-tb = str(input("Input name of the table: \n " ))
-"""
-This will create a table in the postgres database.
-"""
 #changing newtablename to tb... I'll fix that later
 def create_table(cnxn, cursor, tb):
+    """
+    This will create a table in the postgres database.
+    """
     sql = '''CREATE TABLE {0} (oid serial PRIMARY KEY)'''.format(tb)
     cursor.execute(sql)
     cnxn.commit()
-#create_table(conn, cur, 'DeleteMe')
 
-"""
-Takes the connection to the database and adds a new field information and updates the
-table with a new field.
-"""
+
 def add_field(cnxn, cursor, tablename, fieldname='newfield',fieldtype='TEXT'):
+    """
+    Takes the connection to the database and adds a new field information and updates the
+    table with a new field.
+    """
     sql = '''ALTER TABLE {0} ADD COLUMN {1} {2}'''.format(tablename, fieldname, fieldtype)
     cursor.execute(sql)
     cnxn.commit()
 
 def add_to_row(cnxn, cursor, tablename,fieldnames):
-    #sql = '''INSERT INTO {}(id,names) values(?,?)'''.format(tablename),'pyodbc','el biblioteca'
-    #sql = "insert into {}(id, names) values (?,?)".format(tablename), 'pyodbc', 'awesome library'
-    #cursor.execute(sql)
     """
     This isn't working though the line that isn't calling sql but instead have it
     all within the 'execute()' function then it seems to be working.
@@ -73,16 +67,33 @@ def add_to_row(cnxn, cursor, tablename,fieldnames):
     Jeez, this finally works now. 7/29/2020 2:43pm
     """
     sql = "insert into {0}(id, names) values (?,?)".format(tablename)#, 'pyodbc', 'awesome library' #cnxn.commit()
+    """
+    I believe the line below will work a bit better and will change it to the
+    default way soon enough but want to test it out first, just have to get
+    rid of the 'pyodbc' and 'awesome library' and put that in my cursor.execute()
+    section.
+    """
     #sql = '''INSERT INTO {0}({1},{2}) VALUES (?,?)'''.format(tablename,fieldnames[0],fieldnames[1]), 'pyodbc', 'awesome library'
     cursor.execute(sql, 'pyodbc', 'awesome library')
-    #So this seems to work below here but above here is having a problem. It is literally
-    #the same exact thing so I don't know what the hold up is.
-    #cur.execute("insert into {}(id, names) values (?,?)".format(tb), 'pyodbc', 'awesome library')
+    """
+    So this seems to work below here but above here is having a problem. It is literally
+    the same exact thing so I don't know what the hold up is.
+    This has been solved and is currently working. The issue was putting
+    'pyodbc' and 'awesome library' in the sql section rather than putting it
+    in the execute() section. So it should be sql = command and
+    cur.execute(sql, ?='word1', ?='word2') where words 1&2 are replaced with
+    the values you want to put into you database.
+    cur.execute("insert into {}(id, names) values (?,?)".format(tb), 'pyodbc', 'awesome library')
+    """
     cnxn.commit()
-"""
-This will disconnect you from the database
-"""
+
+
 def disconnect_from_database(cnxn, cursor):
+    """
+    This will disconnect you from the database though also running conn.close()
+    will also do the same thing so either one works. I'm just keeping this in
+    incase someone wants to work with this later.
+    """
     cursor.close()
     cnxn.close()
 
@@ -102,7 +113,8 @@ _inv_adjust is inventory adjustments
 Honestly may have been able to just connect it through Microsoft Access. If that
 is the case then I may just write a much smaller script to launch that and
 have it pull the inventory daily. Page 17 of the report.
-
+The pdf is very helpful but also is mostly for getting access through Excel
+or Access.
 """
 
 def main():
@@ -111,9 +123,14 @@ def main():
     create_table(conn, cur, tb)
     #This will be changed to the name of the columns
     fieldnames = ['id', 'names']
-    #The below line needs to be edited as it is trying to edit the rows of the
-    #database but those rows don't currently exist so I need to make a function
-    # to add rows to the database then have the line below edit those rows.
+    """
+    The below line needs to be edited as it is trying to edit the rows of the
+    database but those rows don't currently exist so I need to make a function
+    to add rows to the database then have the line below edit those rows.
+    This has been turned into the add_to_row() function. So if you want
+    to add something to a database call that function instead. Example is a few
+    lines below this one (right after the for loop).
+    """
     #cur.execute("insert into products(id, name) values (?,?)", 'pyodbc', 'awesome library')
     for name in fieldnames:
         #Going to need to change 'papers' to whatever the inventory table is called
@@ -134,4 +151,7 @@ add_to_row(conn,cur,tb,fieldnames=fieldnames)
 
 #cur.execute("insert into products(id, name) values (?,?)", 'pyodbc', 'awesome library')
 #cursor.commit()
+
+#This is just to see how long the function was taking to run but it also is
+#entirely unnecessary so feel free to comment it out.
 print("Time to run function {0}. Could be faster though; I'm not impressed.".format(time.time()-start_time))
