@@ -126,15 +126,19 @@ def add_to_csv(cnxn, cursor, tb):
     #This will obviously need to be editted to a company path as apposed to a personal folder
     #Also, boo having to use Windows. smh.
     #Need to add a section to make the csv in the first place
-    """
+    #path1 = "C:\\Users\\Hank\\Documents\\Testin\\Testing.csv"
+    #pd.DataFrame(path1,index=False)
+    #with open(path1, 'wb') as csvfile:
+    #    filewriter = csv.writer(csvfile, delimiter=',')
+    #This is currently working and writing the table to the csv.
     col_headers = [ i[0] for i in cursor.description ]
     rows = [ list(i) for i in cursor.fetchall()]
     df = pd.DataFrame(rows, columns=col_headers)
-    path = r"C:\Users\Hank\Documents\Random Python Scripts\postgres-odbc\test.csv"
+    path = r"C:\Users\Hank\Documents\Random Python Scripts\postgres-odbc\testing.csv"
     df.to_csv(path, index=False)
+
     """
-    #This is working right now. So that is dope.
-    path = "C:\\Users\\Hank\\Documents\\Testin\\Test.csv"
+    path = "C:\\Users\\Hank\\Documents\\Testin\\test.csv"
     with open(path, "w", newline='') as output:
         writer = csv.writer(output)
         writer.writerows([x[0] for x in cursor.description])
@@ -142,7 +146,7 @@ def add_to_csv(cnxn, cursor, tb):
             writer.writerows(row)
         #cnxn.cursor().copy_expert(cursor.execute(sql), output)
     cnxn.commit()
-
+    """
 """
 Notes on how to implement into QuickBooks. Seems like anything with '_line_inv'
 at the end of it is an inventory item. Check out the pdf sent by time on 7/29/2020
