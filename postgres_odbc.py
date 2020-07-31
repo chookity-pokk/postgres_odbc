@@ -1,5 +1,6 @@
 import pyodbc
 import time
+import csv
 """
 At some point I will switch all 'dbconnection.commit()' to
 cnxn.commit() because I think that should be the proper syntax though
@@ -25,14 +26,22 @@ def connect_to_database():
     return cnxn, cursor
 
 # Specifying the ODBC driver, server name, database, etc. directly
-
-# Using a DSN, but providing a password as well
-#This will need to be adjusted for QuickBooks, I'll add a link when I find one
-#cnxn = pyodbc.connect('DSN=QuickBooks')
+"""
+Using a DSN, but providing a password as well
+This will need to be adjusted for QuickBooks, I'll add a link when I find one
+https://code.google.com/archive/p/pyodbc/wikis/ConnectionStrings.wiki
+https://doc.4d.com/4Dv17/4D/17/Using-a-connection-string.200-3786162.en.html
+I believe what I have now is good enough with the password and the
+UID (user ID, basically your username) needing to be changed when that all
+gets sorted out.
+"""
+#cnxn = pyodbc.connect('DSN=QuickBooks;UID=Admin;PWD=InsertPassword')
 
 conn, cur = connect_to_database()
+#The fieldnames will either have to be changed or may even not need to be included
+#as I may not be needing to name the columns depending on the structure of the table
 fieldnames = ['id', 'names']
-tb = str(input("Input name of the table: \n " ))
+#tb = str(input("Input name of the table: \n " ))
 
 # Create a cursor from the connection
 
@@ -73,7 +82,7 @@ def add_to_row(cnxn, cursor, tablename,fieldnames):
     rid of the 'pyodbc' and 'awesome library' and put that in my cursor.execute()
     section.
     """
-    #sql = '''INSERT INTO {0}({1},{2}) VALUES (?,?)'''.format(tablename,fieldnames[0],fieldnames[1]), 'pyodbc', 'awesome library'
+    #sql = '''INSERT INTO {0}({1},{2}) VALUES (?,?)'''.format(tablename,fieldnames[0],fieldnames[1])#, 'pyodbc', 'awesome library'
     cursor.execute(sql, 'pyodbc', 'awesome library')
     """
     So this seems to work below here but above here is having a problem. It is literally
@@ -104,6 +113,28 @@ disconnect and create tables in the postgres database. Fingers crossed. 7/28/202
 Ayo, seems to be working just fine now that I editted it to make the table name an input.
 Issue comes in when a table already exists with the name but that makes sense.
 """
+
+def add_to_csv(cnxn, cursor, tb):
+    """
+    This function will take the contents of the table in PostgreSQL
+    and put them to a csv. May be needed if peole want to externally save the
+    contents of the database in a public place that people can easilt access
+    i.e. pushing the csv to a public folder for the company to look at.
+    """
+    sql1 = """ SELECT * FROM {}""".format(tb)
+    sql2 = """COPY {} to STDOUT WITH CSV HEADER""".format(tb)
+    rows = cursor.execute(sql1)
+
+    #This will obviously need to be editted to a company path as apposed to a personal folder
+    #Also, boo having to use Windows. smh.
+    path = "C:\\Users\\Hank\\Documents\\Testin\\TestingPyODBC.csv"
+    with open(path, "w", newline='') as output:
+        writer = csv.writer(output)
+        writer.writerows([x[0] for x in cursor.description])
+        for row in rows:
+            writer.writerows(row)
+        #cnxn.cursor().copy_expert(cursor.execute(sql), output)
+    cnxn.commit()
 
 """
 Notes on how to implement into QuickBooks. Seems like anything with '_line_inv'
@@ -137,8 +168,9 @@ def main():
         add_field(conn, cur, tb, fieldname=name, fieldtype='TEXT')
     #cur.execute("insert into {}(id, names) values (?,?)".format(tb), 'pyodbc', 'awesome library')
     add_to_row(conn, cur, tb,fieldnames=fieldnames)
+    add_to_csv(conn, cur, tb)
     conn.close()
-#main()
+main()
 
 """
 Commented out the main function because I believe the testing on this is all but
@@ -147,7 +179,7 @@ it was also adding entries into the columns to see if that was working and
 results were positive as it was able to add entries into the table.
 """
 
-add_to_row(conn,cur,tb,fieldnames=fieldnames)
+#add_to_row(conn,cur,tb,fieldnames=fieldnames)
 
 #cur.execute("insert into products(id, name) values (?,?)", 'pyodbc', 'awesome library')
 #cursor.commit()
