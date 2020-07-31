@@ -39,7 +39,7 @@ conn, cur = connect_to_database()
 #The fieldnames will either have to be changed or may even not need to be included
 #as I may not be needing to name the columns depending on the structure of the table
 fieldnames = ['id', 'names']
-tb = str(input("Input name of the table: \n " ))
+#tb = str(input("Input name of the table: \n " ))
 
 # Create a cursor from the connection
 
@@ -181,8 +181,8 @@ def main():
     add_to_row(conn, cur, tb,fieldnames=fieldnames)
     add_to_csv(conn, cur, tb)
     conn.close()
-#main()
-add_to_csv(conn, cur, tb)
+main()
+#add_to_csv(conn, cur, tb)
 """
 Commented out the main function because I believe the testing on this is all but
 done. I added the line just below this one to get that one working and see if
