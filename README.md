@@ -1,3 +1,3 @@
 # Postgres ODBC
 
-Connecting to a postgres database and making/editing tables etc using the ODBC package in Python. Will eventually evolve into making a inventory management system where it will pull inventory from QuickBooks and will put it into a csv or something.
+Connecting to a postgres database and making/editing tables etc using the ODBC package in Python. Designed to pull in inventory from QuickBooks and push it to a remote server to help get away from reliance on QuickBooks for inventory management. Will ideally be run once a day to get the inventory log from that day and be pushed to a csv file or put straight into Excel (with minimal adjustments) and then saved to have a comprehensive list of inventory for different dates. 
