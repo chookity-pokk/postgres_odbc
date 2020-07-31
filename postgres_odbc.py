@@ -1,5 +1,5 @@
 import pyodbc
-import time
+import pandas as pd
 import csv
 """
 At some point I will switch all 'dbconnection.commit()' to
@@ -9,8 +9,6 @@ Will also add better comments and clean up the code as it is currently a bit mes
 7/29/2020 3:15pm
 """
 
-
-start_time = time.time()
 
 def connect_to_database():
     """
@@ -41,7 +39,7 @@ conn, cur = connect_to_database()
 #The fieldnames will either have to be changed or may even not need to be included
 #as I may not be needing to name the columns depending on the structure of the table
 fieldnames = ['id', 'names']
-#tb = str(input("Input name of the table: \n " ))
+tb = str(input("Input name of the table: \n " ))
 
 # Create a cursor from the connection
 
@@ -127,7 +125,16 @@ def add_to_csv(cnxn, cursor, tb):
 
     #This will obviously need to be editted to a company path as apposed to a personal folder
     #Also, boo having to use Windows. smh.
-    path = "C:\\Users\\Hank\\Documents\\Testin\\TestingPyODBC.csv"
+    #Need to add a section to make the csv in the first place
+    """
+    col_headers = [ i[0] for i in cursor.description ]
+    rows = [ list(i) for i in cursor.fetchall()]
+    df = pd.DataFrame(rows, columns=col_headers)
+    path = r"C:\Users\Hank\Documents\Random Python Scripts\postgres-odbc\test.csv"
+    df.to_csv(path, index=False)
+    """
+    #This is working right now. So that is dope.
+    path = "C:\\Users\\Hank\\Documents\\Testin\\Test.csv"
     with open(path, "w", newline='') as output:
         writer = csv.writer(output)
         writer.writerows([x[0] for x in cursor.description])
@@ -170,8 +177,8 @@ def main():
     add_to_row(conn, cur, tb,fieldnames=fieldnames)
     add_to_csv(conn, cur, tb)
     conn.close()
-main()
-
+#main()
+add_to_csv(conn, cur, tb)
 """
 Commented out the main function because I believe the testing on this is all but
 done. I added the line just below this one to get that one working and see if
@@ -183,7 +190,3 @@ results were positive as it was able to add entries into the table.
 
 #cur.execute("insert into products(id, name) values (?,?)", 'pyodbc', 'awesome library')
 #cursor.commit()
-
-#This is just to see how long the function was taking to run but it also is
-#entirely unnecessary so feel free to comment it out.
-print("Time to run function {0}. Could be faster though; I'm not impressed.".format(time.time()-start_time))
