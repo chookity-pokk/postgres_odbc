@@ -17,6 +17,8 @@ def connect_to_database():
     with their database. Because if I can just make a server that will
     pull their inventory daily then I  won't need this.
     """
+    #You have to put in the exact driver name here.
+    #UID is username and PWD is the password
     cnxn = pyodbc.connect('DRIVER={PostgreSQL Unicode}; SERVER=localhost;DATABASE=testdb;UID=postgres;PWD=postgres')
     cursor = cnxn.cursor()
     cnxn.setdecoding(pyodbc.SQL_WCHAR, encoding='utf-8')
@@ -29,6 +31,7 @@ Using a DSN, but providing a password as well
 This will need to be adjusted for QuickBooks, I'll add a link when I find one
 https://code.google.com/archive/p/pyodbc/wikis/ConnectionStrings.wiki
 https://doc.4d.com/4Dv17/4D/17/Using-a-connection-string.200-3786162.en.html
+https://groups.google.com/forum/#!msg/sqlalchemy/N892Ab1kpSA/fEIazjSf-S4J
 I believe what I have now is good enough with the password and the
 UID (user ID, basically your username) needing to be changed when that all
 gets sorted out.
@@ -40,11 +43,6 @@ conn, cur = connect_to_database()
 #as I may not be needing to name the columns depending on the structure of the table
 fieldnames = ['id', 'names']
 #tb = str(input("Input name of the table: \n " ))
-
-# Create a cursor from the connection
-
-#cursor = cnxn.cursor()
-
 
 #changing newtablename to tb... I'll fix that later
 def create_table(cnxn, cursor, tb):
@@ -73,24 +71,21 @@ def add_to_row(cnxn, cursor, tablename,fieldnames):
     fix the error. I will try that post lunch. 7/29/2020 2:38pm
     Jeez, this finally works now. 7/29/2020 2:43pm
     """
-    sql = "insert into {0}(id, names) values (?,?)".format(tablename)#, 'pyodbc', 'awesome library' #cnxn.commit()
+    #sql = "insert into {0}(id, names) values (?,?)".format(tablename)#, 'pyodbc', 'awesome library' #cnxn.commit()
     """
     I believe the line below will work a bit better and will change it to the
     default way soon enough but want to test it out first, just have to get
     rid of the 'pyodbc' and 'awesome library' and put that in my cursor.execute()
     section.
+    It's been tested and is now the way to go as it will put the fieldnames in
+    by default rather than having to put those values in now.
     """
-    #sql = '''INSERT INTO {0}({1},{2}) VALUES (?,?)'''.format(tablename,fieldnames[0],fieldnames[1])#, 'pyodbc', 'awesome library'
+    sql = '''INSERT INTO {0}({1},{2}) VALUES (?,?)'''.format(tablename,fieldnames[0],fieldnames[1])
     cursor.execute(sql, 'pyodbc', 'awesome library')
     """
-    So this seems to work below here but above here is having a problem. It is literally
-    the same exact thing so I don't know what the hold up is.
-    This has been solved and is currently working. The issue was putting
-    'pyodbc' and 'awesome library' in the sql section rather than putting it
-    in the execute() section. So it should be sql = command and
-    cur.execute(sql, ?='word1', ?='word2') where words 1&2 are replaced with
-    the values you want to put into you database.
-    cur.execute("insert into {}(id, names) values (?,?)".format(tb), 'pyodbc', 'awesome library')
+    pyodbc and awesome library(values from the line above) are currently just
+    filler lines to put entrees into the table to make sure this function was
+    working. Those will be changed when needed.
     """
     cnxn.commit()
 
