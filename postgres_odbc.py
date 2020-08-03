@@ -1,6 +1,5 @@
 import pyodbc
 import pandas as pd
-import csv
 """
 At some point I will switch all 'dbconnection.commit()' to
 cnxn.commit() because I think that should be the proper syntax though
@@ -42,7 +41,7 @@ conn, cur = connect_to_database()
 #The fieldnames will either have to be changed or may even not need to be included
 #as I may not be needing to name the columns depending on the structure of the table
 fieldnames = ['id', 'names']
-#tb = str(input("Input name of the table: \n " ))
+tb = str(input("Input name of the table: \n " ))
 
 #changing newtablename to tb... I'll fix that later
 def create_table(cnxn, cursor, tb):
@@ -81,7 +80,7 @@ def add_to_row(cnxn, cursor, tablename,fieldnames):
     by default rather than having to put those values in now.
     """
     sql = '''INSERT INTO {0}({1},{2}) VALUES (?,?)'''.format(tablename,fieldnames[0],fieldnames[1])
-    cursor.execute(sql, 'pyodbc', 'awesome library')
+    cursor.execute(sql, 'Python Stuff', 'Named Entry')
     """
     pyodbc and awesome library(values from the line above) are currently just
     filler lines to put entrees into the table to make sure this function was
@@ -160,32 +159,18 @@ def main():
     create_table(conn, cur, tb)
     #This will be changed to the name of the columns
     fieldnames = ['id', 'names']
-    """
-    The below line needs to be edited as it is trying to edit the rows of the
-    database but those rows don't currently exist so I need to make a function
-    to add rows to the database then have the line below edit those rows.
-    This has been turned into the add_to_row() function. So if you want
-    to add something to a database call that function instead. Example is a few
-    lines below this one (right after the for loop).
-    """
-    #cur.execute("insert into products(id, name) values (?,?)", 'pyodbc', 'awesome library')
     for name in fieldnames:
         #Going to need to change 'papers' to whatever the inventory table is called
         add_field(conn, cur, tb, fieldname=name, fieldtype='TEXT')
-    #cur.execute("insert into {}(id, names) values (?,?)".format(tb), 'pyodbc', 'awesome library')
     add_to_row(conn, cur, tb,fieldnames=fieldnames)
     add_to_csv(conn, cur, tb)
     conn.close()
-main()
-#add_to_csv(conn, cur, tb)
+#main()
+#add_to_row(conn, cur, tb, fieldnames=fieldnames)
+add_to_csv(conn, cur, tb)
 """
 Commented out the main function because I believe the testing on this is all but
 done. I added the line just below this one to get that one working and see if
 it was also adding entries into the columns to see if that was working and
 results were positive as it was able to add entries into the table.
 """
-
-#add_to_row(conn,cur,tb,fieldnames=fieldnames)
-
-#cur.execute("insert into products(id, name) values (?,?)", 'pyodbc', 'awesome library')
-#cursor.commit()
