@@ -63,15 +63,6 @@ def add_field(cnxn, cursor, tablename, fieldname='newfield',fieldtype='TEXT'):
     cnxn.commit()
 
 def add_to_row(cnxn, cursor, tablename,fieldnames):
-    #sql = "insert into {0}(id, names) values (?,?)".format(tablename)#, 'pyodbc', 'awesome library' #cnxn.commit()
-    """
-    I believe the line below will work a bit better and will change it to the
-    default way soon enough but want to test it out first, just have to get
-    rid of the 'pyodbc' and 'awesome library' and put that in my cursor.execute()
-    section.
-    It's been tested and is now the way to go as it will put the fieldnames in
-    by default rather than having to put those values in now.
-    """
     sql = '''INSERT INTO {0}({1},{2}) VALUES (?,?)'''.format(tablename,fieldnames[0],fieldnames[1])
     cursor.execute(sql, 'Python Stuff', 'Named Entry')
     """
@@ -113,6 +104,7 @@ def add_to_csv(cnxn, cursor, tb):
     col_headers = [ i[0] for i in cursor.description ]
     rows = [ list(i) for i in cursor.fetchall()]
     df = pd.DataFrame(rows, columns=col_headers)
+    #Boo, Windows path... :'(
     path = r"C:\Users\Hank\Documents\Random Python Scripts\postgres-odbc\testing.csv"
     df.to_csv(path, index=False)
 
@@ -153,9 +145,3 @@ def main():
 #main()
 #add_to_row(conn, cur, tb, fieldnames=fieldnames)
 add_to_csv(conn, cur, tb)
-"""
-Commented out the main function because I believe the testing on this is all but
-done. I added the line just below this one to get that one working and see if
-it was also adding entries into the columns to see if that was working and
-results were positive as it was able to add entries into the table.
-"""
