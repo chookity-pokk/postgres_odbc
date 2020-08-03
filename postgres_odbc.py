@@ -63,13 +63,6 @@ def add_field(cnxn, cursor, tablename, fieldname='newfield',fieldtype='TEXT'):
     cnxn.commit()
 
 def add_to_row(cnxn, cursor, tablename,fieldnames):
-    """
-    This isn't working though the line that isn't calling sql but instead have it
-    all within the 'execute()' function then it seems to be working.
-    Maybe just adding in those functions into the execute function would
-    fix the error. I will try that post lunch. 7/29/2020 2:38pm
-    Jeez, this finally works now. 7/29/2020 2:43pm
-    """
     #sql = "insert into {0}(id, names) values (?,?)".format(tablename)#, 'pyodbc', 'awesome library' #cnxn.commit()
     """
     I believe the line below will work a bit better and will change it to the
@@ -98,14 +91,6 @@ def disconnect_from_database(cnxn, cursor):
     cursor.close()
     cnxn.close()
 
-"""
-This is the main function, which is currently being used for testing purposes
-because I will be calling the other functions within it to make sure I can connect,
-disconnect and create tables in the postgres database. Fingers crossed. 7/28/2020, 4:16pm
-Ayo, seems to be working just fine now that I editted it to make the table name an input.
-Issue comes in when a table already exists with the name but that makes sense.
-"""
-
 def add_to_csv(cnxn, cursor, tb):
     """
     This function will take the contents of the table in PostgreSQL
@@ -114,7 +99,7 @@ def add_to_csv(cnxn, cursor, tb):
     i.e. pushing the csv to a public folder for the company to look at.
     """
     sql1 = """ SELECT * FROM {}""".format(tb)
-    sql2 = """COPY {} to STDOUT WITH CSV HEADER""".format(tb)
+    #sql2 = """COPY {} to STDOUT WITH CSV HEADER""".format(tb)
     rows = cursor.execute(sql1)
 
     #This will obviously need to be editted to a company path as apposed to a personal folder
