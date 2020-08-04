@@ -1,5 +1,6 @@
 import pyodbc
 import pandas as pd
+import argparse
 """
 At some point I will switch all 'dbconnection.commit()' to
 cnxn.commit() because I think that should be the proper syntax though
@@ -129,7 +130,7 @@ have it pull the inventory daily. Page 17 of the report.
 The pdf is very helpful but also is mostly for getting access through Excel
 or Access.
 """
-
+"""
 def main():
     connect_to_database()
     tb = str(input("Input new table name: \n " ))
@@ -143,5 +144,77 @@ def main():
     add_to_csv(conn, cur, tb)
     conn.close()
 #main()
+"""
 #add_to_row(conn, cur, tb, fieldnames=fieldnames)
-add_to_csv(conn, cur, tb)
+#add_to_csv(conn, cur, tb)
+
+def printl(cnxn, cursor,tb):
+    """
+    This will print out the contents of the 'sql1' query. In this context it will
+    print out everything that is in the tablename entered. Or everything that is
+    within the oid (object ID) range that I put in. This could potentiall be useful
+    for testing smaller datasets as it will print out the contents of the table
+    after I have written to the table so that I can immediately see if the script
+    is working rather than have to check pgadmin every time. Could be useless for
+    some and the print out definitely isn't pretty.
+    """
+    sql1 = """ SELECT * FROM {} WHERE oid < 10 AND oid > 4""".format(tb)
+    #sql2 = """COPY {} to STDOUT WITH CSV HEADER""".format(tb)
+    rows = cursor.execute(sql1)
+    col_headers = [ i[0] for i in cursor.description ]
+    rows = [ list(i) for i in cursor.fetchall()]
+    print(rows)
+#printl(conn, cur, tb)
+parser = argparse.ArgumentParser()
+parser.add_argument('--db'. dest='Table',choices=['test29','NewTestTable'],
+                    help='Pick table name here')
+args = parser.parse_args()
+fmt = args.Table
+
+if fmt == 'test29':
+    def main():
+        connect_to_database()
+        tb = str(input("Input new table name: \n " ))
+        tb = 'test29'
+        create_table(conn, cur, tb)
+        #This will be changed to the name of the columns
+        fieldnames = ['id', 'names']
+        for name in fieldnames:
+            #Going to need to change 'papers' to whatever the inventory table is called
+            add_field(conn, cur, tb, fieldname=name, fieldtype='TEXT')
+        add_to_row(conn, cur, tb,fieldnames=fieldnames)
+        add_to_csv(conn, cur, tb)
+        printl(conn, cur, tb)
+        conn.close()
+    #main()
+if fmt == 'NewTestTable':
+    def main():
+        connect_to_database()
+        tb = str(input("Input new table name: \n " ))
+        tb = 'NewTestTable'
+        create_table(conn, cur, tb)
+        #This will be changed to the name of the columns
+        fieldnames = ['id', 'names']
+        for name in fieldnames:
+            #Going to need to change 'papers' to whatever the inventory table is called
+            add_field(conn, cur, tb, fieldname=name, fieldtype='TEXT')
+        add_to_row(conn, cur, tb,fieldnames=fieldnames)
+        add_to_csv(conn, cur, tb)
+        printl(conn, cur, tb)
+        conn.close()
+    #main()
+
+def main():
+    connect_to_database()
+    tb = str(input("Input new table name: \n " ))
+    create_table(conn, cur, tb)
+    #This will be changed to the name of the columns
+    fieldnames = ['id', 'names']
+    for name in fieldnames:
+        #Going to need to change 'papers' to whatever the inventory table is called
+        add_field(conn, cur, tb, fieldname=name, fieldtype='TEXT')
+    add_to_row(conn, cur, tb,fieldnames=fieldnames)
+    add_to_csv(conn, cur, tb)
+    printl(conn, cur, tb)
+    conn.close()
+#main()
