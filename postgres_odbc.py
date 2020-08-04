@@ -42,7 +42,7 @@ conn, cur = connect_to_database()
 #The fieldnames will either have to be changed or may even not need to be included
 #as I may not be needing to name the columns depending on the structure of the table
 fieldnames = ['id', 'names']
-tb = str(input("Input name of the table: \n " ))
+#tb = str(input("Input name of the table: \n " ))
 
 #changing newtablename to tb... I'll fix that later
 def create_table(cnxn, cursor, tb):
@@ -165,12 +165,32 @@ def printl(cnxn, cursor,tb):
     rows = [ list(i) for i in cursor.fetchall()]
     print(rows)
 #printl(conn, cur, tb)
+"""
 parser = argparse.ArgumentParser()
 parser.add_argument('--db'. dest='Table',choices=['test29','NewTestTable'],
                     help='Pick table name here')
 args = parser.parse_args()
 fmt = args.Table
+"""
 
+"""
+Below is an command line argument parser. What this will do is give you the
+option to choose which table to pick when this is run from the command line.
+so you would go to your directory that this is downloaded at, maybe something
+like /home/username/git/postgres-odbc/(linux) and enter
+'python postgres_odbc.py --db 'tablename'' where 'tablename' is the name of the
+table that you are wanting to write to in your postgres database.
+If you don't want to run it like that then you can just go to the bottom and
+uncomment out 'main()' and you'll be able to run it just fine like that. 
+"""
+parse = argparse.ArgumentParser()
+# choices limits argument values to the
+# given list
+parse.add_argument('--db',dest='Table', choices=['test29', 'newtesttable'],
+                   help='Pick table name here')
+
+args = parse.parse_args()
+fmt = args.Table
 if fmt == 'test29':
     def main():
         connect_to_database()
