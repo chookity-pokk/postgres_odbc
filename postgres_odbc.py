@@ -181,7 +181,7 @@ like /home/username/git/postgres-odbc/(linux) and enter
 'python postgres_odbc.py --db 'tablename'' where 'tablename' is the name of the
 table that you are wanting to write to in your postgres database.
 If you don't want to run it like that then you can just go to the bottom and
-uncomment out 'main()' and you'll be able to run it just fine like that. 
+uncomment out 'main()' and you'll be able to run it just fine like that.
 """
 parse = argparse.ArgumentParser()
 # choices limits argument values to the
@@ -194,35 +194,54 @@ fmt = args.Table
 if fmt == 'test29':
     def main():
         connect_to_database()
-        tb = str(input("Input new table name: \n " ))
+        #tb = str(input("Input new table name: \n " ))
         tb = 'test29'
-        create_table(conn, cur, tb)
-        #This will be changed to the name of the columns
         fieldnames = ['id', 'names']
-        for name in fieldnames:
+        #if table already exists:
+        # pass create_table
+        try:
+            create_table(conn,cur, tb)
+            #fieldnames = ['id', 'names']
+            for name in fieldnames:
             #Going to need to change 'papers' to whatever the inventory table is called
-            add_field(conn, cur, tb, fieldname=name, fieldtype='TEXT')
+                add_field(conn, cur, tb, fieldname=name, fieldtype='TEXT')
+        except:
+            pass
+        #create_table(conn, cur, tb)
+        #This will be changed to the name of the columns
+        #fieldnames = ['id', 'names']
+        #for name in fieldnames:
+            #Going to need to change 'papers' to whatever the inventory table is called
+        #    add_field(conn, cur, tb, fieldname=name, fieldtype='TEXT')
         add_to_row(conn, cur, tb,fieldnames=fieldnames)
         add_to_csv(conn, cur, tb)
         printl(conn, cur, tb)
         conn.close()
-    #main()
-if fmt == 'NewTestTable':
+    main()
+if fmt == 'newtesttable':
     def main():
         connect_to_database()
-        tb = str(input("Input new table name: \n " ))
+        #tb = str(input("Input new table name: \n " ))
         tb = 'NewTestTable'
-        create_table(conn, cur, tb)
+        #create_table(conn, cur, tb)
         #This will be changed to the name of the columns
         fieldnames = ['id', 'names']
-        for name in fieldnames:
+        try:
+            create_table(conn,cur, tb)
+            #fieldnames = ['id', 'names']
+            for name in fieldnames:
             #Going to need to change 'papers' to whatever the inventory table is called
-            add_field(conn, cur, tb, fieldname=name, fieldtype='TEXT')
+                add_field(conn, cur, tb, fieldname=name, fieldtype='TEXT')
+        except:
+            pass
+        #for name in fieldnames:
+            #Going to need to change 'papers' to whatever the inventory table is called
+        #    add_field(conn, cur, tb, fieldname=name, fieldtype='TEXT')
         add_to_row(conn, cur, tb,fieldnames=fieldnames)
         add_to_csv(conn, cur, tb)
         printl(conn, cur, tb)
         conn.close()
-    #main()
+    main()
 
 def main():
     connect_to_database()
