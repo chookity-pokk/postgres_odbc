@@ -2,6 +2,7 @@ from tkinter import *
 import psycopg2
 import pandas as pd
 import tkinter.messagebox
+from tkinter import scrolledtext
 """
 8/7/2020
 This is currently set up to connect to the same database but is using
@@ -83,13 +84,28 @@ def add_to_row():
     #l_name.delete(0,END)
     #conn.commit()
 
+
+"""
+I think that this needs to be editted in that edit_quant.get() is being called
+but that is also calling the same functio. So I think what needs to be done
+is something similar as to what is done for the add_csv function where the
+function is within the same function itself.
+Because if I manually add in an oid then it works just fine but added in the
+edit_quant.get() call then we get an error. So for testing purposes I am going
+to add in an oid manually and make sure the rest is working before fixing the initial
+issue.
+Lol, it is just calling itself and making more of the same window. I should have
+seen that coming.
+"""
+
 def edit_quantity():
     editor = Tk()
     editor.title("Update a record")
     editor.geometry('400x400')
-    record_id = edit_quant.get()
+    record_id = "SELECT * FROM guitable WHERE oid = 10"#.format(str(edit_quant.get()))
     #sql = "SELECT * FROM guitable WHERE oid = {}".format(record_id)
-    cur.execute("SELECT * FROM guitable WHERE oid = " + record_id)
+    #cur.execute("SELECT * FROM guitable WHERE oid = " + record_id)
+    cur.execute(record_id)
     records = cur.fetchall()
     for record in records:
         f_name_editor.insert(0, record[0])
@@ -332,11 +348,20 @@ canvas = Canvas(root)
 
 
 # -----------------Scroll Bar---------------------------------------------------
-ybar = Scrollbar(root, orient='vertical', command=canvas.xview)
+ybar = Scrollbar(root, orient='vertical', command=canvas.yview)
 canvas.configure(yscrollcommand=ybar.set)
 ybar.grid(row=1,column=5, sticky="ns")
 
 resize = Label(root)
 resize.grid(row=1, column=2,sticky='nsew')
 
+"""
+text_area = scrolledtext.ScrolledText(root, wrap=tkinter.WORD, width=40, height=10)
+text_area.grid(row=1, column=5, sticky = 'ns')
+text_area.focus()
+"""
+
+#This will make it so the window can't be resized. Might be worth doing if I
+# Can't figure out how to make it change dynamically with grid.
+root.resizable(0,0)
 root.mainloop()
