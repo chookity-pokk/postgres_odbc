@@ -8,7 +8,7 @@ This is currently set up to connect to the same database but is using
 psycopg2 instead of pyodbc because the syntax is easier to work with in psycopg2
 and tkinter as apposed to pyodbc. If needed I can convert it to pyodbc without
 a ton of challenges but I honesly don't want to. I have a similar script running
-on pyodbc but the functionality isn't as good because it is more annoying to work with. 
+on pyodbc but the functionality isn't as good because it is more annoying to work with.
 """
 
 
@@ -31,6 +31,10 @@ add_csv_path or else it will be in the function calling itself.
 # Connection modules
 root = Tk()
 root.title("G&D Chillers")
+#This can be changed to any .ico files (use png or jpeg to ico converter online)
+#It shows up in the top left corner of the display window.
+# TODO: Needs to be added to all the windows.
+root.iconbitmap(r"C:\Users\Hank\Documents\Random Python Scripts\postgres-odbc\IconForTkinter.ico")
 root.geometry('400x400')
 tb = 'guitable'
 column_change = 'testing'
