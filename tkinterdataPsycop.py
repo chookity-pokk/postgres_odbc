@@ -34,7 +34,7 @@ root.title("G&D Chillers")
 #This can be changed to any .ico files (use png or jpeg to ico converter online)
 #It shows up in the top left corner of the display window.
 # TODO: Needs to be added to all the windows.
-root.iconbitmap(r"C:\Users\Hank\Documents\Random Python Scripts\postgres-odbc\IconForTkinter.ico")
+root.iconbitmap(r"C:\Users\Hank\Documents\Random Python Scripts\postgres-odbc\Icons\IconForTkinter.ico")
 root.geometry('400x400')
 tb = 'guitable'
 column_change = 'testing'
