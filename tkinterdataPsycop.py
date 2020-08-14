@@ -12,6 +12,13 @@ a ton of challenges but I honesly don't want to. I have a similar script running
 on pyodbc but the functionality isn't as good because it is more annoying to work with.
 """
 
+"""
+Add a function to convert csv to database and add field and to choose database name?
+And a print to a pdf for spec sheets
+"""
+
+
+
 
 """
 This is now able to push stuff to the database

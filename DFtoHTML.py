@@ -20,7 +20,7 @@ def csv_to_html():
     with open(path,'w') as csv:
         csv.write(html)
         csv.close()
-csv_to_html()
+#csv_to_html()
 
 #This will convert the html to markdown because it can then be converted to a pdf
 def html_to_md():
@@ -46,3 +46,13 @@ def main():
     html_to_md()
     html_to_pdf()
 #main()
+def test_func():
+    list =[]
+    x= 13
+    while x < 20 :
+        x+=  1
+        list.append(x)
+        print(list)
+    bl = 'function is working in emacs '
+    print("I am using this to test if the blacken " + bl, '\n')
+test_func() 

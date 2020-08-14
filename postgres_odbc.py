@@ -212,7 +212,8 @@ def main():
     printl(conn, cur, tb)
     conn.close()
 #main()
-
+tb = 'test29'
+add_to_csv(conn, cur, tb)
 """
 Use tkinter to give a gui to the choice of the database you want and
 maybe even add in the option where if a name is entered and a db doesn't exist
