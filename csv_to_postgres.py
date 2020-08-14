@@ -1,9 +1,8 @@
 import pandas as pd
 import psycopg2
 import os
-
 """
-Post on Stack Overflow for help on the path issue here.
+This now needs to be integrated into the larger tool.
 """
 """
 UPDATE public.test29
@@ -40,30 +39,20 @@ path1 = r'C:\Users\Hank\Documents'
 tb = 'test29'
 path = os.path.join(path1,"Testing.csv")
 print(os.path.exists(path))#This will return True or False depending on if the file exists
-#print(f"This is the output path for the csv {path}")
 def csv_to_postgres():
-    #sql = f"""COPY test29 FROM {path} DELIMITER ',' CSV HEADER;"""
-    #sql = """COPY test29
-    #FROM 'C:\Users\Hank\Documents\Testing.csv'
-    #DELIMITER ','
-    #CSV HEADER;"""
-    #cur.execute(f"COPY {tb} FROM {path} DELIMITER ',' CSV HEADER;")
     sql = f"""COPY {tb} FROM STDIN DELIMITER ',' CSV HEADER;"""
-    #print(sql, '\n', '\n')
-    #cur.execute(sql)
     with open(path) as f:
         cur.copy_expert(sql,f)
     conn.commit()
     print(f"Printing to {tb} was successful from {path}.")
 csv_to_postgres()
-#print(f'Tablename: {tb}, pathname: {path}')
 """
 Just FINALLY fixed this, jeez this was an absolute hassel. 
 """
 
 def blck_test():
     list = [ ]
-    x = 13
+    x =13
     while x <20 :
         x+= 1
         list.append(x)
