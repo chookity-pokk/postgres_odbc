@@ -16,8 +16,9 @@ on pyodbc but the functionality isn't as good because it is more annoying to wor
 """
 
 """
-Add a function to convert csv to database and add field and to choose database name?
-And a print to a pdf for spec sheets
+Make it so that the window closes after exporting or importing from the csv.
+Currently the window stays open and I want it to close after submitting your
+desired location.
 """
 
 
@@ -292,8 +293,8 @@ def file_opener():
     with open(input.name) as f:
         cur.copy_expert(sql,f)
     conn.commit()
-    tkinter.messagebox.showinfo("G&D Chillers", f"Your data has been exported to {input.name}")
-
+    tkinter.messagebox.showinfo("G&D Chillers", f"Your data has been imported from {input.name}")
+    return
 
 # ---------------Entry for database. create text boxes-------------------------
 f_name = Entry(root, width=30)
