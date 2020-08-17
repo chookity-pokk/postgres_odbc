@@ -4,7 +4,7 @@ import pandas as pd
 import tkinter.messagebox
 from tkinter import scrolledtext
 import os
-
+from tkinter import filedialog
 
 """
 8/7/2020
@@ -250,7 +250,7 @@ def csv_to_postgres():
             csv_lab = "Import CSV data"
             #path = r"C:\Users\Hank\Documents\Random Python Scripts\GUI and Tkinter\ "+csv_name.get()+".csv"
             #added_csv_name = csv_name.get()
-            csv_button = Button(csv_imp,text=csv_lab, command=csv_to_postgres)
+            csv_button = Button(csv_imp,text=csv_lab, command=file_opener)
             csv_button.grid(row=3,column=3, columnspan=2, pady=5, padx=5, ipadx=66)
     except:
 
@@ -265,7 +265,11 @@ def csv_to_postgres():
         print(f"Printing to {tb} was successful from {path}.")
 #csv_to_postgres()
 
-
+def file_opener():
+    input = filedialog.askopenfile(initialdir='/')
+    print(input)
+    for i in input:
+        print(i)
 
 
 # ---------------Entry for database. create text boxes-------------------------
@@ -331,7 +335,7 @@ csv_button.grid(row=7,column=0, columnspan=2, pady=5, padx=5, ipadx=97.5)
 # -------------Create buttons to add csv data------------------------------------
 #Submits data to the database then clears the data.
 imp = "Import csv record to database"
-submit_button = Button(root,text=imp, command=csv_to_postgres)
+submit_button = Button(root,text=imp, command=file_opener)
 submit_button.grid(row=12,column=0, columnspan=2, pady=5,padx=5, ipadx=83)
 
 
