@@ -193,6 +193,11 @@ def add_to_csv():
         rows = [ list(i) for i in cur.fetchall()]
         df = pd.DataFrame(rows, columns=col_headers)
         path = r"C:\Users\Hank\Documents\Random Python Scripts\GUI and Tkinter\ "
+        """
+        Can also add asksaveasfilename from tkinter which will also open the
+        file manager so it will help to pick the location for the saved file.
+        """
+
         name = str(csv_name.get())+".csv"
         df.to_csv(path + name, index=False)
         csv_name.delete(0,END)
@@ -242,12 +247,12 @@ def csv_to_postgres():
             csv_imp = Tk()
             csv_imp.title("Update a record")
             csv_imp.geometry('300x300')
-            csv_name1 = Entry(csv_imp, width=30)
-            csv_name1.grid(row=0,column=3, padx=5)
-            added_csv_name1 = csv_name1.get()
-            csv_imp_label = Label(csv_imp, text="Add CSV path", pady=1)
-            csv_imp_label.grid(row=2,column=3)
-            csv_lab = "Import CSV data"
+            #csv_name1 = Entry(csv_imp, width=30)
+            #csv_name1.grid(row=0,column=3, padx=5)
+            #added_csv_name1 = csv_name1.get()
+            #csv_imp_label = Label(csv_imp, text="Add CSV path", pady=1)
+            #csv_imp_label.grid(row=2,column=3)
+            csv_lab = "Click here to import CSV file"
             #path = r"C:\Users\Hank\Documents\Random Python Scripts\GUI and Tkinter\ "+csv_name.get()+".csv"
             #added_csv_name = csv_name.get()
             csv_button = Button(csv_imp,text=csv_lab, command=file_opener)
@@ -265,11 +270,29 @@ def csv_to_postgres():
         print(f"Printing to {tb} was successful from {path}.")
 #csv_to_postgres()
 
+
+"""
+https://stackoverflow.com/questions/32445483/tkinter-retrieve-file-name-during-askopenfile
+This solves the issue of not knowing what to do with the imported file name
+in the file_opener function.
+Or maybe this one is better:
+https://www.howtobuildsoftware.com/index.php/how-do/bbS4/python-python-3x-tkinter-get-file-path-from-askopenfilename-function-in-tkinter
+"""
+
+"""
+This seems to be working but a tad bit more work is needed to be certain.
+"""
 def file_opener():
-    input = filedialog.askopenfile(initialdir='/')
-    print(input)
-    for i in input:
-        print(i)
+    input = filedialog.askopenfile(initialdir='/', filetypes=[('CSV', '*.csv')])
+    path1 = r'C:\Users\Hank\Documents'
+    tb = 'test29'
+    #path = os.path.join(path1,"Testing.csv")
+    #print(os.path.exists(path))#This will return True or False depending on if the file exists
+    sql = f"""COPY {tb} FROM STDIN DELIMITER ',' CSV HEADER;"""
+    with open(input.name) as f:
+        cur.copy_expert(sql,f)
+    conn.commit()
+    print(f"Printing to {tb} was successful from {input}.")
 
 
 # ---------------Entry for database. create text boxes-------------------------
@@ -335,7 +358,7 @@ csv_button.grid(row=7,column=0, columnspan=2, pady=5, padx=5, ipadx=97.5)
 # -------------Create buttons to add csv data------------------------------------
 #Submits data to the database then clears the data.
 imp = "Import csv record to database"
-submit_button = Button(root,text=imp, command=file_opener)
+submit_button = Button(root,text=imp, command=csv_to_postgres)
 submit_button.grid(row=12,column=0, columnspan=2, pady=5,padx=5, ipadx=83)
 
 
