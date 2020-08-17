@@ -3,6 +3,15 @@ import psycopg2
 import pandas as pd
 import tkinter.messagebox
 from tkinter import scrolledtext
+import postgres_odbc as pod
+
+
+
+"""
+Import functions from the postgres_odbc script rather than copying
+it in here. TODO: 11:50 8/17/2020
+"""
+
 """
 8/7/2020
 This is currently set up to connect to the same database but is using
@@ -48,36 +57,30 @@ tb = 'guitable'
 column_change = 'testing'
 fieldnames=['first_name', 'last_name']
 def connect_to_database(databasename='testdb', databaseIP='localhost', databaseport='5432', username='postgres',
-                       password='postgres'):
-    """Module takes arguments to connect to a PostgreSQL database using SQL Alchemy and returns a connection.
-    Args:
-        databasename: Name of the database to connect. Default livingdb
-        databaseIP: IP address of the database server.
-        databaseport: Port of the database server
-        username: DB username
-        password: User password
-    Returns:
-        connection: connection to the database
-        cursor: cursor for database connection
-    """
-    # Create the connection
-    connection = psycopg2.connect(host=databaseIP, user=username, password=password, dbname=databasename)
-    cursor = connection.cursor()
-    return connection, cursor
+                      password='postgres'):
+   """Module takes arguments to connect to a PostgreSQL database using PostgreSQL and returns a connection.
+   Args:
+       databasename: Name of the database to connect. Default livingdb
+       databaseIP: IP address of the database server.
+       databaseport: Port of the database server
+       username: DB username
+       password: User password
+   Returns:
+       connection: connection to the database
+       cursor: cursor for database connection
+   """
+   # Create the connection
+   connection = psycopg2.connect(host=databaseIP, user=username, password=password, dbname=databasename)
+   cursor = connection.cursor()
+   return connection, cursor
 conn, cur = connect_to_database()
 
 def disconnect_from_db(dbconnection, cursor):
-    #closes connecttion to database
+#closes connecttion to database
     cursor.close()
     dbconnection.close()
 
 def add_to_row():
-    #sql = '''INSERT INTO {0}({1},{2}) VALUES (%s, %s)'''.format(tb,fieldnames[0],fieldnames[1]),(f_name.get(), l_name.get())
-    #cur.execute(sql)
-    #cur.execute("INSERT INTO guitable (first_name, last_name) VALUES (%s, %s)", (f_name.get(), l_name.get()))
-    #This will only clear the lines if it works.
-    #tkinter.messagebox.showinfo('Window Title', "Stuff here")
-
     answer = tkinter.messagebox.askquestion("G & D Chillers", 'Are you sure you want to commit data to database?')
     if answer == 'yes':
         cur.execute("INSERT INTO guitable (first_name, last_name) VALUES (%s, %s)", (f_name.get(), l_name.get()))
@@ -187,15 +190,6 @@ def delete():
         conn.commit()
     else:
         pass
-    """
-    sql = "DELETE from guitable WHERE oid = {}".format(edit_quant.get())
-    cur.execute(sql)
-    f_name.delete(0,END)
-    l_name.delete(0,END)
-    edit_quant.delete(0,END)
-    conn.commit()
-    """
-
 def add_to_csv():
 
     def csv():
@@ -217,19 +211,6 @@ def add_to_csv():
     """
 
     answer = tkinter.messagebox.askquestion("G & D Chillers", 'Are you sure you want to export data to a CSV?')
-    #if answer == 'yes':
-#        rows = cur.execute(sql1)
-            #This will obviously need to be editted to a company path as apposed to a personal folder
-            #Also, boo having to use Windows. smh.
-            #This is currently working and writing the table to the csv.
-#        col_headers = [ i[0] for i in cur.description ]
-#        rows = [ list(i) for i in cur.fetchall()]
-#        df = pd.DataFrame(rows, columns=col_headers)
-            #Boo, Windows path... :'(
-#        path = r"C:\Users\Hank\Documents\Random Python Scripts\GUI and Tkinter\testing.csv"
-#        df.to_csv(path, index=False)
-#    else:
-#        pass
 
     if answer == 'yes':
         csv_add = Tk()
@@ -254,38 +235,6 @@ def add_to_csv():
 
     else:
         pass
-    #sql1 = """ SELECT * FROM {}""".format(tb)
-    #rows = cur.execute(sql1)
-    #This will obviously need to be editted to a company path as apposed to a personal folder
-    #Also, boo having to use Windows. smh.
-    #This is currently working and writing the table to the csv.
-    #col_headers = [ i[0] for i in cur.description ]
-    #rows = [ list(i) for i in cur.fetchall()]
-    #df = pd.DataFrame(rows, columns=col_headers)
-    #Boo, Windows path... :'(
-    #path = r"C:\Users\Hank\Documents\Random Python Scripts\GUI and Tkinter\testing.csv"
-    #df.to_csv(path, index=False)
-
-
-#def csv():
-    #csv_add = Tk()
-    #csv_add.title("Update a record")
-    #csv_add.geometry('300x300')
-    #csv_name = Entry(csv_add, width=30)
-    #added_csv_name = str(csv_name.get())
-#    sql1 = """ SELECT * FROM {}""".format(tb)
-#    rows = cur.execute(sql1)
-
-    #This will obviously need to be editted to a company path as apposed to a personal folder
-    #Also, boo having to use Windows. smh.
-    #This is currently working and writing the table to the csv.
-#    col_headers = [ i[0] for i in cur.description ]
-#    rows = [ list(i) for i in cur.fetchall()]
-#    df = pd.DataFrame(rows, columns=col_headers)
-    #Boo, Windows path... :'(
-    #path = r"C:\Users\Hank\Documents\Random Python Scripts\GUI and Tkinter\ "+added_csv_name+".csv"
-    #Change the end of the path to something like 'path'+csv_add_button.get()
-#    df.to_csv(path, index=False)
 
 
 def csv_add_button():
