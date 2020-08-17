@@ -292,7 +292,7 @@ def file_opener():
     with open(input.name) as f:
         cur.copy_expert(sql,f)
     conn.commit()
-    print(f"Printing to {tb} was successful from {input}.")
+    tkinter.messagebox.showinfo("G&D Chillers", f"Your data has been exported to {input.name}")
 
 
 # ---------------Entry for database. create text boxes-------------------------
