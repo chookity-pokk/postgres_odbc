@@ -3,7 +3,7 @@ import psycopg2
 import pandas as pd
 import tkinter.messagebox
 from tkinter import scrolledtext
-
+import os
 
 
 """
@@ -236,15 +236,33 @@ def csv_add_button():
 
 #Adds the option to push a csv into the database.
 def csv_to_postgres():
-    path1 = r'C:\Users\Hank\Documents'
-    tb = 'test29'
-    path = os.path.join(path1,"Testing.csv")
-    print(os.path.exists(path))#This will return True or False depending on if the file exists
-    sql = f"""COPY {tb} FROM STDIN DELIMITER ',' CSV HEADER;"""
-    with open(path) as f:
-        cur.copy_expert(sql,f)
-    conn.commit()
-    print(f"Printing to {tb} was successful from {path}.")
+    try:
+        answer = tkinter.messagebox.askquestion("G & D Chillers", 'Are you sure you want to import data from a CSV?')
+        if answer == 'yes':
+            csv_imp = Tk()
+            csv_imp.title("Update a record")
+            csv_imp.geometry('300x300')
+            csv_name1 = Entry(csv_imp, width=30)
+            csv_name1.grid(row=0,column=3, padx=5)
+            added_csv_name1 = csv_name1.get()
+            csv_imp_label = Label(csv_imp, text="Add CSV path", pady=1)
+            csv_imp_label.grid(row=2,column=3)
+            csv_lab = "Import CSV data"
+            #path = r"C:\Users\Hank\Documents\Random Python Scripts\GUI and Tkinter\ "+csv_name.get()+".csv"
+            #added_csv_name = csv_name.get()
+            csv_button = Button(csv_imp,text=csv_lab, command=csv_to_postgres)
+            csv_button.grid(row=3,column=3, columnspan=2, pady=5, padx=5, ipadx=66)
+    except:
+
+        path1 = r'C:\Users\Hank\Documents'
+        tb = 'test29'
+        path = os.path.join(path1,"Testing.csv")
+        print(os.path.exists(path))#This will return True or False depending on if the file exists
+        sql = f"""COPY {tb} FROM STDIN DELIMITER ',' CSV HEADER;"""
+        with open(path) as f:
+            cur.copy_expert(sql,f)
+        conn.commit()
+        print(f"Printing to {tb} was successful from {path}.")
 #csv_to_postgres()
 
 
@@ -314,7 +332,7 @@ csv_button.grid(row=7,column=0, columnspan=2, pady=5, padx=5, ipadx=97.5)
 #Submits data to the database then clears the data.
 imp = "Import csv record to database"
 submit_button = Button(root,text=imp, command=csv_to_postgres)
-submit_button.grid(row=8,column=0, columnspan=2, pady=5,padx=5, ipadx=83)
+submit_button.grid(row=12,column=0, columnspan=2, pady=5,padx=5, ipadx=83)
 
 
 # ------------------------Canvas------------------------------------------------
