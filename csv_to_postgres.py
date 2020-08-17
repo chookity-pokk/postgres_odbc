@@ -45,7 +45,7 @@ def csv_to_postgres():
         cur.copy_expert(sql,f)
     conn.commit()
     print(f"Printing to {tb} was successful from {path}.")
-csv_to_postgres()
+#csv_to_postgres()
 """
 Just FINALLY fixed this, jeez this was an absolute hassel. 
 """
@@ -59,4 +59,11 @@ def blck_test():
         print(list)
     print(f"This is each added value to x: {list}")
 #blck_test()
-#The above function only exists so that I can test the blacken function in Emacs. 11:36 8/14/2020 STATUS: Not working
+#The above function only exists so that I can test the blacken function in Emacs. 11:36 8/14/2020 STATUS: Not working. 8/17/2020 Still not working
+import DFtoHTML as df
+df.test_func()
+
+"""
+https://www.youtube.com/watch?v=A7E18apPQJs
+That is a video for adding a python path in windows 10. Fucking windows 10.
+"""
