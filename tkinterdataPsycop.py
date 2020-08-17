@@ -3,14 +3,8 @@ import psycopg2
 import pandas as pd
 import tkinter.messagebox
 from tkinter import scrolledtext
-import postgres_odbc as pod
 
 
-
-"""
-Import functions from the postgres_odbc script rather than copying
-it in here. TODO: 11:50 8/17/2020
-"""
 
 """
 8/7/2020
@@ -236,9 +230,26 @@ def add_to_csv():
     else:
         pass
 
-
 def csv_add_button():
     answer = tkinter.messagebox.askquestion("G & D Chillers", 'Are you sure you want to export data to a CSV?')
+
+
+#Adds the option to push a csv into the database.
+def csv_to_postgres():
+    path1 = r'C:\Users\Hank\Documents'
+    tb = 'test29'
+    path = os.path.join(path1,"Testing.csv")
+    print(os.path.exists(path))#This will return True or False depending on if the file exists
+    sql = f"""COPY {tb} FROM STDIN DELIMITER ',' CSV HEADER;"""
+    with open(path) as f:
+        cur.copy_expert(sql,f)
+    conn.commit()
+    print(f"Printing to {tb} was successful from {path}.")
+#csv_to_postgres()
+
+
+
+
 # ---------------Entry for database. create text boxes-------------------------
 f_name = Entry(root, width=30)
 f_name.grid(row=0,column=1, padx=5)
@@ -298,6 +309,13 @@ the data has successfully been exported to a csv.
 csv_lab = "Print out to a CSV(Excel)"
 csv_button = Button(root,text=csv_lab, command=add_to_csv)
 csv_button.grid(row=7,column=0, columnspan=2, pady=5, padx=5, ipadx=97.5)
+
+# -------------Create buttons to add csv data------------------------------------
+#Submits data to the database then clears the data.
+imp = "Import csv record to database"
+submit_button = Button(root,text=imp, command=csv_to_postgres)
+submit_button.grid(row=8,column=0, columnspan=2, pady=5,padx=5, ipadx=83)
+
 
 # ------------------------Canvas------------------------------------------------
 canvas = Canvas(root)
