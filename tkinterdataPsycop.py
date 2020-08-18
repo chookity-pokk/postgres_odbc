@@ -299,11 +299,18 @@ def file_opener():
         """
         Obviously change the error message here. We don't want this going straight to Tim
         and honestly who knows if I even want my email attached to this or if
-        it is even going to get implemented. ¯\_(ツ)_/¯ 
+        it is even going to get implemented. ¯\_(ツ)_/¯
         """
         words = "It is likely because it doesn't have the same column names. Please check and if you can't resolve the issue email timh@gdchillers.com"
         tkinter.messagebox.showinfo("G&D Chillers", f"There was an error uploading {input.name}." + words)
-
+        ques = tkinter.messagebox.askretrycancel("G&D Chillers", "Would you like to try again?")
+        if ques == 'Cancel':
+            return
+        else:
+            pass
+        """
+        Put in a box to close the window
+        """
 
 # ---------------Entry for database. create text boxes-------------------------
 f_name = Entry(root, width=30)
