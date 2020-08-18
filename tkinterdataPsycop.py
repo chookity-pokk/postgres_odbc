@@ -242,33 +242,33 @@ def csv_add_button():
 
 #Adds the option to push a csv into the database.
 def csv_to_postgres():
-    try:
-        answer = tkinter.messagebox.askquestion("G & D Chillers", 'Are you sure you want to import data from a CSV?')
-        if answer == 'yes':
-            csv_imp = Tk()
-            csv_imp.title("Update a record")
-            csv_imp.geometry('300x300')
+    answer = tkinter.messagebox.askquestion("G & D Chillers", 'Are you sure you want to import data from a CSV?')
+    if answer == 'yes':
+        csv_imp = Tk()
+        csv_imp.title("Update a record")
+        csv_imp.geometry('300x300')
+        csv_imp.iconbitmap(r"C:\Users\Hank\Documents\Random Python Scripts\postgres-odbc\Icons\IconForTkinter.ico")
             #csv_name1 = Entry(csv_imp, width=30)
             #csv_name1.grid(row=0,column=3, padx=5)
             #added_csv_name1 = csv_name1.get()
             #csv_imp_label = Label(csv_imp, text="Add CSV path", pady=1)
             #csv_imp_label.grid(row=2,column=3)
-            csv_lab = "Click here to import CSV file"
+        csv_lab = "Click here to import CSV file"
             #path = r"C:\Users\Hank\Documents\Random Python Scripts\GUI and Tkinter\ "+csv_name.get()+".csv"
             #added_csv_name = csv_name.get()
-            csv_button = Button(csv_imp,text=csv_lab, command=file_opener)
-            csv_button.grid(row=3,column=3, columnspan=2, pady=5, padx=5, ipadx=66)
-    except:
+        csv_button = Button(csv_imp,text=csv_lab, command=file_opener)
+        csv_button.grid(row=3,column=3, columnspan=2, pady=5, padx=5, ipadx=66)
 
-        path1 = r'C:\Users\Hank\Documents'
-        tb = 'test29'
-        path = os.path.join(path1,"Testing.csv")
-        print(os.path.exists(path))#This will return True or False depending on if the file exists
-        sql = f"""COPY {tb} FROM STDIN DELIMITER ',' CSV HEADER;"""
-        with open(path) as f:
-            cur.copy_expert(sql,f)
-        conn.commit()
-        print(f"Printing to {tb} was successful from {path}.")
+
+        #path1 = r'C:\Users\Hank\Documents'
+        #tb = 'test29'
+        #path = os.path.join(path1,"Testing.csv")
+        #print(os.path.exists(path))#This will return True or False depending on if the file exists
+        #sql = f"""COPY {tb} FROM STDIN DELIMITER ',' CSV HEADER;"""
+        #with open(path) as f:
+        #    cur.copy_expert(sql,f)
+        #conn.commit()
+        #print(f"Printing to {tb} was successful from {path}.")
 #csv_to_postgres()
 
 
@@ -289,12 +289,21 @@ def file_opener():
     tb = 'test29'
     #path = os.path.join(path1,"Testing.csv")
     #print(os.path.exists(path))#This will return True or False depending on if the file exists
-    sql = f"""COPY {tb} FROM STDIN DELIMITER ',' CSV HEADER;"""
-    with open(input.name) as f:
-        cur.copy_expert(sql,f)
-    conn.commit()
-    tkinter.messagebox.showinfo("G&D Chillers", f"Your data has been imported from {input.name}")
-    return
+    try:
+        sql = f"""COPY {tb} FROM STDIN DELIMITER ',' CSV HEADER;"""
+        with open(input.name) as f:
+            cur.copy_expert(sql,f)
+        conn.commit()
+        tkinter.messagebox.showinfo("G&D Chillers", f"Your data has been imported from {input.name}")
+    except:
+        """
+        Obviously change the error message here. We don't want this going straight to Tim
+        and honestly who knows if I even want my email attached to this or if
+        it is even going to get implemented. ¯\_(ツ)_/¯ 
+        """
+        words = "It is likely because it doesn't have the same column names. Please check and if you can't resolve the issue email timh@gdchillers.com"
+        tkinter.messagebox.showinfo("G&D Chillers", f"There was an error uploading {input.name}." + words)
+
 
 # ---------------Entry for database. create text boxes-------------------------
 f_name = Entry(root, width=30)
