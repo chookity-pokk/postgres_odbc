@@ -1,9 +1,7 @@
 import pandas as pd
 import psycopg2
 import os
-"""
-This now needs to be integrated into the larger tool.
-"""
+
 """
 UPDATE public.test29
 	SET oid=?, id=?, names=?
@@ -13,8 +11,6 @@ basic sample script such as the one above. Use the one above and it can update/e
 the current table.
 """
 
-
-#Path to csv r'C:\Users\Hank\Documents\Random Python Scripts\postgres-odbc\testing.csv'
 def connect_to_database(databasename='testdb', databaseIP='localhost', databaseport='5432', username='postgres',
                        password='postgres'):
     """Module takes arguments to connect to a PostgreSQL database using SQL Alchemy and returns a connection.
@@ -47,7 +43,7 @@ def csv_to_postgres():
     print(f"Printing to {tb} was successful from {path}.")
 #csv_to_postgres()
 """
-Just FINALLY fixed this, jeez this was an absolute hassel. 
+Just FINALLY fixed this, jeez this was an absolute hassel.
 """
 
 def blck_test():
@@ -60,8 +56,7 @@ def blck_test():
     print(f"This is each added value to x: {list}")
 #blck_test()
 #The above function only exists so that I can test the blacken function in Emacs. 11:36 8/14/2020 STATUS: Not working. 8/17/2020 Still not working
-import DFtoHTML as df
-df.test_func()
+
 
 """
 https://www.youtube.com/watch?v=A7E18apPQJs
