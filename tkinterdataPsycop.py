@@ -194,10 +194,6 @@ def add_to_csv():
         rows = [ list(i) for i in cur.fetchall()]
         df = pd.DataFrame(rows, columns=col_headers)
         path = r"C:\Users\Hank\Documents\Random Python Scripts\GUI and Tkinter\ "
-        """
-        Can also add asksaveasfilename from tkinter which will also open the
-        file manager so it will help to pick the location for the saved file.
-        """
 
         name = str(csv_name.get())+".csv"
         df.to_csv(path + name, index=False)
@@ -213,20 +209,40 @@ def add_to_csv():
     answer = tkinter.messagebox.askquestion("G & D Chillers", 'Are you sure you want to export data to a CSV?')
 
     if answer == 'yes':
-        csv_add = Tk()
-        csv_add.title("Update a record")
-        csv_add.geometry('300x300')
-        csv_name = Entry(csv_add, width=30)
-        csv_name.grid(row=0,column=3, padx=5)
-        added_csv_name = csv_name.get()
-        csv_name_label = Label(csv_add, text="Add CSV Name", pady=1)
-        csv_name_label.grid(row=2,column=3)
-        csv_lab = "Print out to a CSV(Excel)"
-        #path = r"C:\Users\Hank\Documents\Random Python Scripts\GUI and Tkinter\ "+csv_name.get()+".csv"
-        #added_csv_name = csv_name.get()
-        csv_button = Button(csv_add,text=csv_lab, command=csv)
-        csv_button.grid(row=3,column=3, columnspan=2, pady=5, padx=5, ipadx=66)
-
+        """
+        Can also add asksaveasfilename from tkinter which will also open the
+        file manager so it will help to pick the location for the saved file.
+        Looks like this needs to be changed below to instead have it so that it
+        is just opening a file manager
+        """
+        try:
+            csv_add = Tk()
+            csv_add.title("Update a record")
+            csv_add.geometry('300x300')
+            csv_add.iconbitmap(r"C:\Users\Hank\Documents\Random Python Scripts\postgres-odbc\Icons\IconForTkinter.ico")
+            csv_name = Entry(csv_add, width=30)
+            csv_name.grid(row=0,column=3, padx=5)
+            added_csv_name = csv_name.get()
+            csv_name_label = Label(csv_add, text="Add CSV Name", pady=1)
+            csv_name_label.grid(row=2,column=3)
+            csv_lab = "Print out to a CSV(Excel)"
+            #path = r"C:\Users\Hank\Documents\Random Python Scripts\GUI and Tkinter\ "+csv_name.get()+".csv"
+            #added_csv_name = csv_name.get()
+            """
+            This link goes to a place where we can save the file path from
+            a file manager. I may need to test this on UNIX/Linux because I
+            have no clue if this works as well on there.
+            """
+            csv_button = Button(csv_add,text=csv_lab, command=csv)
+            csv_button.grid(row=3,column=3, columnspan=2, pady=5, padx=5, ipadx=66)
+        except:
+            """
+            Obviously change the error message here. We don't want this going straight to Tim
+            and honestly who knows if I even want my email attached to this or if
+            it is even going to get implemented. ¯\_(ツ)_/¯
+            """
+            words = "If this continues please contact hank@gdchillers.com"
+            tkinter.messagebox.showinfo("G&D Chillers", f"There was an error downloading the csv. " + words)
         #Don't want this, I just want a box that will have an input and say
         # "What do you want this named?" and it will then use .get() and put that
         # at the end of the pth above and then put this window up asking if they are sure.
@@ -287,8 +303,6 @@ def file_opener():
     input = filedialog.askopenfile(initialdir='/', filetypes=[('CSV', '*.csv')])
     path1 = r'C:\Users\Hank\Documents'
     tb = 'test29'
-    #path = os.path.join(path1,"Testing.csv")
-    #print(os.path.exists(path))#This will return True or False depending on if the file exists
     try:
         sql = f"""COPY {tb} FROM STDIN DELIMITER ',' CSV HEADER;"""
         with open(input.name) as f:
@@ -303,14 +317,31 @@ def file_opener():
         """
         words = "It is likely because it doesn't have the same column names. Please check and if you can't resolve the issue email timh@gdchillers.com"
         tkinter.messagebox.showinfo("G&D Chillers", f"There was an error uploading {input.name}." + words)
-        ques = tkinter.messagebox.askretrycancel("G&D Chillers", "Would you like to try again?")
-        if ques == 'Cancel':
-            return
-        else:
-            pass
         """
         Put in a box to close the window
         """
+def save_file():
+    """
+    This needs to be editted in the same way that the file_opener function has
+    been editted.
+    """
+    data = [('All types (*.*)', '*.*')]
+    input = filedialog.asksaveasfilename(initialdir='/', filetypes=data, defaultextextension=data)
+    try:
+        sql1 = """ SELECT * FROM {}""".format(tb)
+        rows = cur.execute(sql1)
+        col_headers = [ i[0] for i in cur.description ]
+        rows = [ list(i) for i in cur.fetchall()]
+        df = pd.DataFrame(rows, columns=col_headers)
+        path = r"C:\Users\Hank\Documents\Random Python Scripts\GUI and Tkinter\ "
+
+        name = str(csv_name.get())+".csv"
+        df.to_csv(path + name, index=False)
+        csv_name.delete(0,END)
+        tkinter.messagebox.showinfo("G&D Chillers", "Your data has been exported to "+ path+name)
+    except:
+        words = "If this continues please email hank@gdchillers.com"
+        tkinter.messagebox.showinfo("G&D Chillers", f"There was an error downloading {input.name}." + words)
 
 # ---------------Entry for database. create text boxes-------------------------
 f_name = Entry(root, width=30)
