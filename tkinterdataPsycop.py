@@ -21,9 +21,6 @@ Currently the window stays open and I want it to close after submitting your
 desired location.
 """
 
-
-
-
 """
 This is now able to push stuff to the database
 About freaking time. 3:44pm 8/4/2020
@@ -36,8 +33,6 @@ UPDATE 'Bike Stuff' SET quantity = 5 WHERE 'part name' = 'Goodyear Bike Tire Mod
 
 Make a function to clear the database as a whole
 
-Make a different function for button to add to csv so I can call of the
-add_csv_path or else it will be in the function calling itself.
 """
 
 # Connection modules
@@ -84,10 +79,7 @@ def add_to_row():
         conn.commit()
     else:
         pass
-    #This will now add a window to make sure you want to add stuff to the database before committing.
-    #f_name.delete(0,END)
-    #l_name.delete(0,END)
-    #conn.commit()
+
 
 
 """
@@ -243,10 +235,6 @@ def add_to_csv():
             """
             words = "If this continues please contact hank@gdchillers.com"
             tkinter.messagebox.showinfo("G&D Chillers", f"There was an error downloading the csv. " + words)
-        #Don't want this, I just want a box that will have an input and say
-        # "What do you want this named?" and it will then use .get() and put that
-        # at the end of the pth above and then put this window up asking if they are sure.
-        #question = tkinter.messagebox.askquestion("G&D Chillers", "What would you like to name this CSV?")
 
 
     else:
@@ -264,27 +252,9 @@ def csv_to_postgres():
         csv_imp.title("Update a record")
         csv_imp.geometry('300x300')
         csv_imp.iconbitmap(r"C:\Users\Hank\Documents\Random Python Scripts\postgres-odbc\Icons\IconForTkinter.ico")
-            #csv_name1 = Entry(csv_imp, width=30)
-            #csv_name1.grid(row=0,column=3, padx=5)
-            #added_csv_name1 = csv_name1.get()
-            #csv_imp_label = Label(csv_imp, text="Add CSV path", pady=1)
-            #csv_imp_label.grid(row=2,column=3)
         csv_lab = "Click here to import CSV file"
-            #path = r"C:\Users\Hank\Documents\Random Python Scripts\GUI and Tkinter\ "+csv_name.get()+".csv"
-            #added_csv_name = csv_name.get()
         csv_button = Button(csv_imp,text=csv_lab, command=file_opener)
         csv_button.grid(row=3,column=3, columnspan=2, pady=5, padx=5, ipadx=66)
-
-
-        #path1 = r'C:\Users\Hank\Documents'
-        #tb = 'test29'
-        #path = os.path.join(path1,"Testing.csv")
-        #print(os.path.exists(path))#This will return True or False depending on if the file exists
-        #sql = f"""COPY {tb} FROM STDIN DELIMITER ',' CSV HEADER;"""
-        #with open(path) as f:
-        #    cur.copy_expert(sql,f)
-        #conn.commit()
-        #print(f"Printing to {tb} was successful from {path}.")
 #csv_to_postgres()
 
 
@@ -324,6 +294,8 @@ def save_file():
     """
     This needs to be editted in the same way that the file_opener function has
     been editted.
+    I also need to edit add_to_csv to make the boxes go away and just call this
+    function instead because it currently isn't looking like that.
     """
     data = [('All types (*.*)', '*.*')]
     input = filedialog.asksaveasfilename(initialdir='/', filetypes=data, defaultextextension=data)
@@ -333,10 +305,9 @@ def save_file():
         col_headers = [ i[0] for i in cur.description ]
         rows = [ list(i) for i in cur.fetchall()]
         df = pd.DataFrame(rows, columns=col_headers)
-        path = r"C:\Users\Hank\Documents\Random Python Scripts\GUI and Tkinter\ "
-
-        name = str(csv_name.get())+".csv"
-        df.to_csv(path + name, index=False)
+        #path = r"C:\Users\Hank\Documents\Random Python Scripts\GUI and Tkinter\ "
+        #name = str(csv_name.get())+".csv"
+        df.to_csv(input.name, index=False)
         csv_name.delete(0,END)
         tkinter.messagebox.showinfo("G&D Chillers", "Your data has been exported to "+ path+name)
     except:
