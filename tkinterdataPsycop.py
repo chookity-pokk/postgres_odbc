@@ -261,18 +261,9 @@ def csv_to_postgres():
 #csv_to_postgres()
 
 
-"""
-https://stackoverflow.com/questions/32445483/tkinter-retrieve-file-name-during-askopenfile
-This solves the issue of not knowing what to do with the imported file name
-in the file_opener function.
-Or maybe this one is better:
-https://www.howtobuildsoftware.com/index.php/how-do/bbS4/python-python-3x-tkinter-get-file-path-from-askopenfilename-function-in-tkinter
-"""
-
-"""
-This seems to be working but a tad bit more work is needed to be certain.
-"""
 def file_opener():
+    #This is connected to csv_to_postgres
+    #https://www.tutorialspoint.com/askopenfile-function-in-python-tkinter
     input = filedialog.askopenfile(initialdir='/', filetypes=[('CSV', '*.csv')])
     path1 = r'C:\Users\Hank\Documents'
     tb = 'test29'
@@ -294,25 +285,30 @@ def file_opener():
         Put in a box to close the window
         """
 def save_file():
-    """
-    This needs to be editted in the same way that the file_opener function has
-    been editted.
-    I also need to edit add_to_csv to make the boxes go away and just call this
-    function instead because it currently isn't looking like that.
-    """
-    #data = [('All types (*.*)', '*.*')]
-    input = filedialog.asksaveasfilename(initialdir='/', filetypes=[('CSV', '*.csv')])#data, defaultextextension=data)
+    #This is connected to add_to_csv
+    #https://www.tutorialspoint.com/asksaveasfile-function-in-python-tkinter
+    input = filedialog.asksaveasfilename(initialdir='/', filetypes=[('CSV', '*.csv')])
     try:
         sql1 = """ SELECT * FROM {}""".format(tb)
         rows = cur.execute(sql1)
         col_headers = [ i[0] for i in cur.description ]
         rows = [ list(i) for i in cur.fetchall()]
         df = pd.DataFrame(rows, columns=col_headers)
+        """
+        The two df.to_csv seem to either be working or not depending on how it is
+        feeling because it was working then I did something then it wasn't working
+        so I reverted back to the first df.to_csv (which I am not using because it is
+        requiring that '.csv' is added into it). After using that a few times though I
+        went and tried the second df.to_csv and it was magically working again.
+        They are both currently working but who knows how long that'll last.
+        Fucking tkinter doing me dirty.
+        """
+        #df.to_csv(input, index=False)
         df.to_csv(input+".csv", index=False)
         tkinter.messagebox.showinfo("G&D Chillers", f"Your data has been exported to {input}")
     except:
         words = "If this continues please email hank@gdchillers.com"
-        tkinter.messagebox.showinfo("G&D Chillers", f"There was an error downloading {input}." + words)
+        tkinter.messagebox.showinfo("G&D Chillers", f"There was an error downloading {input}.csv" + words)
 
 # ---------------Entry for database. create text boxes-------------------------
 f_name = Entry(root, width=30)
@@ -393,11 +389,6 @@ ybar.grid(row=1,column=5, sticky="ns")
 resize = Label(root)
 resize.grid(row=1, column=2,sticky='nsew')
 
-"""
-text_area = scrolledtext.ScrolledText(root, wrap=tkinter.WORD, width=40, height=10)
-text_area.grid(row=1, column=5, sticky = 'ns')
-text_area.focus()
-"""
 
 #This will make it so the window can't be resized. Might be worth doing if I
 # Can't figure out how to make it change dynamically with grid.
