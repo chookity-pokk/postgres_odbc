@@ -22,11 +22,6 @@ desired location.
 """
 
 """
-This is now able to push stuff to the database
-About freaking time. 3:44pm 8/4/2020
-Added a bunch of new buttons but jeez, this is so damn frustrating
-1:28pm 8/5/2020
-
 Updating an entry in a database
 UPDATE 'Bike Stuff' SET quantity = 5 WHERE 'part name' = 'Goodyear Bike Tire Model 123'
 9:17am 8/6/2020
@@ -38,9 +33,6 @@ Make a function to clear the database as a whole
 # Connection modules
 root = Tk()
 root.title("G&D Chillers")
-#This can be changed to any .ico files (use png or jpeg to ico converter online)
-#It shows up in the top left corner of the display window.
-# TODO: Needs to be added to all the windows.
 root.iconbitmap(r"C:\Users\Hank\Documents\Random Python Scripts\postgres-odbc\Icons\IconForTkinter.ico")
 root.geometry('400x400')
 tb = 'guitable'
@@ -178,19 +170,6 @@ def delete():
     else:
         pass
 def add_to_csv():
-
-    def csv():
-        sql1 = """ SELECT * FROM {}""".format(tb)
-        rows = cur.execute(sql1)
-        col_headers = [ i[0] for i in cur.description ]
-        rows = [ list(i) for i in cur.fetchall()]
-        df = pd.DataFrame(rows, columns=col_headers)
-        path = r"C:\Users\Hank\Documents\Random Python Scripts\GUI and Tkinter\ "
-
-        name = str(csv_name.get())+".csv"
-        df.to_csv(path + name, index=False)
-        csv_name.delete(0,END)
-        tkinter.messagebox.showinfo("G&D Chillers", "Your data has been exported to "+ path+name)
     """
     This function will take the contents of the table in PostgreSQL
     and put them to a csv. May be needed if peole want to externally save the
@@ -209,35 +188,6 @@ def add_to_csv():
         csv_lab = "Click here to export CSV file"
         csv_button = Button(csv_imp,text=csv_lab, command=save_file)
         csv_button.grid(row=3,column=3, columnspan=2, pady=5, padx=5, ipadx=66)
-        """
-        Can also add asksaveasfilename from tkinter which will also open the
-        file manager so it will help to pick the location for the saved file.
-        Looks like this needs to be changed below to instead have it so that it
-        is just opening a file manager
-        """
-        #try:
-        #    csv_add = Tk()
-        #    csv_add.title("Update a record")
-        #    csv_add.geometry('300x300')
-        #    csv_add.iconbitmap(r"C:\Users\Hank\Documents\Random Python Scripts\postgres-odbc\Icons\IconForTkinter.ico")
-        #    csv_name = Entry(csv_add, width=30)
-        #    csv_name.grid(row=0,column=3, padx=5)
-        #    added_csv_name = csv_name.get()
-        #    csv_name_label = Label(csv_add, text="Add CSV Name", pady=1)
-        #    csv_name_label.grid(row=2,column=3)
-        #    csv_lab = "Print out to a CSV(Excel)"
-            #path = r"C:\Users\Hank\Documents\Random Python Scripts\GUI and Tkinter\ "+csv_name.get()+".csv"
-            #added_csv_name = csv_name.get()
-        #    csv_button = Button(csv_add,text=csv_lab, command=csv)
-        #    csv_button.grid(row=3,column=3, columnspan=2, pady=5, padx=5, ipadx=66)
-        #except:
-        """
-        Obviously change the error message here. We don't want this going straight to Tim
-        and honestly who knows if I even want my email attached to this or if
-        it is even going to get implemented. ¯\_(ツ)_/¯
-        """
-        #    words = "If this continues please contact hank@gdchillers.com"
-        #    tkinter.messagebox.showinfo("G&D Chillers", f"There was an error downloading the csv. " + words)
 
 
     else:
