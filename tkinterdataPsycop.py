@@ -87,48 +87,154 @@ Lol, it is just calling itself and making more of the same window. I should have
 seen that coming.
 """
 
-def edit_quantity():
+def editing():
+    print("This is working")
+    """
+    The issue here is the button doesn't seem to even be calling the edit function
+    but I don't know why that is. Fuck this piece of code.
+    """
+    def edit():
+        try:
+            #record_id = "SELECT * FROM guitable WHERE oid=10"
+            #cur.execute(record_id)
+            #records = cur.fetchall()
+            #for record in records:
+        #        f_name_editor.insert(0, record[0])
+        #        l_name_editor.insert(0, record[1])
+            #print_records = ''
+            #for record in records:
+        #        print_records += str(record) + '\n'
+            """
+            the code in this comment chunk should auto complete the existing data in
+            the database.
+            cur.execute(f"SELECT * FROM {tb} WHERE oid={input_value}")
+            records = cur.fetchall()
+            for record in records:
+                f_name_editor.insert(0, record[0])
+                l_name_editor.insert(0, record[1])
+                oid_number.insert(0, record[2])
+            """
+            print("this is working")
+            cur.execute("SELECT * FROM guitable WHERE oid = 10")
+            records = cur.fetchall()
+            for record in records:
+                f_name_editor.insert(0,record[0])
+                l_name_editor.insert(0,record[1])
+
+            #Can set input record for oid and change oid=%s where s is the edit_button.get()
+            """
+            Delete this tomorrow. Using a dictionary for each time you want to make
+            a sql query is fucking stupid. Literally any other format is a better
+            way to write this code. Including but not limitted to f strings, using
+            .format() or the good ole classic, %s. Though at about 4:40:00 of the tutorial
+            the guy shows a way to close the window after submitting the change to
+            the database. 
+            """
+            sql = "UPDATE guitable SET first_name=%s, last_name=%s WHERE oid=10"
+            cur.execute("""UPDATE guitable SET
+            first_name = :first,
+            last_name = :last
+            WHERE oid = 47
+            """,
+            {
+            'first':f_name_editor.get(),
+            'last':l_name_editor.get()
+            }
+            )
+            #cur.execute(f"UPDATE guitable SET first_name={f_name_editor.get()}, last_name={l_name_editor.get()} WHERE oid=10")
+            #cur.execute(sql,(str(f_name_editor.get()),str(l_name_editor.get())))
+            conn.commit()
+            f_name_editor.delete(0,END)
+            l_name_editor.delete(0,END)
+        except:
+            tkinter.messagebox.showinfo("G&D Chillers", "You were unable to edit records.")
+            #print(f"You were unable to edit record {sql}")
+    #Set a custom oid just to make sure this works
     editor = Tk()
-    editor.title("Update a record")
+    editor.title("Update Record")
     editor.geometry('400x400')
-    record_id = "SELECT * FROM guitable WHERE oid = 10"#.format(str(edit_quant.get()))
+    editor.iconbitmap(r"C:\Users\Hank\Documents\Random Python Scripts\postgres-odbc\Icons\IconForTkinter.ico")
+    # ------------------Entry for Database ------------------------------------
+    f_name_editor = Entry(editor, width=30)
+    f_name_editor.grid(row=0, column=1, padx=5)
+    l_name_editor = Entry(editor, width=30)
+    l_name_editor.grid(row=1, column=1, padx=5)
+    #------------------Create text box labels----------------------------------
+    f_name_label = Label(editor, text="First Name", pady=1)
+    f_name_label.grid(row=0,column=0)
+    l_name_label = Label(editor, text="Last Name", pady=1)
+    l_name_label.grid(row=1,column=0)
+    get_f = f_name_editor.get()
+    get_l = f_name_editor.get()
+    #-------------------Save button--------------------------------------------
+    edit = "Save Editted Record"
+    edit_button = Button(editor, text=edit, command=edit)
+    edit_button.grid(row=3,column=0, columnspan=2, pady=5,padx=5,ipadx=130)
+
+#def edit_quantity():
+#    def edit():
+#        try:
+#            record_id = "SELECT * FROM guitable WHERE oid = 10"
+#            #cur.execute(record_id)
+#            records = cur.fetchall()
+#            for record in records:
+#                f_name_editor.insert(0, record[0])
+#                l_name_editor.insert(0, record[1])
+            #Loop through results and print them out.
+#            print_records = ''
+#            for record in records:
+                # can change str(record) to str(record[0]) to get the first item and so on
+                # Or so str(record[0]) + str(record[1]) to get the first two columns
+                # \t puts a tab in, could be useful.
+#                print_records += str(record) + '\n'
+#            sql = "UPDATE guitable SET first_name=%s, last_name=%s WHERE oid = 10"
+#            cur.execute(sql,(f_name_editor.get(), l_name_editor.get()))
+#            f_name_editor.delete(0,END)
+#            l_name_editor.delete(0,END)
+#            conn.commit()
+#        except:
+#            words = "If this continues please email hank@gdchillers.com"
+#            tkinter.messagebox.showinfo("G&D Chillers", f"There was an error editting your record. " + words)
+#    editor = Tk()
+#    editor.title("Update a record")
+#    editor.geometry('400x400')
+#    editor.iconbitmap(r"C:\Users\Hank\Documents\Random Python Scripts\postgres-odbc\Icons\IconForTkinter.ico")
+#    f_name_editor = Entry(editor, width=30)
+#    f_name_editor.grid(row=0,column=1, padx=5)
+#    l_name_editor = Entry(editor, width=30)
+#    l_name_editor.grid(row=1,column=1, padx=5)
+    #can be changed to use for taking inventory out or putting it in
+#    edit_quant_editor = Entry(editor, width=30)
+#    edit_quant_editor.grid(row=2, column=1, padx=5)
+    # ---------------Create text box label-----------------------------------------
+#    f_name_label = Label(editor, text="First Name", pady=1)
+#    f_name_label.grid(row=0,column=0)
+#    l_name_label = Label(editor, text="Last Name")
+#    l_name_label.grid(row=1, column=0)
+#    edit_quant_label = Label(editor, text="ID number")
+#    edit_quant_label.grid(row=2, column=0)
+#    get_f = f_name.get()
+#    get_l = l_name.get()
+#    get_edit_quant = edit_quant.get()
+    #----------Save Button-----------------------------------------------------
+#    edit = "Save Editted Record"
+#    edit_button = Button(editor, text=edit, command=edit)
+#    edit_button.grid(row=3, column=0,columnspan=2,pady=5,padx=5,ipadx=130)
+#    record_id = "SELECT * FROM guitable WHERE oid = 10"#.format(str(edit_quant.get()))
     #sql = "SELECT * FROM guitable WHERE oid = {}".format(record_id)
     #cur.execute("SELECT * FROM guitable WHERE oid = " + record_id)
-    cur.execute(record_id)
-    records = cur.fetchall()
-    for record in records:
-        f_name_editor.insert(0, record[0])
-        l_name_editor.insert(0, record[1])
+    #cur.execute(record_id)
+    #records = cur.fetchall()
+    #for record in records:
+    #    f_name_editor.insert(0, record[0])
+    #    l_name_editor.insert(0, record[1])
     #Loop through results and print them out.
-    print_records = ''
-    for record in records:
+    #print_records = ''
+    #for record in records:
         # can change str(record) to str(record[0]) to get the first item and so on
         # Or so str(record[0]) + str(record[1]) to get the first two columns
         # \t puts a tab in, could be useful.
-        print_records += str(record) + '\n'
-    # ---------------Entry for database. create text boxes-------------------------
-    f_name_editor = Entry(editor, width=30)
-    f_name_editor.grid(row=0,column=1, padx=5)
-    l_name_editor = Entry(editor, width=30)
-    l_name_editor.grid(row=1,column=1, padx=5)
-    #can be changed to use for taking inventory out or putting it in
-    edit_quant_editor = Entry(editor, width=30)
-    edit_quant_editor.grid(row=2, column=1, padx=5)
-    # ---------------Create text box label-----------------------------------------
-    f_name_label = Label(editor, text="First Name", pady=1)
-    f_name_label.grid(row=0,column=0)
-    l_name_label = Label(editor, text="Last Name")
-    l_name_label.grid(row=1, column=0)
-    edit_quant_label = Label(editor, text="ID number")
-    edit_quant_label.grid(row=2, column=0)
-    get_f = f_name.get()
-    get_l = l_name.get()
-    get_edit_quant = edit_quant.get()
-    #----------Save Button-----------------------------------------------------
-    edit = "Save Editted Record"
-    edit_button = Button(editor, text=edit, command=edit_quantity)
-    edit_button.grid(row=3, column=0,columnspan=2,pady=5,padx=5,ipadx=130)
-
+    #    print_records += str(record) + '\n'
     #sql = "UPDATE guitable SET first_name = %s, last_name = %s WHERE oid=1"
     """
     The below sql code will change multiple columns at once
@@ -138,9 +244,9 @@ def edit_quantity():
     WHERE oid=1
     """
     #cur.execute(sql,(f_name.get(), l_name.get()))
-    f_name.delete(0,END)
-    l_name.delete(0,END)
-    conn.commit()
+    #f_name.delete(0,END)
+    #l_name.delete(0,END)
+    #conn.commit()
 
 
 def query():
@@ -299,7 +405,7 @@ que_button.grid(row=8, column=0,columnspan=2,pady=5,padx=5,ipadx=131)
 
 #---------------------Edit quantity button--------------------------------------
 edit = "Edit Record"
-edit_button = Button(root, text=edit, command=edit_quantity)
+edit_button = Button(root, text=edit, command=editing)
 edit_button.grid(row=10, column=0,columnspan=2,pady=5,padx=5,ipadx=130)
 
 #-------------------Create buttons to delete data-------------------------------
