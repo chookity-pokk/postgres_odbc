@@ -22,12 +22,7 @@ desired location.
 """
 
 """
-Updating an entry in a database
-UPDATE 'Bike Stuff' SET quantity = 5 WHERE 'part name' = 'Goodyear Bike Tire Model 123'
-9:17am 8/6/2020
-
 Make a function to clear the database as a whole
-
 """
 
 # Connection modules
@@ -73,30 +68,17 @@ def add_to_row():
         pass
 
 
-
-"""
-I think that this needs to be editted in that edit_quant.get() is being called
-but that is also calling the same functio. So I think what needs to be done
-is something similar as to what is done for the add_csv function where the
-function is within the same function itself.
-Because if I manually add in an oid then it works just fine but added in the
-edit_quant.get() call then we get an error. So for testing purposes I am going
-to add in an oid manually and make sure the rest is working before fixing the initial
-issue.
-Lol, it is just calling itself and making more of the same window. I should have
-seen that coming.
-"""
 def editdb():
     try:
         #record_id = "SELECT * FROM guitable WHERE oid=10"
         #cur.execute(record_id)
         #records = cur.fetchall()
         #for record in records:
-    #        f_name_editor.insert(0, record[0])
-    #        l_name_editor.insert(0, record[1])
+        #    f_name_editor.insert(0, record[0])
+        #    l_name_editor.insert(0, record[1])
         #print_records = ''
         #for record in records:
-    #        print_records += str(record) + '\n'
+        #    print_records += str(record) + '\n'
         """
         the code in this comment chunk should auto complete the existing data in
         the database.
@@ -108,21 +90,6 @@ def editdb():
             oid_number.insert(0, record[2])
         """
         print("this is also working")
-        #cur.execute("SELECT * FROM guitable WHERE oid = 10")
-        #records = cur.fetchall()
-        #for record in records:
-        #    f_name_editor.insert(0,record[0])
-        #    l_name_editor.insert(0,record[1])
-
-        #Can set input record for oid and change oid=%s where s is the edit_button.get()
-        """
-        Delete this tomorrow. Using a dictionary for each time you want to make
-        a sql query is fucking stupid. Literally any other format is a better
-        way to write this code. Including but not limitted to f strings, using
-        .format() or the good ole classic, %s. Though at about 4:40:00 of the tutorial
-        the guy shows a way to close the window after submitting the change to
-        the database.
-        """
         sql = f"UPDATE guitable SET first_name='{f_name_editor.get()}', last_name='{l_name_editor.get()}' WHERE oid={edit_oid.get()}"
         print(sql)
         #Just want to leave this in here to shame it. Using a dictionary for every query is fucking stupid.
@@ -136,6 +103,7 @@ def editdb():
         #'last':l_name_editor.get()
         #}
         #)
+        #This whole setup in code above here is the same thing as my 'sql' line. One is a good coding practice and the other isn't.
         #cur.execute(f"UPDATE guitable SET first_name={get_f}, last_name={get_l} WHERE oid=47")
         print("Working again")
         cur.execute(sql)
@@ -148,12 +116,6 @@ def editdb():
         #print(f"You were unable to edit record {sql}")
 def editing():
     print("This is working")
-    """
-    The issue here is the button doesn't seem to even be calling the edit function
-    but I don't know why that is. Fuck this piece of code.
-    """
-
-    #Set a custom oid just to make sure this works
     global editor
     editor = Tk()
     editor.title("Update Record")
@@ -219,21 +181,22 @@ def add_to_csv():
     i.e. pushing the csv to a public folder for the company to look at.
     """
     answer = tkinter.messagebox.askquestion("G & D Chillers", 'Are you sure you want to export data to a CSV?')
+    try:
+        if answer == 'yes':
+            global csv_exp
+            csv_exp = Tk()
+            csv_exp.title("Update a record")
+            csv_exp.geometry('300x300')
+            csv_exp.iconbitmap(r"C:\Users\Hank\Documents\Random Python Scripts\postgres-odbc\Icons\IconForTkinter.ico")
+            csv_lab = "Click here to export CSV file"
+            csv_button = Button(csv_exp,text=csv_lab, command=save_file)
+            csv_button.grid(row=3,column=3, columnspan=2, pady=5, padx=5, ipadx=66)
 
-    if answer == 'yes':
 
-        csv_imp = Tk()
-        csv_imp.title("Update a record")
-        csv_imp.geometry('300x300')
-        csv_imp.iconbitmap(r"C:\Users\Hank\Documents\Random Python Scripts\postgres-odbc\Icons\IconForTkinter.ico")
-        csv_lab = "Click here to export CSV file"
-        csv_button = Button(csv_imp,text=csv_lab, command=save_file)
-        csv_button.grid(row=3,column=3, columnspan=2, pady=5, padx=5, ipadx=66)
-
-
-    else:
-        pass
-
+        else:
+            pass
+    except:
+        print("There was an issue saving your csv. Try again or email hank@gdchillers.com")
 def csv_add_button():
     answer = tkinter.messagebox.askquestion("G & D Chillers", 'Are you sure you want to export data to a CSV?')
 
@@ -242,6 +205,7 @@ def csv_add_button():
 def csv_to_postgres():
     answer = tkinter.messagebox.askquestion("G & D Chillers", 'Are you sure you want to import data from a CSV?')
     if answer == 'yes':
+        global csv_imp
         csv_imp = Tk()
         csv_imp.title("Update a record")
         csv_imp.geometry('300x300')
@@ -275,6 +239,8 @@ def file_opener():
         """
         Put in a box to close the window
         """
+    finally:
+        csv_imp.destroy()
 def save_file():
     #This is connected to add_to_csv
     #https://www.tutorialspoint.com/asksaveasfile-function-in-python-tkinter
@@ -300,6 +266,8 @@ def save_file():
     except:
         words = " If this continues please email hank@gdchillers.com"
         tkinter.messagebox.showinfo("G&D Chillers", f"There was an error downloading {input}.csv" + words)
+    finally:
+        csv_exp.destroy()
 
 # ---------------Entry for database. create text boxes-------------------------
 f_name = Entry(root, width=30)
