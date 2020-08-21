@@ -123,7 +123,7 @@ def editdb():
         the guy shows a way to close the window after submitting the change to
         the database.
         """
-        sql = f"UPDATE guitable SET first_name='{f_name_editor.get()}', last_name='{l_name_editor.get()}' WHERE oid=10"
+        sql = f"UPDATE guitable SET first_name='{f_name_editor.get()}', last_name='{l_name_editor.get()}' WHERE oid={edit_oid.get()}"
         print(sql)
         #Just want to leave this in here to shame it. Using a dictionary for every query is fucking stupid.
         #cur.execute("""UPDATE guitable SET
@@ -141,8 +141,7 @@ def editdb():
         cur.execute(sql)
         print("Still working")
         conn.commit()
-        f_name_editor.delete(0,END)
-        l_name_editor.delete(0,END)
+        editor.destroy()
         print("Mission accomplished!")
     except:
         tkinter.messagebox.showinfo("G&D Chillers", "You were unable to edit records.")
@@ -155,6 +154,7 @@ def editing():
     """
 
     #Set a custom oid just to make sure this works
+    global editor
     editor = Tk()
     editor.title("Update Record")
     editor.geometry('400x400')
@@ -162,15 +162,20 @@ def editing():
     # ------------------Entry for Database ------------------------------------
     global f_name_editor
     global l_name_editor
+    global edit_oid
     f_name_editor = Entry(editor, width=30)
     f_name_editor.grid(row=0, column=1, padx=5)
     l_name_editor = Entry(editor, width=30)
     l_name_editor.grid(row=1, column=1, padx=5)
+    edit_oid = Entry(editor, width=30)
+    edit_oid.grid(row=2, column=1, padx=5)
     #------------------Create text box labels----------------------------------
     f_name_label = Label(editor, text="First Name", pady=1)
     f_name_label.grid(row=0,column=0)
     l_name_label = Label(editor, text="Last Name", pady=1)
     l_name_label.grid(row=1,column=0)
+    edit_oid_label = Label(editor, text='Insert OID', pady=1)
+    edit_oid_label.grid(row=2,column=0)
     global get_f
     global get_l
     get_f = f_name_editor.get()
@@ -293,7 +298,7 @@ def save_file():
         df.to_csv(input+".csv", index=False)
         tkinter.messagebox.showinfo("G&D Chillers", f"Your data has been exported to {input}")
     except:
-        words = "If this continues please email hank@gdchillers.com"
+        words = " If this continues please email hank@gdchillers.com"
         tkinter.messagebox.showinfo("G&D Chillers", f"There was an error downloading {input}.csv" + words)
 
 # ---------------Entry for database. create text boxes-------------------------
