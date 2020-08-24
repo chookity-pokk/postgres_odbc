@@ -104,7 +104,6 @@ def editdb():
         #}
         #)
         #This whole setup in code above here is the same thing as my 'sql' line. One is a good coding practice and the other isn't.
-        #cur.execute(f"UPDATE guitable SET first_name={get_f}, last_name={get_l} WHERE oid=47")
         print("Working again")
         cur.execute(sql)
         print("Still working")
@@ -112,7 +111,7 @@ def editdb():
         editor.destroy()
         print("Mission accomplished!")
     except:
-        tkinter.messagebox.showinfo("G&D Chillers", "You were unable to edit records.")
+        tkinter.messagebox.showinfo("G&D Chillers", "You were unable to edit records. Make sure you have values for all the text boxes.")
         #print(f"You were unable to edit record {sql}")
 def editing():
     print("This is working")
@@ -236,9 +235,7 @@ def file_opener():
         """
         words = "It is likely because it doesn't have the same column names. Please check and if you can't resolve the issue email timh@gdchillers.com"
         tkinter.messagebox.showinfo("G&D Chillers", f"There was an error uploading {input.name}." + words)
-        """
-        Put in a box to close the window
-        """
+
     finally:
         csv_imp.destroy()
 def save_file():
@@ -321,10 +318,6 @@ del_button.grid(row=11,column=0, columnspan=2, pady=5,padx=5, ipadx=85)
 
 
 # ----------------Print out CSV button------------------------------------------
-"""
-When you print out to CSV make a window pop up saying that
-the data has successfully been exported to a csv.
-"""
 csv_lab = "Print out to a CSV(Excel)"
 csv_button = Button(root,text=csv_lab, command=add_to_csv)
 csv_button.grid(row=7,column=0, columnspan=2, pady=5, padx=5, ipadx=97.5)
@@ -350,6 +343,6 @@ resize.grid(row=1, column=2,sticky='nsew')
 
 
 #This will make it so the window can't be resized. Might be worth doing if I
-# Can't figure out how to make it change dynamically with grid.
+#Can't figure out how to make it change dynamically with grid.
 root.resizable(0,0)
 root.mainloop()
