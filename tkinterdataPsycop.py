@@ -28,7 +28,7 @@ root = Tk()
 root.title("G&D Chillers")
 root.iconbitmap(r"C:\Users\Hank\Documents\Random Python Scripts\postgres-odbc\Icons\IconForTkinter.ico")
 root.geometry('400x400')
-tb = 'guitable'
+tb = 'test29'
 column_change = 'testing'
 fieldnames=['first_name', 'last_name']
 def connect_to_database(databasename='testdb', databaseIP='localhost', databaseport='5432', username='postgres',
@@ -177,23 +177,30 @@ def add_to_csv():
     contents of the database in a public place that people can easily access
     i.e. pushing the csv to a public folder for the company to look at.
     """
-    answer = tkinter.messagebox.askquestion("G & D Chillers", 'Are you sure you want to export data to a CSV?')
-    try:
-        if answer == 'yes':
-            global csv_exp
-            csv_exp = Tk()
-            csv_exp.title("Update a record")
-            csv_exp.geometry('300x300')
-            csv_exp.iconbitmap(r"C:\Users\Hank\Documents\Random Python Scripts\postgres-odbc\Icons\IconForTkinter.ico")
-            csv_lab = "Click here to export CSV file"
-            csv_button = Button(csv_exp,text=csv_lab, command=save_file)
-            csv_button.grid(row=3,column=3, columnspan=2, pady=5, padx=5, ipadx=66)
+    #answer = tkinter.messagebox.askquestion("G & D Chillers", 'Are you sure you want to export data to a CSV?')
+    #try:
+    #    if answer == 'yes':
+    #        global csv_exp
+    #        csv_exp = Tk()
+    #        csv_exp.title("Update a record")
+    #        csv_exp.geometry('300x300')
+    #        csv_exp.iconbitmap(r"C:\Users\Hank\Documents\Random Python Scripts\postgres-odbc\Icons\IconForTkinter.ico")
+    #        csv_lab = "Click here to export CSV file"
+    #        csv_button = Button(csv_exp,text=csv_lab, command=save_file)
+    #        csv_button.grid(row=3,column=3, columnspan=2, pady=5, padx=5, ipadx=66)
+    global csv_exp
+    csv_exp = Tk()
+    csv_exp.title("Update a record")
+    csv_exp.geometry('300x300')
+    csv_exp.iconbitmap(r"C:\Users\Hank\Documents\Random Python Scripts\postgres-odbc\Icons\IconForTkinter.ico")
+    csv_lab = "Click here to export CSV file"
+    csv_button = Button(csv_exp,text=csv_lab, command=save_file)
+    csv_button.grid(row=3,column=3, columnspan=2, pady=5, padx=5, ipadx=66)
 
-
-        else:
-            pass
-    except:
-        print("There was an issue saving your csv. Try again or email hank@gdchillers.com")
+        #else:
+        #    pass
+    #except:
+    #    print("There was an issue saving your csv. Try again or email hank@gdchillers.com")
 def csv_add_button():
     answer = tkinter.messagebox.askquestion("G & D Chillers", 'Are you sure you want to export data to a CSV?')
 
@@ -233,8 +240,8 @@ def file_opener():
         words = "It is likely because it doesn't have the same column names. Please check and if you can't resolve the issue email hank@gdchillers.com"
         tkinter.messagebox.showinfo("G&D Chillers", f"There was an error uploading {input.name}." + words)
 
-    finally:
-        csv_imp.destroy()
+    #finally:
+    #    csv_imp.destroy()
 def save_file():
     #This is connected to add_to_csv
     #https://www.tutorialspoint.com/asksaveasfile-function-in-python-tkinter
@@ -260,8 +267,8 @@ def save_file():
     except:
         words = " If this continues please email hank@gdchillers.com"
         tkinter.messagebox.showinfo("G&D Chillers", f"There was an error downloading {input}.csv" + words)
-    finally:
-        csv_exp.destroy()
+    #finally:
+    #     csv_exp.destroy()
 
 # ---------------Entry for database. create text boxes-------------------------
 f_name = Entry(root, width=30)
@@ -315,14 +322,14 @@ del_button.grid(row=11,column=0, columnspan=2, pady=5,padx=5, ipadx=85)
 
 
 # ----------------Print out CSV button------------------------------------------
-csv_lab = "Print out to a CSV(Excel)"
-csv_button = Button(root,text=csv_lab, command=add_to_csv)
+csv_lab = "Print out to a CSV(Excel)"#add_to_csv
+csv_button = Button(root,text=csv_lab, command=save_file)
 csv_button.grid(row=7,column=0, columnspan=2, pady=5, padx=5, ipadx=97.5)
 
 # -------------Create buttons to add csv data------------------------------------
 #Submits data to the database then clears the data.
-imp = "Import csv record to database"
-submit_button = Button(root,text=imp, command=csv_to_postgres)
+imp = "Import csv record to database" #csv_to_postgres
+submit_button = Button(root,text=imp, command=file_opener)
 submit_button.grid(row=12,column=0, columnspan=2, pady=5,padx=5, ipadx=83)
 
 
