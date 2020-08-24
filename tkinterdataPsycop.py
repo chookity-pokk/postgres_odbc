@@ -20,7 +20,9 @@ Make a button to choose a database?
 """
 
 """
-get rid of the middle step between importing a csv or exporting a csv.
+The testing branch has the middle step removed from importing/exporting csv's
+into the database. Not sure it is what we need but I think it is potentially a
+better way to do it so I figured I would throw it into the Testing branch.
 """
 
 # Connection modules
