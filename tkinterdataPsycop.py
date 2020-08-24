@@ -16,13 +16,11 @@ on pyodbc but the functionality isn't as good because it is more annoying to wor
 """
 
 """
-Make it so that the window closes after exporting or importing from the csv.
-Currently the window stays open and I want it to close after submitting your
-desired location.
+Make a button to choose a database?
 """
 
 """
-Make a function to clear the database as a whole
+get rid of the middle step between importing a csv or exporting a csv.
 """
 
 # Connection modules
@@ -219,21 +217,20 @@ def file_opener():
     #This is connected to csv_to_postgres
     #https://www.tutorialspoint.com/askopenfile-function-in-python-tkinter
     input = filedialog.askopenfile(initialdir='/', filetypes=[('CSV', '*.csv')])
-    path1 = r'C:\Users\Hank\Documents'
     tb = 'test29'
     try:
         sql = f"""COPY {tb} FROM STDIN DELIMITER ',' CSV HEADER;"""
         with open(input.name) as f:
             cur.copy_expert(sql,f)
         conn.commit()
-        tkinter.messagebox.showinfo("G&D Chillers", f"Your data has been imported from {input.name}")
+        tkinter.messagebox.showinfo("G&D Chillers", f"Your data has been imported from {input.name} to {tb}.")
     except:
         """
         Obviously change the error message here. We don't want this going straight to Tim
         and honestly who knows if I even want my email attached to this or if
         it is even going to get implemented. ¯\_(ツ)_/¯
         """
-        words = "It is likely because it doesn't have the same column names. Please check and if you can't resolve the issue email timh@gdchillers.com"
+        words = "It is likely because it doesn't have the same column names. Please check and if you can't resolve the issue email hank@gdchillers.com"
         tkinter.messagebox.showinfo("G&D Chillers", f"There was an error uploading {input.name}." + words)
 
     finally:
@@ -334,12 +331,12 @@ canvas = Canvas(root)
 
 
 # -----------------Scroll Bar---------------------------------------------------
-ybar = Scrollbar(root, orient='vertical', command=canvas.yview)
-canvas.configure(yscrollcommand=ybar.set)
-ybar.grid(row=1,column=5, sticky="ns")
+#ybar = Scrollbar(root, orient='vertical', command=canvas.yview)
+#canvas.configure(yscrollcommand=ybar.set)
+#ybar.grid(row=1,column=5, sticky="ns")
 
-resize = Label(root)
-resize.grid(row=1, column=2,sticky='nsew')
+#resize = Label(root)
+#resize.grid(row=1, column=2,sticky='nsew')
 
 
 #This will make it so the window can't be resized. Might be worth doing if I
