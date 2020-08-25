@@ -32,7 +32,7 @@ root.iconbitmap(
     r"C:\Users\Hank\Documents\Random Python Scripts\postgres-odbc\Icons\IconForTkinter.ico"
 )
 root.geometry("400x400")
-tb = "guitable"
+tb = "test"
 column_change = "testing"
 fieldnames = ["first_name", "last_name"]
 
@@ -267,7 +267,7 @@ def file_opener():
     # This is connected to csv_to_postgres
     # https://www.tutorialspoint.com/askopenfile-function-in-python-tkinter
     input = filedialog.askopenfile(initialdir="/", filetypes=[("CSV", "*.csv")])
-    tb = "test29"
+    tb = "test"
     try:
         sql = f"""COPY {tb} FROM STDIN DELIMITER ',' CSV HEADER;"""
         with open(input.name) as f:
