@@ -6,6 +6,15 @@ from tkinter import scrolledtext
 import os
 from tkinter import filedialog
 
+
+"""
+********* look into xlsx saving/importing **********
+dyanically changing oid
+
+"""
+
+
+
 """
 8/7/2020
 This is currently set up to connect to the same database but is using
@@ -221,7 +230,7 @@ def csv_to_postgres():
 def file_opener():
     #This is connected to csv_to_postgres
     #https://www.tutorialspoint.com/askopenfile-function-in-python-tkinter
-    input = filedialog.askopenfile(initialdir='/', filetypes=[('CSV', '*.csv')])
+    input = filedialog.askopenfile(initialdir='/', filetypes=[('CSV', '*.csv'),('XLSX', '*.xlsx')])
     tb = 'test29'
     try:
         sql = f"""COPY {tb} FROM STDIN DELIMITER ',' CSV HEADER;"""
