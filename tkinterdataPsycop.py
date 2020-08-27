@@ -351,27 +351,33 @@ as a csv and then converted into the xlsx.
 
 
 def csv_2_xlsx():
-    from openpyxl import Workbook
-    import csv
+    try:
+        from openpyxl import Workbook
+        import csv
 
-    input = filedialog.askopenfile(
-        initialdir="/", filetypes=[("CSV", "*.csv"), ("XLSX", "*.xlsx")]
-    )
-    tb = "test29"
-    sql = f"""COPY {tb} from STDIN DELIMITER ',' CSV HEADER;"""
-    with open(input.name) as f:
-        cur.copy_expert(sql, f)
-    conn.commit()
+        input = filedialog.askopenfile(
+            initialdir="/", filetypes=[("CSV", "*.csv"), ("XLSX", "*.xlsx")]
+        )
+        tb = "test29"
+        sql = f"""COPY {tb} from STDIN DELIMITER ',' CSV HEADER;"""
+        with open(input.name) as f:
+            cur.copy_expert(sql, f)
+        conn.commit()
 
-    csv_path = r"C:\Users\Hank\Documentsq\Testing.csv"  # This might be useless
-    wb = Workbook()
-    ws = wb.active
-    with open(input.name, "r") as f:
-        for row in csv.reader(f):
-            ws.append(row)
-    xlsx_path = r"C:\Users\Hank\Documents\Testing1.xlsx"
-    wb.save(xlsx_path)
-    print(f"Your csv has been converted to an xlsx and stored {xlsx_path}")
+        csv_path = r"C:\Users\Hank\Documentsq\Testing.csv"  # This might be useless
+        wb = Workbook()
+        ws = wb.active
+        with open(input.name, "r") as f:
+            for row in csv.reader(f):
+                ws.append(row)
+        xlsx_path = r"C:\Users\Hank\Documents\Testing1.xlsx"
+        wb.save(xlsx_path)
+        print(f"Your csv has been converted to an xlsx and stored {xlsx_path}")
+    except:
+        tkinter.messagebox.showinfo(
+            "G&D Chillers",
+            "You were unable to save your file {file.name}. If this issue continues please email hank@gdchillers.com",
+        )
 
 
 # csv_2_xlsx()
