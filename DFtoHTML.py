@@ -88,7 +88,7 @@ def test_func():
 # wb.save(xlsx_path)
 # This is currently working
 # ======================================================================
-# Turning it into a dfunction, we get:
+# Turning it into a function, we get:
 def csv_2_xlsx():
     from openpyxl import Workbook
     import csv
@@ -104,4 +104,6 @@ def csv_2_xlsx():
     print(f"Your csv has been converted to an xlsx and stored {xlsx_path}")
 
 
-csv_2_xlsx()
+#csv_2_xlsx()
+#https://stackoverflow.com/questions/20039856/import-excel-data-into-postgresql-9-3
+print("The above link will make it so that you can see how to import Excel files into Postgres.")

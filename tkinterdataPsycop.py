@@ -9,8 +9,15 @@ from tkinter import filedialog
 
 """
 ********* look into xlsx saving/importing **********
-dyanically changing oid
+This was accomplished in a function below. Though I don't know how to 
+make that 
 
+dyanically changing oid:
+This won't work as an oid is a primary key so it can not be changed.
+Though there can be up to 2^32 -1 oid's so there is plenty of room
+to space them out to make room for them to be inserted at a later time.
+Though I do need to look into having the database ordered alphabetically.
+Or rather look into organizing them before storing into the database.
 """
 
 
@@ -334,14 +341,32 @@ def save_file():
     #     csv_exp.destroy()
 
 
+"""
+This function probably needs a button to save as a xlsx 
+that will take the database, convert it into a csv then
+convert that csv into a xlsx file. Postgres doesn't natively
+allow exporting a xlsx file so it has to be pulled out 
+as a csv and then converted into the xlsx.
+"""
+
+
 def csv_2_xlsx():
     from openpyxl import Workbook
     import csv
 
-    csv_path = r"C:\Users\Hank\Documents\Testing.csv"
+    input = filedialog.askopenfile(
+        initialdir="/", filetypes=[("CSV", "*.csv"), ("XLSX", "*.xlsx")]
+    )
+    tb = "test29"
+    sql = f"""COPY {tb} from STDIN DELIMITER ',' CSV HEADER;"""
+    with open(input.name) as f:
+        cur.copy_expert(sql, f)
+    conn.commit()
+
+    csv_path = r"C:\Users\Hank\Documentsq\Testing.csv"  # This might be useless
     wb = Workbook()
     ws = wb.active
-    with open(csv_path, "r") as f:
+    with open(input.name, "r") as f:
         for row in csv.reader(f):
             ws.append(row)
     xlsx_path = r"C:\Users\Hank\Documents\Testing1.xlsx"
