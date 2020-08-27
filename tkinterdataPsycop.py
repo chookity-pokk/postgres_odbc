@@ -307,7 +307,9 @@ def file_opener():
 def save_file():
     # This is connected to add_to_csv
     # https://www.tutorialspoint.com/asksaveasfile-function-in-python-tkinter
-    input = filedialog.asksaveasfilename(initialdir="/", filetypes=[("CSV", "*.csv"), ("XLSX", "*xlsx")])
+    input = filedialog.asksaveasfilename(
+        initialdir="/", filetypes=[("CSV", "*.csv"), ("XLSX", "*xlsx")]
+    )
     try:
         sql1 = """ SELECT * FROM {}""".format(tb)
         rows = cur.execute(sql1)
@@ -345,16 +347,16 @@ allow exporting a xlsx file so it has to be pulled out
 as a csv and then converted into the xlsx.
 """
 
-#replace save_file with this function.
+# replace save_file with this function.
+
 
 def csv_2_xlsx():
-    input = filedialog.asksaveasfilename(
-        initialdir="/", filetypes=[("CSV", "*.csv")]
-    )
+    input = filedialog.asksaveasfilename(initialdir="/", filetypes=[("CSV", "*.csv")])
     try:
         from openpyxl import Workbook
         import csv
-        tb = 'test29'
+
+        tb = "test29"
         sql1 = """ SELECT * FROM {}""".format(tb)
         rows = cur.execute(sql1)
         col_headers = [i[0] for i in cur.description]
@@ -365,11 +367,13 @@ def csv_2_xlsx():
         df.to_csv(input + ".csv", index=False)
         print(f"{input}")
         tkinter.messagebox.showinfo("G&D Chillers", f"Your CSV was saved at {input}")
-        #Need to add show info saying it has been saved and where
-        ans = tkinter.messagebox.askquestion("G&D Chillers", "Would you like to convert the CSV to xlsx?")
-        if ans == 'yes':
+        # Need to add show info saying it has been saved and where
+        ans = tkinter.messagebox.askquestion(
+            "G&D Chillers", "Would you like to convert the CSV to xlsx?"
+        )
+        if ans == "yes":
             print(f"{input}")
-            #csv_path = r"C:\Users\Hank\Documentsq\Testing.csv"  # This might be useless
+            # csv_path = r"C:\Users\Hank\Documentsq\Testing.csv"  # This might be useless
             wb = Workbook()
             ws = wb.active
             path = input + ".csv"
@@ -379,11 +383,13 @@ def csv_2_xlsx():
                     ws.append(row)
             print("Working Step 3")
             xlsx_path = input + ".xlsx"
-            #xlsx_path = r"C:\Users\Hank\Documents\Testing1.xlsx"
+            # xlsx_path = r"C:\Users\Hank\Documents\Testing1.xlsx"
             wb.save(xlsx_path)
             print(f"Your csv has been converted to an xlsx and stored {xlsx_path}")
-            tkinter.messagebox.showinfo("G&D Chillers", f"Your xlsx was saved at {xlsx_path}")
-            #Need to add show info saying it has been saved and where
+            tkinter.messagebox.showinfo(
+                "G&D Chillers", f"Your xlsx was saved at {xlsx_path}"
+            )
+            # Need to add show info saying it has been saved and where
     except:
         tkinter.messagebox.showinfo(
             "G&D Chillers",
