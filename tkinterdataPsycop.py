@@ -40,8 +40,8 @@ root.iconbitmap(
 )
 root.geometry("400x400")
 tb = "test29"
-column_change = "testing"
-fieldnames = ["first_name", "last_name"]
+column_change = "testing" #These can also probably be deleted
+fieldnames = ["first_name", "last_name"]#These can also probably be deleted
 
 
 def connect_to_database(
@@ -142,7 +142,6 @@ def editdb():
             "G&D Chillers",
             "You were unable to edit records. Make sure you have values for all the text boxes.",
         )
-        # print(f"You were unable to edit record {sql}")
 
 
 def editing():
@@ -219,17 +218,6 @@ def add_to_csv():
     contents of the database in a public place that people can easily access
     i.e. pushing the csv to a public folder for the company to look at.
     """
-    # answer = tkinter.messagebox.askquestion("G & D Chillers", 'Are you sure you want to export data to a CSV?')
-    # try:
-    #    if answer == 'yes':
-    #        global csv_exp
-    #        csv_exp = Tk()
-    #        csv_exp.title("Update a record")
-    #        csv_exp.geometry('300x300')
-    #        csv_exp.iconbitmap(r"C:\Users\Hank\Documents\Random Python Scripts\postgres-odbc\Icons\IconForTkinter.ico")
-    #        csv_lab = "Click here to export CSV file"
-    #        csv_button = Button(csv_exp,text=csv_lab, command=save_file)
-    #        csv_button.grid(row=3,column=3, columnspan=2, pady=5, padx=5, ipadx=66)
     global csv_exp
     csv_exp = Tk()
     csv_exp.title("Update a record")
@@ -240,12 +228,6 @@ def add_to_csv():
     csv_lab = "Click here to export CSV file"
     csv_button = Button(csv_exp, text=csv_lab, command=save_file)
     csv_button.grid(row=3, column=3, columnspan=2, pady=5, padx=5, ipadx=66)
-
-    # else:
-    #    pass
-    # except:
-    #    print("There was an issue saving your csv. Try again or email hank@gdchillers.com")
-
 
 def csv_add_button():
     answer = tkinter.messagebox.askquestion(
@@ -345,10 +327,10 @@ that will take the database, convert it into a csv then
 convert that csv into a xlsx file. Postgres doesn't natively
 allow exporting a xlsx file so it has to be pulled out
 as a csv and then converted into the xlsx.
+
+This is now supported by having it save the CSV then ask
+if the user would like to convert it to a csv as well.
 """
-
-# replace save_file with this function.
-
 
 def csv_2_xlsx():
     input = filedialog.asksaveasfilename(initialdir="/", filetypes=[("CSV", "*.csv")])
@@ -363,17 +345,14 @@ def csv_2_xlsx():
         rows = [list(i) for i in cur.fetchall()]
         df = pd.DataFrame(rows, columns=col_headers)
         print("Working step 1")
-        # df.to_csv(input, index=False)
         df.to_csv(input + ".csv", index=False)
         print(f"{input}")
         tkinter.messagebox.showinfo("G&D Chillers", f"Your CSV was saved at {input}")
-        # Need to add show info saying it has been saved and where
         ans = tkinter.messagebox.askquestion(
             "G&D Chillers", "Would you like to convert the CSV to xlsx?"
         )
         if ans == "yes":
             print(f"{input}")
-            # csv_path = r"C:\Users\Hank\Documentsq\Testing.csv"  # This might be useless
             wb = Workbook()
             ws = wb.active
             path = input + ".csv"
@@ -383,13 +362,11 @@ def csv_2_xlsx():
                     ws.append(row)
             print("Working Step 3")
             xlsx_path = input + ".xlsx"
-            # xlsx_path = r"C:\Users\Hank\Documents\Testing1.xlsx"
             wb.save(xlsx_path)
             print(f"Your csv has been converted to an xlsx and stored {xlsx_path}")
             tkinter.messagebox.showinfo(
                 "G&D Chillers", f"Your xlsx was saved at {xlsx_path}"
             )
-            # Need to add show info saying it has been saved and where
     except:
         tkinter.messagebox.showinfo(
             "G&D Chillers",
