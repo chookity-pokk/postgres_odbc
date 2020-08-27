@@ -364,6 +364,8 @@ def csv_2_xlsx():
         # df.to_csv(input, index=False)
         df.to_csv(input + ".csv", index=False)
         print(f"{input}")
+        tkinter.messagebox.showinfo("G&D Chillers", f"Your CSV was saved at {input}")
+        #Need to add show info saying it has been saved and where
         ans = tkinter.messagebox.askquestion("G&D Chillers", "Would you like to convert the CSV to xlsx?")
         if ans == 'yes':
             print(f"{input}")
@@ -376,10 +378,12 @@ def csv_2_xlsx():
                 for row in csv.reader(f):
                     ws.append(row)
             print("Working Step 3")
-            xlsx_path = input + "xlsx"
-            xlsx_path = r"C:\Users\Hank\Documents\Testing1.xlsx"
+            xlsx_path = input + ".xlsx"
+            #xlsx_path = r"C:\Users\Hank\Documents\Testing1.xlsx"
             wb.save(xlsx_path)
             print(f"Your csv has been converted to an xlsx and stored {xlsx_path}")
+            tkinter.messagebox.showinfo("G&D Chillers", f"Your xlsx was saved at {xlsx_path}")
+            #Need to add show info saying it has been saved and where
     except:
         tkinter.messagebox.showinfo(
             "G&D Chillers",
