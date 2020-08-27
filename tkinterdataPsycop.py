@@ -8,10 +8,6 @@ from tkinter import filedialog
 
 
 """
-********* look into xlsx saving/importing **********
-This was accomplished in a function below. Though I don't know how to 
-make that 
-
 dyanically changing oid:
 This won't work as an oid is a primary key so it can not be changed.
 Though there can be up to 2^32 -1 oid's so there is plenty of room
@@ -311,7 +307,7 @@ def file_opener():
 def save_file():
     # This is connected to add_to_csv
     # https://www.tutorialspoint.com/asksaveasfile-function-in-python-tkinter
-    input = filedialog.asksaveasfilename(initialdir="/", filetypes=[("CSV", "*.csv")])
+    input = filedialog.asksaveasfilename(initialdir="/", filetypes=[("CSV", "*.csv"), ("XLSX", "*xlsx")])
     try:
         sql1 = """ SELECT * FROM {}""".format(tb)
         rows = cur.execute(sql1)
@@ -342,41 +338,50 @@ def save_file():
 
 
 """
-This function probably needs a button to save as a xlsx 
+This function probably needs a button to save as a xlsx
 that will take the database, convert it into a csv then
 convert that csv into a xlsx file. Postgres doesn't natively
-allow exporting a xlsx file so it has to be pulled out 
+allow exporting a xlsx file so it has to be pulled out
 as a csv and then converted into the xlsx.
 """
 
+#replace save_file with this function.
 
 def csv_2_xlsx():
+    input = filedialog.asksaveasfilename(
+        initialdir="/", filetypes=[("CSV", "*.csv")]
+    )
     try:
         from openpyxl import Workbook
         import csv
-
-        input = filedialog.askopenfile(
-            initialdir="/", filetypes=[("CSV", "*.csv"), ("XLSX", "*.xlsx")]
-        )
-        tb = "test29"
-        sql = f"""COPY {tb} from STDIN DELIMITER ',' CSV HEADER;"""
-        with open(input.name) as f:
-            cur.copy_expert(sql, f)
-        conn.commit()
-
-        csv_path = r"C:\Users\Hank\Documentsq\Testing.csv"  # This might be useless
-        wb = Workbook()
-        ws = wb.active
-        with open(input.name, "r") as f:
-            for row in csv.reader(f):
-                ws.append(row)
-        xlsx_path = r"C:\Users\Hank\Documents\Testing1.xlsx"
-        wb.save(xlsx_path)
-        print(f"Your csv has been converted to an xlsx and stored {xlsx_path}")
+        tb = 'test29'
+        sql1 = """ SELECT * FROM {}""".format(tb)
+        rows = cur.execute(sql1)
+        col_headers = [i[0] for i in cur.description]
+        rows = [list(i) for i in cur.fetchall()]
+        df = pd.DataFrame(rows, columns=col_headers)
+        print("Working step 1")
+        # df.to_csv(input, index=False)
+        df.to_csv(input + ".csv", index=False)
+        print(f"{input} and {input}")
+        #ans = tkinter.messagebox.askquestion("G&D Chillers", "Would you like to convert the CSV to xlsx?")
+        #if ans == 'yes':
+        #    print(f"{input} and {input}")
+        #    csv_path = r"C:\Users\Hank\Documentsq\Testing.csv"  # This might be useless
+        #    wb = Workbook()
+        #    ws = wb.active
+        #    print("Working Step 2")
+        #    with open(input, "r") as f:
+        #        for row in csv.reader(f):
+        #
+        #    print("Working Step 3")
+        #    xlsx_path = r"C:\Users\Hank\Documents\Testing1.xlsx"
+        #    wb.save(xlsx_path)
+        #    print(f"Your csv has been converted to an xlsx and stored {xlsx_path}")
     except:
         tkinter.messagebox.showinfo(
             "G&D Chillers",
-            "You were unable to save your file {file.name}. If this issue continues please email hank@gdchillers.com",
+            f"You were unable to save your file {input}, {input}. If this issue continues please email hank@gdchillers.com",
         )
 
 
@@ -436,7 +441,7 @@ del_button.grid(row=11, column=0, columnspan=2, pady=5, padx=5, ipadx=85)
 
 # ----------------Print out CSV button------------------------------------------
 csv_lab = "Print out to a CSV(Excel)"  # add_to_csv
-csv_button = Button(root, text=csv_lab, command=save_file)
+csv_button = Button(root, text=csv_lab, command=csv_2_xlsx)
 csv_button.grid(row=7, column=0, columnspan=2, pady=5, padx=5, ipadx=97.5)
 
 # -------------Create buttons to add csv data------------------------------------
