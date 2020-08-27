@@ -363,21 +363,23 @@ def csv_2_xlsx():
         print("Working step 1")
         # df.to_csv(input, index=False)
         df.to_csv(input + ".csv", index=False)
-        print(f"{input} and {input}")
-        #ans = tkinter.messagebox.askquestion("G&D Chillers", "Would you like to convert the CSV to xlsx?")
-        #if ans == 'yes':
-        #    print(f"{input} and {input}")
-        #    csv_path = r"C:\Users\Hank\Documentsq\Testing.csv"  # This might be useless
-        #    wb = Workbook()
-        #    ws = wb.active
-        #    print("Working Step 2")
-        #    with open(input, "r") as f:
-        #        for row in csv.reader(f):
-        #
-        #    print("Working Step 3")
-        #    xlsx_path = r"C:\Users\Hank\Documents\Testing1.xlsx"
-        #    wb.save(xlsx_path)
-        #    print(f"Your csv has been converted to an xlsx and stored {xlsx_path}")
+        print(f"{input}")
+        ans = tkinter.messagebox.askquestion("G&D Chillers", "Would you like to convert the CSV to xlsx?")
+        if ans == 'yes':
+            print(f"{input}")
+            #csv_path = r"C:\Users\Hank\Documentsq\Testing.csv"  # This might be useless
+            wb = Workbook()
+            ws = wb.active
+            path = input + ".csv"
+            print("Working Step 2")
+            with open(path, "r") as f:
+                for row in csv.reader(f):
+                    ws.append(row)
+            print("Working Step 3")
+            xlsx_path = input + "xlsx"
+            xlsx_path = r"C:\Users\Hank\Documents\Testing1.xlsx"
+            wb.save(xlsx_path)
+            print(f"Your csv has been converted to an xlsx and stored {xlsx_path}")
     except:
         tkinter.messagebox.showinfo(
             "G&D Chillers",
