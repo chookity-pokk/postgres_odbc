@@ -378,9 +378,9 @@ def csv_2_xlsx():
 
 # ----------------Testing proper entries for DB ------------------------------
 """
-This will almost certainly need to be edited so that instead of having a 
+This will almost certainly need to be edited so that instead of having a
 massive list of text boxes there will be multiple columns becuase as of
-9/1/2020 there is only one column but I just want to make sure this is 
+9/1/2020 there is only one column but I just want to make sure this is
 working before actually editing the layout.
 """
 
@@ -562,7 +562,7 @@ _230_3_FLA_label = Label(root, text="230-3-FLA", pady=1)
 _230_3_FLA_label.grid(row=24, column=0)
 
 _230_3_MCA_label = Label(root, text="230-3-MCA", pady=1)
-_230 - 3 - MCA_label.grid(row=25, column=0)
+_230_3_MCA_label.grid(row=25, column=0)
 
 _230_3_MCO_label = Label(root, text="230-3-MCO", pady=1)
 _230_3_MCO_label.grid(row=26, column=0)
@@ -664,5 +664,5 @@ canvas = Canvas(root)
 
 # This will make it so the window can't be resized. Might be worth doing if I
 # Can't figure out how to make it change dynamically with grid.
-root.resizable(0, 0)
+#root.resizable(0, 0)
 root.mainloop()
