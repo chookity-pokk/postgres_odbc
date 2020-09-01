@@ -2,6 +2,12 @@ import pandas as pd
 import pdfkit
 
 """
+This script is mostly so that I can test out new functions
+without having to worry about breaking the new code.
+"""
+
+
+"""
 Make it so that the html being made with the first function also
 is the same html being
 """
