@@ -385,103 +385,103 @@ working before actually editing the layout.
 """
 
 model = Entry(root, width=30)
-# model_name.grid(row=0, column=1, padx=5)
+# model.grid(row=0, column=1, padx=5)
 
 dimensions = Entry(root, width=30)
-# dimensions_name.grid(row=1, column=1, padx=5)
+# dimensions.grid(row=1, column=1, padx=5)
 
 frame = Entry(root, width=30)
-# frame_name.grid(row=2, column=1, padx=5)
+# frame.grid(row=2, column=1, padx=5)
 
 housing = Entry(root, width=30)
-# housing_name.grid(row=3, column=1, padx=5)
+# housing.grid(row=3, column=1, padx=5)
 
 tank_size = Entry(root, width=30)
-# tank_size_name.grid(row=4, column=1, padx=5)
+# tank_size.grid(row=4, column=1, padx=5)
 
 tank_mat = Entry(root, width=30)
-# tank_mat_name.grid(row=5, column=1, padx=5)
+# tank_mat.grid(row=5, column=1, padx=5)
 
 compressor_hp = Entry(root, width=30)
-# compressor_hp_name.grid(row=6, column=1, padx=5)
+# compressor_hp.grid(row=6, column=1, padx=5)
 
 condenser = Entry(root, width=30)
 # condenser_name.grid(row=7, column=1, padx=5)
 
 process_pump_hp = Entry(root, width=30)
-# process_pump_hp_name.grid(row=8, column=1, padx=5)
+# process_pump_hp.grid(row=8, column=1, padx=5)
 
 gpm_at_25psi = Entry(root, width=30)
-# gpm_at_25psi_name.grid(row=9, column=1, padx=5)
+# gpm_at_25psi.grid(row=9, column=1, padx=5)
 
 weight = Entry(root, width=30)
-# weight_name.grid(row=10, column=1, padx=5)
+# weight.grid(row=10, column=1, padx=5)
 
 conn_size = Entry(root, width=30)
-# conn_size_name.grid(row=11, column=1, padx=5)
+# conn_siz.grid(row=11, column=1, padx=5)
 
 conn_type = Entry(root, width=30)
-conn_type_name.grid(row=12, column=1, padx=5)
+#conn_type.grid(row=12, column=1, padx=5)
 
 chiller_pump_hp = Entry(root, width=30)
-# chiller_pump_hp_name.grid(row=13, column=1, padx=5)
+# chiller_pump_hp.grid(row=13, column=1, padx=5)
 
 shipping_weight = Entry(root, width=30)
-shipping_weight_name.grid(row=14, column=1, padx=5)
+#shipping_weight.grid(row=14, column=1, padx=5)
 
 heat_exchanger = Entry(root, width=30)
-# heat_exchanger_name.grid(row=15, column=1, padx=5)
+# heat_exchanger.grid(row=15, column=1, padx=5)
 
 controls = Entry(root, width=30)
-# controls_name.grid(row=16, column=1, padx=5)
+# controls.grid(row=16, column=1, padx=5)
 
 electrical_enclosure = Entry(root, width=30)
-# electrical_enclosure_name.grid(row=17, column=1, padx=5)
+# electrical_enclosure.grid(row=17, column=1, padx=5)
 
 shipping_weight = Entry(root, width=30)
-# shipping_weight_name.grid(row=18, column=1, padx=5)
+# shipping_weight.grid(row=18, column=1, padx=5)
 
 decibals_at_10_feet = Entry(root, width=30)
-# decibals_at_10_feet_name.grid(row=19, column=1, padx=5)
+# decibals_at_10_feet.grid(row=19, column=1, padx=5)
 
 refrigerant = Entry(root, width=30)
-# refrigerant_name.grid(row=20, column=1, padx=5)
+# refrigerant.grid(row=20, column=1, padx=5)
 
 _230_1_FLA = Entry(root, width=30)
-# _230_1_FLA_name.grid(row=21, column=1, padx=5)
+# _230_1_FLA.grid(row=21, column=1, padx=5)
 
 _230_1_MCA = Entry(root, width=30)
-# _230_1_MCA_name.grid(row=22, column=1, padx=5)
+# _230_1_MCA.grid(row=22, column=1, padx=5)
 
 _230_1_MCO = Entry(root, width=30)
-# _230_1_MCO_name.grid(row=23, column=1, padx=5)
+# _230_1_MCO.grid(row=23, column=1, padx=5)
 
 _230_3_FLA = Entry(root, width=30)
-# _230_3_FLA_name.grid(row=24, column=1, padx=5)
+# _230_3_FLA.grid(row=24, column=1, padx=5)
 
 _230_3_MCA = Entry(root, width=30)
-# _230_3_MCA_name.grid(row=25, column=1, padx=5)
+# _230_3_MCA.grid(row=25, column=1, padx=5)
 
 _230_3_MCO = Entry(root, width=30)
-# _230_3_MCO_name.grid(row=26, column=1, padx=5)
+# _230_3_MCO.grid(row=26, column=1, padx=5)
 
 _460_3_FLA = Entry(root, width=30)
-# _460_3_FLA_name.grid(row=27, column=1, padx=5)
+# _460_3_FLA.grid(row=27, column=1, padx=5)
 
 _460_3_MCA = Entry(root, width=30)
-# _460_3_MCA_name.grid(row=28, column=1, padx=5)
+# _460_3_MCA.grid(row=28, column=1, padx=5)
 
 _460_3_MCO = Entry(root, width=30)
-# _460_3_MCO_name.grid(row=29, column=1, padx=5)
+# _460_3_MCO.grid(row=29, column=1, padx=5)
 
 _20F = Entry(root, width=30)
-# _20F_name.grid(row=30, column=1, padx=5)
+# _20F.grid(row=30, column=1, padx=5)
 
 _30F = Entry(root, width=30)
-# _30F_name.grid(row=31, column=1, padx=5)
+# _30F.grid(row=31, column=1, padx=5)
 
 _40F = Entry(root, width=30)
-# _40F_name.grid(row=32, column=1, padx=5)
+# _40F.grid(row=32, column=1, padx=5)
 
 
 # ------------------Test Proper Entries for the database (text boxes) --------------------
