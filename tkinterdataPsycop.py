@@ -39,9 +39,9 @@ root.iconbitmap(
     r"C:\Users\Hank\Documents\Random Python Scripts\postgres-odbc\Icons\IconForTkinter.ico"
 )
 root.geometry("400x400")
-tb = "test29"
-column_change = "testing" #These can also probably be deleted
-fieldnames = ["first_name", "last_name"]#These can also probably be deleted
+tb = "invtest5"
+column_change = "testing"  # These can also probably be deleted
+fieldnames = ["first_name", "last_name"]  # These can also probably be deleted
 
 
 def connect_to_database(
@@ -229,6 +229,7 @@ def add_to_csv():
     csv_button = Button(csv_exp, text=csv_lab, command=save_file)
     csv_button.grid(row=3, column=3, columnspan=2, pady=5, padx=5, ipadx=66)
 
+
 def csv_add_button():
     answer = tkinter.messagebox.askquestion(
         "G & D Chillers", "Are you sure you want to export data to a CSV?"
@@ -262,7 +263,7 @@ def file_opener():
     input = filedialog.askopenfile(
         initialdir="/", filetypes=[("CSV", "*.csv"), ("XLSX", "*.xlsx")]
     )
-    tb = "test29"
+    tb = "invtest5"
     try:
         sql = f"""COPY {tb} FROM STDIN DELIMITER ',' CSV HEADER;"""
         with open(input.name) as f:
@@ -279,7 +280,7 @@ def file_opener():
         """
         words = "It is likely because it doesn't have the same column names. Please check and if you can't resolve the issue email hank@gdchillers.com"
         tkinter.messagebox.showinfo(
-            "G&D Chillers", f"There was an error uploading {input.name}." + words
+            "G&D Chillers", f"There was an error uploading {input.name}. {words}"
         )
 
     # finally:
@@ -289,9 +290,7 @@ def file_opener():
 def save_file():
     # This is connected to add_to_csv
     # https://www.tutorialspoint.com/asksaveasfile-function-in-python-tkinter
-    input = filedialog.asksaveasfilename(
-        initialdir="/", filetypes=[("CSV", "*.csv"), ("XLSX", "*xlsx")]
-    )
+    input = filedialog.asksaveasfilename(initialdir="/", filetypes=[("CSV", "*.csv")])
     try:
         sql1 = """ SELECT * FROM {}""".format(tb)
         rows = cur.execute(sql1)
@@ -332,13 +331,14 @@ This is now supported by having it save the CSV then ask
 if the user would like to convert it to a csv as well.
 """
 
+
 def csv_2_xlsx():
     input = filedialog.asksaveasfilename(initialdir="/", filetypes=[("CSV", "*.csv")])
     try:
         from openpyxl import Workbook
         import csv
 
-        tb = "test29"
+        tb = "invtest5"
         sql1 = """ SELECT * FROM {}""".format(tb)
         rows = cur.execute(sql1)
         col_headers = [i[0] for i in cur.description]
@@ -375,6 +375,53 @@ def csv_2_xlsx():
 
 
 # csv_2_xlsx()
+
+# ----------------Testing proper entries for DB ------------------------------
+"""
+This will almost certainly need to be edited so that instead of having a 
+massive list of text boxes there will be multiple columns becuase as of
+9/1/2020 there is only one column but I just want to make sure this is 
+working before actually editing the layout.
+"""
+
+model = Entry(root, width=30)
+model_name.grid(row=0, column=1, padx=5)
+
+dimensions = Entry(root, width=30)
+dimensions_name.grid(row=1, column=1, padx=5)
+
+frame = Entry(root, width=30)
+frame_name.grid(row=2, column=1, padx=5)
+
+housing = Entry(root, width=30)
+housing_name.grid(row=3, column=1, padx=5)
+
+tank_size = Entry(root, width=30)
+tank_size_name.grid(row=4, column=1, padx=5)
+
+tank_mat = Entry(root, width=30)
+tank_mat_name.grid(row=5, column=1, padx=5)
+
+compressor_hp = Entry(root, width=30)
+compressor_hp_name.grid(row=6, column=1, padx=5)
+
+condenser = Entry(root, width=30)
+condenser_name.grid(row=7, column=1, padx=5)
+
+process_pump_hp = Entry(root, width=30)
+process_pump_hp_name.grid(row=8, column=1, padx=5)
+
+gpm_at_25psi = Entry(root, width=30)
+gpm_at_25psi_name.grid(row=9, column=1, padx=5)
+
+weight = Entry(root, width=30)
+weight_name.grid(row=10, column=1, padx=5)
+
+conn_size = Entry(root, width=30)
+conn_size_name.grid(row=11, column=1, padx=5)
+
+
+
 
 
 # ---------------Entry for database. create text boxes-------------------------
