@@ -278,7 +278,8 @@ def file_opener():
         and honestly who knows if I even want my email attached to this or if
         it is even going to get implemented. ¯\_(ツ)_/¯
         """
-        words = "It is likely because it doesn't have the same column names. Please check and if you can't resolve the issue email hank@gdchillers.com"
+        words ="""It is likely because it doesn't have the same column names.
+        Please check and if you can't resolve the issue email hank@gdchillers.com"""
         tkinter.messagebox.showinfo(
             "G&D Chillers", f"There was an error uploading {input.name}. {words}"
         )
