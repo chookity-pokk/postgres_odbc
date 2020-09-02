@@ -38,7 +38,7 @@ root.title("G&D Chillers")
 root.iconbitmap(
     r"C:\Users\Hank\Documents\Random Python Scripts\postgres-odbc\Icons\IconForTkinter.ico"
 )
-root.geometry("400x400")
+root.geometry("800x500")
 tb = "invtest5"
 column_change = "testing"  # These can also probably be deleted
 fieldnames = ["first_name", "last_name"]  # These can also probably be deleted
@@ -383,105 +383,111 @@ massive list of text boxes there will be multiple columns becuase as of
 9/1/2020 there is only one column but I just want to make sure this is
 working before actually editing the layout.
 """
+"""
+Editing this as we speak and what I think needs to be done is maybe splitting this into 3 columns becuase this 
+has an awkward number of entry boxes to add.
+"""
+
+
 
 model = Entry(root, width=30)
-# model.grid(row=0, column=1, padx=5)
+model.grid(row=0, column=1, padx=5)
 
 dimensions = Entry(root, width=30)
-# dimensions.grid(row=1, column=1, padx=5)
+dimensions.grid(row=1, column=1, padx=5)
 
 frame = Entry(root, width=30)
-# frame.grid(row=2, column=1, padx=5)
+frame.grid(row=2, column=1, padx=5)
 
 housing = Entry(root, width=30)
-# housing.grid(row=3, column=1, padx=5)
+housing.grid(row=3, column=1, padx=5)
 
 tank_size = Entry(root, width=30)
-# tank_size.grid(row=4, column=1, padx=5)
+tank_size.grid(row=4, column=1, padx=5)
 
 tank_mat = Entry(root, width=30)
-# tank_mat.grid(row=5, column=1, padx=5)
+tank_mat.grid(row=5, column=1, padx=5)
 
 compressor_hp = Entry(root, width=30)
-# compressor_hp.grid(row=6, column=1, padx=5)
+compressor_hp.grid(row=6, column=1, padx=5)
 
 condenser = Entry(root, width=30)
-# condenser_name.grid(row=7, column=1, padx=5)
+condenser.grid(row=7, column=1, padx=5)
 
 process_pump_hp = Entry(root, width=30)
-# process_pump_hp.grid(row=8, column=1, padx=5)
+process_pump_hp.grid(row=8, column=1, padx=5)
 
 gpm_at_25psi = Entry(root, width=30)
-# gpm_at_25psi.grid(row=9, column=1, padx=5)
+gpm_at_25psi.grid(row=9, column=1, padx=5)
 
 weight = Entry(root, width=30)
-# weight.grid(row=10, column=1, padx=5)
+weight.grid(row=10, column=1, padx=5)
 
 conn_size = Entry(root, width=30)
-# conn_siz.grid(row=11, column=1, padx=5)
+conn_size.grid(row=11, column=1, padx=5)
 
 conn_type = Entry(root, width=30)
-#conn_type.grid(row=12, column=1, padx=5)
+conn_type.grid(row=12, column=1, padx=5)
 
 chiller_pump_hp = Entry(root, width=30)
-# chiller_pump_hp.grid(row=13, column=1, padx=5)
+chiller_pump_hp.grid(row=13, column=1, padx=5)
 
 shipping_weight = Entry(root, width=30)
-#shipping_weight.grid(row=14, column=1, padx=5)
+shipping_weight.grid(row=14, column=1, padx=5)
 
 heat_exchanger = Entry(root, width=30)
-# heat_exchanger.grid(row=15, column=1, padx=5)
+heat_exchanger.grid(row=15, column=1, padx=5)
 
 controls = Entry(root, width=30)
-# controls.grid(row=16, column=1, padx=5)
+controls.grid(row=0, column=3, padx=5)
 
 electrical_enclosure = Entry(root, width=30)
-# electrical_enclosure.grid(row=17, column=1, padx=5)
+electrical_enclosure.grid(row=1, column=3, padx=5)
 
 shipping_weight = Entry(root, width=30)
-# shipping_weight.grid(row=18, column=1, padx=5)
+shipping_weight.grid(row=2, column=3, padx=5)
 
 decibals_at_10_feet = Entry(root, width=30)
-# decibals_at_10_feet.grid(row=19, column=1, padx=5)
+decibals_at_10_feet.grid(row=3, column=3, padx=5)
 
 refrigerant = Entry(root, width=30)
-# refrigerant.grid(row=20, column=1, padx=5)
+refrigerant.grid(row=4, column=3, padx=5)
 
 _230_1_FLA = Entry(root, width=30)
-# _230_1_FLA.grid(row=21, column=1, padx=5)
+_230_1_FLA.grid(row=5, column=3, padx=5)
 
 _230_1_MCA = Entry(root, width=30)
-# _230_1_MCA.grid(row=22, column=1, padx=5)
+_230_1_MCA.grid(row=6, column=3, padx=5)
 
 _230_1_MCO = Entry(root, width=30)
-# _230_1_MCO.grid(row=23, column=1, padx=5)
+_230_1_MCO.grid(row=7, column=3, padx=5)
 
 _230_3_FLA = Entry(root, width=30)
-# _230_3_FLA.grid(row=24, column=1, padx=5)
+_230_3_FLA.grid(row=8, column=3, padx=5)
 
 _230_3_MCA = Entry(root, width=30)
-# _230_3_MCA.grid(row=25, column=1, padx=5)
+_230_3_MCA.grid(row=9, column=3, padx=5)
 
 _230_3_MCO = Entry(root, width=30)
-# _230_3_MCO.grid(row=26, column=1, padx=5)
+_230_3_MCO.grid(row=10, column=3, padx=5)
 
 _460_3_FLA = Entry(root, width=30)
-# _460_3_FLA.grid(row=27, column=1, padx=5)
+_460_3_FLA.grid(row=11, column=3, padx=5)
 
 _460_3_MCA = Entry(root, width=30)
-# _460_3_MCA.grid(row=28, column=1, padx=5)
+_460_3_MCA.grid(row=12, column=3, padx=5)
 
 _460_3_MCO = Entry(root, width=30)
-# _460_3_MCO.grid(row=29, column=1, padx=5)
+_460_3_MCO.grid(row=13, column=3, padx=5)
 
 _20F = Entry(root, width=30)
-# _20F.grid(row=30, column=1, padx=5)
+_20F.grid(row=14, column=3, padx=5)
 
 _30F = Entry(root, width=30)
-# _30F.grid(row=31, column=1, padx=5)
+_30F.grid(row=15, column=3, padx=5)
 
 _40F = Entry(root, width=30)
-# _40F.grid(row=32, column=1, padx=5)
+_40F.grid(row=16, column=3, padx=5)
 
 
 # ------------------Test Proper Entries for the database (text boxes) --------------------
@@ -503,9 +509,8 @@ tank_size_label.grid(row=4, column=0)
 tank_mat_label = Label(root, text="TankMat", pady=1)
 tank_mat_label.grid(row=5, column=0)
 
-
 compressor_hp_label = Label(root, text="Compressor HP", pady=1)
-compressor_hp_label.grid(row=7, column=0)
+compressor_hp_label.grid(row=6, column=0)
 
 condenser_label = Label(root, text="Condenser", pady=1)
 condenser_label.grid(row=7, column=0)
@@ -530,6 +535,7 @@ connection_size_label.grid(row=13, column=0)
 
 chiller_pump_hp_label = Label(root, text="Chiller Pump HP", pady=1)
 chiller_pump_hp_label.grid(row=14, column=0)
+# From here I want to split the window. Either that or at 16 becuase it'll split it in half, or maybe thirds.
 
 heat_exchanger_label = Label(root, text="Heat Exchanger", pady=1)
 heat_exchanger_label.grid(row=15, column=0)
@@ -538,74 +544,74 @@ controls_label = Label(root, text="Controls", pady=1)
 controls_label.grid(row=16, column=0)
 
 electrical_enclosure_label = Label(root, text="Electrical Enlcosure", pady=1)
-electrical_enclosure_label.grid(row=17, column=0)
+electrical_enclosure_label.grid(row=0, column=2)
 
 shipping_weight_label = Label(root, text="Shipping Weight", pady=1)
-shipping_weight_label.grid(row=18, column=0)
+shipping_weight_label.grid(row=1, column=2)
 
 decibals_at_10_feet_label = Label(root, text="Decibals at 10 feet", pady=1)
-decibals_at_10_feet_label.grid(row=19, column=0)
+decibals_at_10_feet_label.grid(row=2, column=2)
 
 refrigerant_label = Label(root, text="Refrigerant", pady=1)
-refrigerant_label.grid(row=20, column=0)
+refrigerant_label.grid(row=3, column=2)
 
 _230_1_FLA_label = Label(root, text="230-1-FLA", pady=1)
-_230_1_FLA_label.grid(row=21, column=0)
+_230_1_FLA_label.grid(row=4, column=2)
 
 _230_1_MCA_label = Label(root, text="230-1-MCA", pady=1)
-_230_1_MCA_label.grid(row=22, column=0)
+_230_1_MCA_label.grid(row=5, column=2)
 
 _230_1_MCO_label = Label(root, text="230-1-MCO", pady=1)
-_230_1_MCO_label.grid(row=23, column=0)
+_230_1_MCO_label.grid(row=6, column=2)
 
 _230_3_FLA_label = Label(root, text="230-3-FLA", pady=1)
-_230_3_FLA_label.grid(row=24, column=0)
+_230_3_FLA_label.grid(row=7, column=2)
 
 _230_3_MCA_label = Label(root, text="230-3-MCA", pady=1)
-_230_3_MCA_label.grid(row=25, column=0)
+_230_3_MCA_label.grid(row=8, column=2)
 
 _230_3_MCO_label = Label(root, text="230-3-MCO", pady=1)
-_230_3_MCO_label.grid(row=26, column=0)
+_230_3_MCO_label.grid(row=9, column=2)
 
 _460_3_FLA_label = Label(root, text="460-3-FLA", pady=1)
-_460_3_FLA_label.grid(row=27, column=0)
+_460_3_FLA_label.grid(row=10, column=2)
 
 _460_3_MCA_label = Label(root, text="460-3-MCA", pady=1)
-_460_3_MCA_label.grid(row=28, column=0)
+_460_3_MCA_label.grid(row=11, column=2)
 
 _460_3_MCO_label = Label(root, text="460-3-MCO", pady=1)
-_460_3_MCO_label.grid(row=29, column=0)
+_460_3_MCO_label.grid(row=12, column=2)
 
 _20F_label = Label(root, text="20 F", pady=1)
-_20F_label.grid(row=30, column=0)
+_20F_label.grid(row=13, column=2)
 
 _30F_label = Label(root, text="30 F", pady=1)
-_30F_label.grid(row=31, column=0)
+_30F_label.grid(row=14, column=2)
 
 _40F_label = Label(root, text="40 F", pady=1)
-_40F_label.grid(row=32, column=0)
+_40F_label.grid(row=15, column=2)
 
 
 # ---------------Entry for database. create text boxes-------------------------
 f_name = Entry(root, width=30)
-f_name.grid(row=0, column=1, padx=5)
+#f_name.grid(row=0, column=1, padx=5)
 
 l_name = Entry(root, width=30)
-l_name.grid(row=1, column=1, padx=5)
+#l_name.grid(row=1, column=1, padx=5)
 
 # can be changed to use for taking inventory out or putting it in
 edit_quant = Entry(root, width=30)
-edit_quant.grid(row=2, column=1, padx=5)
+#edit_quant.grid(row=2, column=1, padx=5)
 
 # ---------------Create text box label-----------------------------------------
 f_name_label = Label(root, text="First Name", pady=1)
-f_name_label.grid(row=0, column=0)
+# f_name_label.grid(row=0, column=0)
 
 l_name_label = Label(root, text="Last Name")
-l_name_label.grid(row=1, column=0)
+# l_name_label.grid(row=1, column=0)
 
 edit_quant_label = Label(root, text="ID number")
-edit_quant_label.grid(row=2, column=0)
+# edit_quant_label.grid(row=2, column=0)
 
 get_f = f_name.get()
 get_l = l_name.get()
@@ -614,39 +620,39 @@ get_edit_quant = edit_quant.get()
 # -------------Create buttons to submit data------------------------------------
 # Submits data to the database then clears the data.
 sub = "Add record to database"
-submit_button = Button(root, text=sub, command=add_to_row)
-submit_button.grid(row=6, column=0, columnspan=2, pady=5, padx=5, ipadx=100)
+# submit_button = Button(root, text=sub, command=add_to_row)
+# submit_button.grid(row=6, column=0, columnspan=2, pady=5, padx=5, ipadx=100)
 
 # ----------------------Creat query button--------------------------------------
 # This will show all the records in the database, probably not useful.
 que = "See records"
-que_button = Button(root, text=que, command=query)
-que_button.grid(row=8, column=0, columnspan=2, pady=5, padx=5, ipadx=131)
+# que_button = Button(root, text=que, command=query)
+# que_button.grid(row=8, column=0, columnspan=2, pady=5, padx=5, ipadx=131)
 
 # ---------------------Edit quantity button--------------------------------------
 edit = "Edit Record"
-edit_button = Button(root, text=edit, command=editing)
-edit_button.grid(row=10, column=0, columnspan=2, pady=5, padx=5, ipadx=130)
+# edit_button = Button(root, text=edit, command=editing)
+# edit_button.grid(row=10, column=0, columnspan=2, pady=5, padx=5, ipadx=130)
 
 # -------------------Create buttons to delete data-------------------------------
 """
 Make a window pop up saying that the data will be deleted and are you sure?
 """
 erase = "Delete record from database"
-del_button = Button(root, text=erase, command=delete)
-del_button.grid(row=11, column=0, columnspan=2, pady=5, padx=5, ipadx=85)
+# del_button = Button(root, text=erase, command=delete)
+# del_button.grid(row=11, column=0, columnspan=2, pady=5, padx=5, ipadx=85)
 
 
 # ----------------Print out CSV button------------------------------------------
 csv_lab = "Print out to a CSV(Excel)"  # add_to_csv
-csv_button = Button(root, text=csv_lab, command=csv_2_xlsx)
-csv_button.grid(row=7, column=0, columnspan=2, pady=5, padx=5, ipadx=97.5)
+# csv_button = Button(root, text=csv_lab, command=csv_2_xlsx)
+# csv_button.grid(row=7, column=0, columnspan=2, pady=5, padx=5, ipadx=97.5)
 
 # -------------Create buttons to add csv data------------------------------------
 # Submits data to the database then clears the data.
 imp = "Import csv record to database"  # csv_to_postgres
-submit_button = Button(root, text=imp, command=file_opener)
-submit_button.grid(row=12, column=0, columnspan=2, pady=5, padx=5, ipadx=83)
+# submit_button = Button(root, text=imp, command=file_opener)
+# submit_button.grid(row=12, column=0, columnspan=2, pady=5, padx=5, ipadx=83)
 
 
 # ------------------------Canvas------------------------------------------------
@@ -654,6 +660,12 @@ canvas = Canvas(root)
 
 
 # -----------------Scroll Bar---------------------------------------------------
+"""
+This needs to be figured out or I guess I can just try a bunch of different sizes
+and just use root.resizable(0,0) instead and make it so no one can edit the size
+of the window.
+"""
+
 # ybar = Scrollbar(root, orient='vertical', command=canvas.yview)
 # canvas.configure(yscrollcommand=ybar.set)
 # ybar.grid(row=1,column=5, sticky="ns")
@@ -664,5 +676,5 @@ canvas = Canvas(root)
 
 # This will make it so the window can't be resized. Might be worth doing if I
 # Can't figure out how to make it change dynamically with grid.
-#root.resizable(0, 0)
+# root.resizable(0, 0)
 root.mainloop()
