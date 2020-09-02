@@ -389,7 +389,6 @@ has an awkward number of entry boxes to add.
 """
 
 
-
 model = Entry(root, width=30)
 model.grid(row=0, column=1, padx=5)
 
@@ -541,67 +540,67 @@ heat_exchanger_label = Label(root, text="Heat Exchanger", pady=1)
 heat_exchanger_label.grid(row=15, column=0)
 
 controls_label = Label(root, text="Controls", pady=1)
-controls_label.grid(row=16, column=0)
+controls_label.grid(row=0, column=0)
 
 electrical_enclosure_label = Label(root, text="Electrical Enlcosure", pady=1)
-electrical_enclosure_label.grid(row=0, column=2)
+electrical_enclosure_label.grid(row=1, column=2)
 
 shipping_weight_label = Label(root, text="Shipping Weight", pady=1)
-shipping_weight_label.grid(row=1, column=2)
+shipping_weight_label.grid(row=2, column=2)
 
 decibals_at_10_feet_label = Label(root, text="Decibals at 10 feet", pady=1)
-decibals_at_10_feet_label.grid(row=2, column=2)
+decibals_at_10_feet_label.grid(row=3, column=2)
 
 refrigerant_label = Label(root, text="Refrigerant", pady=1)
-refrigerant_label.grid(row=3, column=2)
+refrigerant_label.grid(row=4, column=2)
 
 _230_1_FLA_label = Label(root, text="230-1-FLA", pady=1)
-_230_1_FLA_label.grid(row=4, column=2)
+_230_1_FLA_label.grid(row=5, column=2)
 
 _230_1_MCA_label = Label(root, text="230-1-MCA", pady=1)
-_230_1_MCA_label.grid(row=5, column=2)
+_230_1_MCA_label.grid(row=6, column=2)
 
 _230_1_MCO_label = Label(root, text="230-1-MCO", pady=1)
-_230_1_MCO_label.grid(row=6, column=2)
+_230_1_MCO_label.grid(row=7, column=2)
 
 _230_3_FLA_label = Label(root, text="230-3-FLA", pady=1)
-_230_3_FLA_label.grid(row=7, column=2)
+_230_3_FLA_label.grid(row=8, column=2)
 
 _230_3_MCA_label = Label(root, text="230-3-MCA", pady=1)
-_230_3_MCA_label.grid(row=8, column=2)
+_230_3_MCA_label.grid(row=9, column=2)
 
 _230_3_MCO_label = Label(root, text="230-3-MCO", pady=1)
-_230_3_MCO_label.grid(row=9, column=2)
+_230_3_MCO_label.grid(row=10, column=2)
 
 _460_3_FLA_label = Label(root, text="460-3-FLA", pady=1)
-_460_3_FLA_label.grid(row=10, column=2)
+_460_3_FLA_label.grid(row=11, column=2)
 
 _460_3_MCA_label = Label(root, text="460-3-MCA", pady=1)
-_460_3_MCA_label.grid(row=11, column=2)
+_460_3_MCA_label.grid(row=12, column=2)
 
 _460_3_MCO_label = Label(root, text="460-3-MCO", pady=1)
-_460_3_MCO_label.grid(row=12, column=2)
+_460_3_MCO_label.grid(row=13, column=2)
 
 _20F_label = Label(root, text="20 F", pady=1)
-_20F_label.grid(row=13, column=2)
+_20F_label.grid(row=14, column=2)
 
 _30F_label = Label(root, text="30 F", pady=1)
-_30F_label.grid(row=14, column=2)
+_30F_label.grid(row=15, column=2)
 
 _40F_label = Label(root, text="40 F", pady=1)
-_40F_label.grid(row=15, column=2)
+_40F_label.grid(row=16, column=2)
 
 
 # ---------------Entry for database. create text boxes-------------------------
 f_name = Entry(root, width=30)
-#f_name.grid(row=0, column=1, padx=5)
+# f_name.grid(row=0, column=1, padx=5)
 
 l_name = Entry(root, width=30)
-#l_name.grid(row=1, column=1, padx=5)
+# l_name.grid(row=1, column=1, padx=5)
 
 # can be changed to use for taking inventory out or putting it in
 edit_quant = Entry(root, width=30)
-#edit_quant.grid(row=2, column=1, padx=5)
+# edit_quant.grid(row=2, column=1, padx=5)
 
 # ---------------Create text box label-----------------------------------------
 f_name_label = Label(root, text="First Name", pady=1)
