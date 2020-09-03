@@ -674,7 +674,98 @@ heat_string = "Heat Exchanger"
 heat_button = Button(root,text=heat_string, command=heat_exchanger)
 #heat_button.grid(row=1,column=1, columnspace=2, pady=5, padx=5, ipadx=100)
 
+# ----------------------- Create controls Button ----------------------
+controls_string = "Controls"
+controls_button = Button(root,text=controls_string, command=controls)
+#controls_button.grid(row=1,column=1, columnspace=2, pady=5, padx=5, ipadx=100)
 
+# ----------------------- Create Electrical Enclosure Button ----------------------
+electrical_string = "Electrical Enclosure"
+electrical_button = Button(root,text=electrical_string, command=electrical_enclosure)
+#electrical_button.grid(row=1,column=1, columnspace=2, pady=5, padx=5, ipadx=100)
+
+# ----------------------- Create shipping  Button ----------------------
+shipping_string = "Shipping"
+shipping_button = Button(root,text=shipping_string, command=shipping)
+#shipping_button.grid(row=1,column=1, columnspace=2, pady=5, padx=5, ipadx=100)
+
+# ----------------------- Create Decibals at 10 feet Button ----------------------
+decibals_string = "Decibals at 10 feet"
+decibals_button = Button(root,text=decibals_string, command=decibals )
+#decibals_button.grid(row=1,column=1, columnspace=2, pady=5, padx=5, ipadx=100)
+
+# ----------------------- Create refrigerant Button ----------------------
+refrig_string = "Refrigerant"
+refrigerant_button = Button(root,text=refrig_string, command=refrigerant)
+#refrigerant_button.grid(row=1,column=1, columnspace=2, pady=5, padx=5, ipadx=100)
+
+# ----------------------- Create 230-1-FLA Button ----------------------
+_230_1_FLA_string = "230-1-FLA"
+_230_1_FLA_button = Button(root,text=_230_1_FLA_string, command=230_FLA)
+#_230_1_FLA_button.grid(row=1,column=1, columnspace=2, pady=5, padx=5, ipadx=100)
+
+# ----------------------- Create 230-1-MCA Button ----------------------
+_230_1_MCA_string = "230-1-MCA"
+_230_1_MCA_button = Button(root,text=_230_1_MCA_string, command=230_MCA)
+#_230_1_MCA_button.grid(row=1,column=1, columnspace=2, pady=5, padx=5, ipadx=100)
+
+# ----------------------- Create 230_1_MCO Button ----------------------
+_230_1_MCO_string = "230-1-MCO"
+_230_1_MCO_button = Button(root,text=_230_1_MCO_string, command=230_MCO)
+#_230_1_MCO_button.grid(row=1,column=1, columnspace=2, pady=5, padx=5, ipadx=100)
+
+# ----------------------- Create 230-3-FLA Button ----------------------
+_230_3_FLA_string = "230-3-FLA"
+_230_3_FLA_button = Button(root,text=_230_3_FLA_string, command=230_3_FLA)
+_230_3_FLA_button.grid(row=1,column=1, columnspace=2, pady=5, padx=5, ipadx=100)
+
+# ----------------------- Create 230-3-MCA Button ----------------------
+_230_3_MCA_string = "230-3-MCA"
+_230_3_MCA_button = Button(root,text=_230_3_MCA_string, command=230_3_MCA)
+_230_3_MCA_button.grid(row=1,column=1, columnspace=2, pady=5, padx=5, ipadx=100)
+
+# ----------------------- Create 230-3-MCO Button ----------------------
+_230_3_MCO_string = "230-3-MCO"
+_230_3_MCO_button = Button(root,text=_230_3_MCO_string, command=230_3_MCO)
+_230_3_MCO_button.grid(row=1,column=1, columnspace=2, pady=5, padx=5, ipadx=100)
+
+# ----------------------- Create 460-3-FLA Button ----------------------
+_460_3_FLA_string = "460-3-FLA"
+_460_3_FLA_button = Button(root,text=_460_3_FLA_string, command=460_3_FLA)
+_460_3_FLA_button.grid(row=1,column=1, columnspace=2, pady=5, padx=5, ipadx=100)
+
+# ----------------------- Create 460-3-MCA Button ----------------------
+_460_3_MCA_string = "460-3-MCA"
+_460_3_MCA_button = Button(root,text=_460_3_MCA_string, command=460_3_MCA)
+_460_3_MCA_button.grid(row=1,column=1, columnspace=2, pady=5, padx=5, ipadx=100)
+
+# ----------------------- Create 460-3-MCO Button ----------------------
+_460_3_MCO_string = "460-3-MCO"
+_460_3_MCO_button = Button(root,text=_460_3_MCO_string, command=460_3_MCO)
+_460_3_MCO_button.grid(row=1,column=1, columnspace=2, pady=5, padx=5, ipadx=100)
+
+# ----------------------- Create 20F Button ----------------------
+_20_F_string = "20F"
+_20_F_button = Button(root,text=_20_F_string, command=20F)
+_20_F_button.grid(row=1,column=1, columnspace=2, pady=5, padx=5, ipadx=100)
+
+# ----------------------- Create 30F Button ----------------------
+_30_F_string = "30F"
+_30_F_button = Button(root,text=_30_F_string, command=30F)
+_30_F_button.grid(row=1,column=1, columnspace=2, pady=5, padx=5, ipadx=100)
+
+# ----------------------- Create 40F Button ----------------------
+_40_F_string = "40F"
+_40_F_button = Button(root,text=_40_F_string, command=40F)
+_40_F_button.grid(row=1,column=1, columnspace=2, pady=5, padx=5, ipadx=100)
+
+
+
+
+"""
+Need to comment out all of the commands aside from the string because 
+the commands do not exist yet.
+"""
 
 """
 The buttons below here are useless now and were here just for testing.
