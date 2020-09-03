@@ -606,38 +606,73 @@ dimensions_string = "Add Chiller dimensions"
 # ----------------------- Create frame Button ----------------------
 frame_string = "Add Frame"
 frame_button = Button(root, text=frame_string, command=frame)
-frame_button.grid(row=1, column=1, columnspace=2, pady=5, padx=5, ipadx=100)
+#frame_button.grid(row=1, column=1, columnspace=2, pady=5, padx=5, ipadx=100)
 
 # ----------------------- Create housing Button ----------------------
 housing_string = "Housing"
 housing_button = Button(root, text=housing_string, command=string)
-housing_button.grid(row=2, column=2, columnspace=2, pady=5, padx=5, ipadx=100)
+#housing_button.grid(row=2, column=2, columnspace=2, pady=5, padx=5, ipadx=100)
 
 # ----------------------- Create tanksize Button ----------------------
 tank_string = "Tank Size"
 tank_size_button = Button(root, text=tank_string, command=tank_size)
-tank_size_button.grid(row=2, column=2, columnspace=2, pady=5, padx=5, ipadx=100)
+#tank_size_button.grid(row=2, column=2, columnspace=2, pady=5, padx=5, ipadx=100)
 
 # ----------------------- Create tank Button ----------------------
 tank_mat = "Tank Material"
 tank_mat_button = Button(root, text=tan_mat, command=tank_mat)
-tank_mat_button.grid(row=1, column=1, columnspace=2, pady=5, padx=5, ipadx=100)
+#tank_mat_button.grid(row=1, column=1, columnspace=2, pady=5, padx=5, ipadx=100)
 
 # ----------------------- Create compressor Button ----------------------
 compressor = "Compressor HP"
 compressor_button = Button(root, text=compressor, command=compressor_hp)
-compressor_button.grid(row=1, column=1, columnspace=2, pady=5, padx=5, ipadx=100)
+#compressor_button.grid(row=1, column=1, columnspace=2, pady=5, padx=5, ipadx=100)
 
 # ----------------------- Create Condenser Button ----------------------
 condenser_string = "Condenser"
 condenser_button = Button(root, text=condenser_string, command=condenser)
-condenser_button.grid(row=1, column=1, columnspace=2, pady=5, padx=5, ipadx=100)
+#condenser_button.grid(row=1, column=1, columnspace=2, pady=5, padx=5, ipadx=100)
 
 # ----------------------- Create Process Pumo Button ----------------------
 process_pump_string = "Process Pump HP"
 process_pump_button = Button(root, text=process_pump_string, command=process_pump)
-process_pump_button.grid(row=1, column=1, columnspace=2, pady=5, padx=5, ipadx=100)
+#process_pump_button.grid(row=1, column=1, columnspace=2, pady=5, padx=5, ipadx=100)
 
+
+# ----------------------- Create GPM Button ----------------------
+gpm_string = "GPM at 25 PSI"
+gpm_button = Button(root,text=gpm_string, command=gpm)
+#gpm_button.grid(row=1,column=1, columnspace=2, pady=5, padx=5, ipadx=100)
+
+# ----------------------- Create Weight Button ----------------------
+weight_string = "Weight"
+weight_button = Button(root,text=weight_string, command=weight)
+#weight_button.grid(row=1,column=1, columnspace=2, pady=5, padx=5, ipadx=100)
+
+# ----------------------- Create ConnSize Button ----------------------
+conn_size_string = "ConnSize"
+conn_size_button = Button(root,text=conn_size_string, command=conn_size)
+#conn_size_button.grid(row=1,column=1, columnspace=2, pady=5, padx=5, ipadx=100)
+
+# ----------------------- Create ConnType Button ----------------------
+conn_type_string = "ConnType"
+conn_type_button = Button(root,text=conn_type_string, command=conn_type)
+#conn_type_button.grid(row=1,column=1, columnspace=2, pady=5, padx=5, ipadx=100)
+
+# ----------------------- Create Connec Button ----------------------
+connection_size_string = "Connection Size"
+connection_size_button = Button(root,text=connection_size_string, command=connection_size)
+#connection_size_button.grid(row=1,column=1, columnspace=2, pady=5, padx=5, ipadx=100)
+
+# ----------------------- Create Chiller Pump HP Button ----------------------
+chiller_pump_string = "Chiller Pump HP"
+chiller_pump_button = Button(root,text=chiller_pump_string, command=chiller_pump)
+#chiller_pump_button.grid(row=1,column=1, columnspace=2, pady=5, padx=5, ipadx=100)
+
+# ----------------------- Create Heat Exchanger Button ----------------------
+heat_string = "Heat Exchanger"
+heat_button = Button(root,text=heat_string, command=heat_exchanger)
+#heat_button.grid(row=1,column=1, columnspace=2, pady=5, padx=5, ipadx=100)
 
 
 
