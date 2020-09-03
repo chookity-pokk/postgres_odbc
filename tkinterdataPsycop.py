@@ -278,7 +278,7 @@ def file_opener():
         and honestly who knows if I even want my email attached to this or if
         it is even going to get implemented. ¯\_(ツ)_/¯
         """
-        words ="""It is likely because it doesn't have the same column names.
+        words = """It is likely because it doesn't have the same column names.
         Please check and if you can't resolve the issue email hank@gdchillers.com"""
         tkinter.messagebox.showinfo(
             "G&D Chillers", f"There was an error uploading {input.name}. {words}"
@@ -541,7 +541,7 @@ heat_exchanger_label = Label(root, text="Heat Exchanger", pady=1)
 heat_exchanger_label.grid(row=15, column=0)
 
 controls_label = Label(root, text="Controls", pady=1)
-controls_label.grid(row=0, column=0)
+controls_label.grid(row=0, column=2)
 
 electrical_enclosure_label = Label(root, text="Electrical Enlcosure", pady=1)
 electrical_enclosure_label.grid(row=1, column=2)
@@ -591,6 +591,61 @@ _30F_label.grid(row=15, column=2)
 _40F_label = Label(root, text="40 F", pady=1)
 _40F_label.grid(row=16, column=2)
 
+# The buttons below are all going to have their positions commented out because it wont work until I have all of them.
+
+# ----------------------- Create model Button ----------------------
+model_string = "Add the model name"
+# model_button = Button(root,text=model_str, command=model)
+# model_button.grid(row=1,column=1, columnspace=2, pady=5, padx=5, ipadx=100)
+
+# ----------------------- Create dimensions Button ----------------------
+dimensions_string = "Add Chiller dimensions"
+# dimensions_button = Button(root,text=dimensions_string, command=dimensions)
+# dimensions_button.grid(row=1,column=1, columnspace=2, pady=5, padx=5, ipadx=100)
+
+# ----------------------- Create frame Button ----------------------
+frame_string = "Add Frame"
+frame_button = Button(root, text=frame_string, command=frame)
+frame_button.grid(row=1, column=1, columnspace=2, pady=5, padx=5, ipadx=100)
+
+# ----------------------- Create housing Button ----------------------
+housing_string = "Housing"
+housing_button = Button(root, text=housing_string, command=string)
+housing_button.grid(row=2, column=2, columnspace=2, pady=5, padx=5, ipadx=100)
+
+# ----------------------- Create tanksize Button ----------------------
+tank_string = "Tank Size"
+tank_size_button = Button(root, text=tank_string, command=tank_size)
+tank_size_button.grid(row=2, column=2, columnspace=2, pady=5, padx=5, ipadx=100)
+
+# ----------------------- Create tank Button ----------------------
+tank_mat = "Tank Material"
+tank_mat_button = Button(root, text=tan_mat, command=tank_mat)
+tank_mat_button.grid(row=1, column=1, columnspace=2, pady=5, padx=5, ipadx=100)
+
+# ----------------------- Create compressor Button ----------------------
+compressor = "Compressor HP"
+compressor_button = Button(root, text=compressor, command=compressor_hp)
+compressor_button.grid(row=1, column=1, columnspace=2, pady=5, padx=5, ipadx=100)
+
+# ----------------------- Create Condenser Button ----------------------
+condenser_string = "Condenser"
+condenser_button = Button(root, text=condenser_string, command=condenser)
+condenser_button.grid(row=1, column=1, columnspace=2, pady=5, padx=5, ipadx=100)
+
+# ----------------------- Create Process Pumo Button ----------------------
+process_pump_string = "Process Pump HP"
+process_pump_button = Button(root, text=process_pump_string, command=process_pump)
+process_pump_button.grid(row=1, column=1, columnspace=2, pady=5, padx=5, ipadx=100)
+
+
+
+
+"""
+The buttons below here are useless now and were here just for testing.
+For what it is worth there is a yasnippet (Emacs) that uses the text `butt`
+and it tab and it will fill out the template for the button creation.
+"""
 
 # ---------------Entry for database. create text boxes-------------------------
 f_name = Entry(root, width=30)
