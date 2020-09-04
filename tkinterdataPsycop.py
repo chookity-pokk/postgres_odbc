@@ -6,6 +6,12 @@ from tkinter import scrolledtext
 import os
 from tkinter import filedialog
 
+"""
+Accidentally added buttons for absolutely everything which doesn't
+make any sense so I will need to delete all of those becuase none of 
+them even need a function.
+"""
+
 
 """
 dyanically changing oid:
@@ -24,12 +30,6 @@ psycopg2 instead of pyodbc because the syntax is easier to work with in psycopg2
 and tkinter as apposed to pyodbc. If needed I can convert it to pyodbc without
 a ton of challenges but I honesly don't want to. I have a similar script running
 on pyodbc but the functionality isn't as good because it is more annoying to work with.
-"""
-
-"""
-The testing branch has the middle step removed from importing/exporting csv's
-into the database. Not sure it is what we need but I think it is potentially a
-better way to do it so I figured I would throw it into the Testing branch.
 """
 
 # Connection modules
@@ -605,173 +605,160 @@ dimensions_string = "Add Chiller dimensions"
 
 # ----------------------- Create frame Button ----------------------
 frame_string = "Add Frame"
-frame_button = Button(root, text=frame_string, command=frame)
-#frame_button.grid(row=1, column=1, columnspace=2, pady=5, padx=5, ipadx=100)
+# frame_button = Button(root, text=frame_string, command=frame)
+# frame_button.grid(row=1, column=1, columnspace=2, pady=5, padx=5, ipadx=100)
 
 # ----------------------- Create housing Button ----------------------
 housing_string = "Housing"
-housing_button = Button(root, text=housing_string, command=string)
-#housing_button.grid(row=2, column=2, columnspace=2, pady=5, padx=5, ipadx=100)
+# housing_button = Button(root, text=housing_string, command=string)
+# housing_button.grid(row=2, column=2, columnspace=2, pady=5, padx=5, ipadx=100)
 
 # ----------------------- Create tanksize Button ----------------------
 tank_string = "Tank Size"
-tank_size_button = Button(root, text=tank_string, command=tank_size)
-#tank_size_button.grid(row=2, column=2, columnspace=2, pady=5, padx=5, ipadx=100)
+# tank_size_button = Button(root, text=tank_string, command=tank_size)
+# tank_size_button.grid(row=2, column=2, columnspace=2, pady=5, padx=5, ipadx=100)
 
 # ----------------------- Create tank Button ----------------------
 tank_mat = "Tank Material"
-tank_mat_button = Button(root, text=tan_mat, command=tank_mat)
-#tank_mat_button.grid(row=1, column=1, columnspace=2, pady=5, padx=5, ipadx=100)
+# tank_mat_button = Button(root, text=tan_mat, command=tank_mat)
+# tank_mat_button.grid(row=1, column=1, columnspace=2, pady=5, padx=5, ipadx=100)
 
 # ----------------------- Create compressor Button ----------------------
 compressor = "Compressor HP"
-compressor_button = Button(root, text=compressor, command=compressor_hp)
-#compressor_button.grid(row=1, column=1, columnspace=2, pady=5, padx=5, ipadx=100)
+# compressor_button = Button(root, text=compressor, command=compressor_hp)
+# compressor_button.grid(row=1, column=1, columnspace=2, pady=5, padx=5, ipadx=100)
 
 # ----------------------- Create Condenser Button ----------------------
 condenser_string = "Condenser"
-condenser_button = Button(root, text=condenser_string, command=condenser)
-#condenser_button.grid(row=1, column=1, columnspace=2, pady=5, padx=5, ipadx=100)
+# condenser_button = Button(root, text=condenser_string, command=condenser)
+# condenser_button.grid(row=1, column=1, columnspace=2, pady=5, padx=5, ipadx=100)
 
 # ----------------------- Create Process Pumo Button ----------------------
 process_pump_string = "Process Pump HP"
-process_pump_button = Button(root, text=process_pump_string, command=process_pump)
-#process_pump_button.grid(row=1, column=1, columnspace=2, pady=5, padx=5, ipadx=100)
+# process_pump_button = Button(root, text=process_pump_string, command=process_pump)
+# process_pump_button.grid(row=1, column=1, columnspace=2, pady=5, padx=5, ipadx=100)
 
 
 # ----------------------- Create GPM Button ----------------------
 gpm_string = "GPM at 25 PSI"
-gpm_button = Button(root,text=gpm_string, command=gpm)
-#gpm_button.grid(row=1,column=1, columnspace=2, pady=5, padx=5, ipadx=100)
+# gpm_button = Button(root,text=gpm_string, command=gpm)
+# gpm_button.grid(row=1,column=1, columnspace=2, pady=5, padx=5, ipadx=100)
 
 # ----------------------- Create Weight Button ----------------------
 weight_string = "Weight"
-weight_button = Button(root,text=weight_string, command=weight)
-#weight_button.grid(row=1,column=1, columnspace=2, pady=5, padx=5, ipadx=100)
+# weight_button = Button(root,text=weight_string, command=weight)
+# weight_button.grid(row=1,column=1, columnspace=2, pady=5, padx=5, ipadx=100)
 
 # ----------------------- Create ConnSize Button ----------------------
 conn_size_string = "ConnSize"
-conn_size_button = Button(root,text=conn_size_string, command=conn_size)
-#conn_size_button.grid(row=1,column=1, columnspace=2, pady=5, padx=5, ipadx=100)
+# conn_size_button = Button(root,text=conn_size_string, command=conn_size)
+# conn_size_button.grid(row=1,column=1, columnspace=2, pady=5, padx=5, ipadx=100)
 
 # ----------------------- Create ConnType Button ----------------------
 conn_type_string = "ConnType"
-conn_type_button = Button(root,text=conn_type_string, command=conn_type)
-#conn_type_button.grid(row=1,column=1, columnspace=2, pady=5, padx=5, ipadx=100)
+# conn_type_button = Button(root,text=conn_type_string, command=conn_type)
+# conn_type_button.grid(row=1,column=1, columnspace=2, pady=5, padx=5, ipadx=100)
 
 # ----------------------- Create Connec Button ----------------------
 connection_size_string = "Connection Size"
-connection_size_button = Button(root,text=connection_size_string, command=connection_size)
-#connection_size_button.grid(row=1,column=1, columnspace=2, pady=5, padx=5, ipadx=100)
+# connection_size_button = Button(root,text=connection_size_string, command=connection_size)
+# connection_size_button.grid(row=1,column=1, columnspace=2, pady=5, padx=5, ipadx=100)
 
 # ----------------------- Create Chiller Pump HP Button ----------------------
 chiller_pump_string = "Chiller Pump HP"
-chiller_pump_button = Button(root,text=chiller_pump_string, command=chiller_pump)
-#chiller_pump_button.grid(row=1,column=1, columnspace=2, pady=5, padx=5, ipadx=100)
+# chiller_pump_button = Button(root,text=chiller_pump_string, command=chiller_pump)
+# chiller_pump_button.grid(row=1,column=1, columnspace=2, pady=5, padx=5, ipadx=100)
 
 # ----------------------- Create Heat Exchanger Button ----------------------
 heat_string = "Heat Exchanger"
-heat_button = Button(root,text=heat_string, command=heat_exchanger)
-#heat_button.grid(row=1,column=1, columnspace=2, pady=5, padx=5, ipadx=100)
+# heat_button = Button(root,text=heat_string, command=heat_exchanger)
+# heat_button.grid(row=1,column=1, columnspace=2, pady=5, padx=5, ipadx=100)
 
 # ----------------------- Create controls Button ----------------------
 controls_string = "Controls"
-controls_button = Button(root,text=controls_string, command=controls)
-#controls_button.grid(row=1,column=1, columnspace=2, pady=5, padx=5, ipadx=100)
+# controls_button = Button(root,text=controls_string, command=controls)
+# controls_button.grid(row=1,column=1, columnspace=2, pady=5, padx=5, ipadx=100)
 
 # ----------------------- Create Electrical Enclosure Button ----------------------
 electrical_string = "Electrical Enclosure"
-electrical_button = Button(root,text=electrical_string, command=electrical_enclosure)
-#electrical_button.grid(row=1,column=1, columnspace=2, pady=5, padx=5, ipadx=100)
+# electrical_button = Button(root,text=electrical_string, command=electrical_enclosure)
+# electrical_button.grid(row=1,column=1, columnspace=2, pady=5, padx=5, ipadx=100)
 
 # ----------------------- Create shipping  Button ----------------------
 shipping_string = "Shipping"
-shipping_button = Button(root,text=shipping_string, command=shipping)
-#shipping_button.grid(row=1,column=1, columnspace=2, pady=5, padx=5, ipadx=100)
+# shipping_button = Button(root,text=shipping_string, command=shipping)
+# shipping_button.grid(row=1,column=1, columnspace=2, pady=5, padx=5, ipadx=100)
 
 # ----------------------- Create Decibals at 10 feet Button ----------------------
 decibals_string = "Decibals at 10 feet"
-decibals_button = Button(root,text=decibals_string, command=decibals )
-#decibals_button.grid(row=1,column=1, columnspace=2, pady=5, padx=5, ipadx=100)
+# decibals_button = Button(root,text=decibals_string, command=decibals )
+# decibals_button.grid(row=1,column=1, columnspace=2, pady=5, padx=5, ipadx=100)
 
 # ----------------------- Create refrigerant Button ----------------------
 refrig_string = "Refrigerant"
-refrigerant_button = Button(root,text=refrig_string, command=refrigerant)
-#refrigerant_button.grid(row=1,column=1, columnspace=2, pady=5, padx=5, ipadx=100)
+# refrigerant_button = Button(root,text=refrig_string, command=refrigerant)
+# refrigerant_button.grid(row=1,column=1, columnspace=2, pady=5, padx=5, ipadx=100)
 
 # ----------------------- Create 230-1-FLA Button ----------------------
 _230_1_FLA_string = "230-1-FLA"
-_230_1_FLA_button = Button(root,text=_230_1_FLA_string, command=230_FLA)
-#_230_1_FLA_button.grid(row=1,column=1, columnspace=2, pady=5, padx=5, ipadx=100)
+# _230_1_FLA_button = Button(root,text=_230_1_FLA_string, command=230_FLA)
+# _230_1_FLA_button.grid(row=1,column=1, columnspace=2, pady=5, padx=5, ipadx=100)
 
 # ----------------------- Create 230-1-MCA Button ----------------------
 _230_1_MCA_string = "230-1-MCA"
-_230_1_MCA_button = Button(root,text=_230_1_MCA_string, command=230_MCA)
-#_230_1_MCA_button.grid(row=1,column=1, columnspace=2, pady=5, padx=5, ipadx=100)
+# _230_1_MCA_button = Button(root,text=_230_1_MCA_string, command=230_MCA)
+# _230_1_MCA_button.grid(row=1,column=1, columnspace=2, pady=5, padx=5, ipadx=100)
 
 # ----------------------- Create 230_1_MCO Button ----------------------
 _230_1_MCO_string = "230-1-MCO"
-_230_1_MCO_button = Button(root,text=_230_1_MCO_string, command=230_MCO)
-#_230_1_MCO_button.grid(row=1,column=1, columnspace=2, pady=5, padx=5, ipadx=100)
+# _230_1_MCO_button = Button(root,text=_230_1_MCO_string, command=230_MCO)
+# _230_1_MCO_button.grid(row=1,column=1, columnspace=2, pady=5, padx=5, ipadx=100)
 
 # ----------------------- Create 230-3-FLA Button ----------------------
 _230_3_FLA_string = "230-3-FLA"
-_230_3_FLA_button = Button(root,text=_230_3_FLA_string, command=230_3_FLA)
-_230_3_FLA_button.grid(row=1,column=1, columnspace=2, pady=5, padx=5, ipadx=100)
+# _230_3_FLA_button = Button(root,text=_230_3_FLA_string, command=230_3_FLA)
+# _230_3_FLA_button.grid(row=1,column=1, columnspace=2, pady=5, padx=5, ipadx=100)
 
 # ----------------------- Create 230-3-MCA Button ----------------------
 _230_3_MCA_string = "230-3-MCA"
-_230_3_MCA_button = Button(root,text=_230_3_MCA_string, command=230_3_MCA)
-_230_3_MCA_button.grid(row=1,column=1, columnspace=2, pady=5, padx=5, ipadx=100)
+# _230_3_MCA_button = Button(root,text=_230_3_MCA_string, command=230_3_MCA)
+# _230_3_MCA_button.grid(row=1,column=1, columnspace=2, pady=5, padx=5, ipadx=100)
 
 # ----------------------- Create 230-3-MCO Button ----------------------
 _230_3_MCO_string = "230-3-MCO"
-_230_3_MCO_button = Button(root,text=_230_3_MCO_string, command=230_3_MCO)
-_230_3_MCO_button.grid(row=1,column=1, columnspace=2, pady=5, padx=5, ipadx=100)
+# _230_3_MCO_button = Button(root,text=_230_3_MCO_string, command=230_3_MCO)
+# _230_3_MCO_button.grid(row=1,column=1, columnspace=2, pady=5, padx=5, ipadx=100)
 
 # ----------------------- Create 460-3-FLA Button ----------------------
 _460_3_FLA_string = "460-3-FLA"
-_460_3_FLA_button = Button(root,text=_460_3_FLA_string, command=460_3_FLA)
-_460_3_FLA_button.grid(row=1,column=1, columnspace=2, pady=5, padx=5, ipadx=100)
+# _460_3_FLA_button = Button(root,text=_460_3_FLA_string, command=460_3_FLA)
+# _460_3_FLA_button.grid(row=1,column=1, columnspace=2, pady=5, padx=5, ipadx=100)
 
 # ----------------------- Create 460-3-MCA Button ----------------------
 _460_3_MCA_string = "460-3-MCA"
-_460_3_MCA_button = Button(root,text=_460_3_MCA_string, command=460_3_MCA)
-_460_3_MCA_button.grid(row=1,column=1, columnspace=2, pady=5, padx=5, ipadx=100)
+# _460_3_MCA_button = Button(root,text=_460_3_MCA_string, command=460_3_MCA)
+# _460_3_MCA_button.grid(row=1,column=1, columnspace=2, pady=5, padx=5, ipadx=100)
 
 # ----------------------- Create 460-3-MCO Button ----------------------
 _460_3_MCO_string = "460-3-MCO"
-_460_3_MCO_button = Button(root,text=_460_3_MCO_string, command=460_3_MCO)
-_460_3_MCO_button.grid(row=1,column=1, columnspace=2, pady=5, padx=5, ipadx=100)
+# _460_3_MCO_button = Button(root,text=_460_3_MCO_string, command=460_3_MCO)
+# _460_3_MCO_button.grid(row=1,column=1, columnspace=2, pady=5, padx=5, ipadx=100)
 
 # ----------------------- Create 20F Button ----------------------
 _20_F_string = "20F"
-_20_F_button = Button(root,text=_20_F_string, command=20F)
-_20_F_button.grid(row=1,column=1, columnspace=2, pady=5, padx=5, ipadx=100)
+# _20_F_button = Button(root,text=_20_F_string, command=20F)
+# _20_F_button.grid(row=1,column=1, columnspace=2, pady=5, padx=5, ipadx=100)
 
 # ----------------------- Create 30F Button ----------------------
 _30_F_string = "30F"
-_30_F_button = Button(root,text=_30_F_string, command=30F)
-_30_F_button.grid(row=1,column=1, columnspace=2, pady=5, padx=5, ipadx=100)
+# _30_F_button = Button(root,text=_30_F_string, command=30F)
+# _30_F_button.grid(row=1,column=1, columnspace=2, pady=5, padx=5, ipadx=100)
 
 # ----------------------- Create 40F Button ----------------------
 _40_F_string = "40F"
-_40_F_button = Button(root,text=_40_F_string, command=40F)
-_40_F_button.grid(row=1,column=1, columnspace=2, pady=5, padx=5, ipadx=100)
+# _40_F_button = Button(root,text=_40_F_string, command=40F)
+# _40_F_button.grid(row=1,column=1, columnspace=2, pady=5, padx=5, ipadx=100)
 
-
-
-
-"""
-Need to comment out all of the commands aside from the string because 
-the commands do not exist yet.
-"""
-
-"""
-The buttons below here are useless now and were here just for testing.
-For what it is worth there is a yasnippet (Emacs) that uses the text `butt`
-and it tab and it will fill out the template for the button creation.
-"""
 
 # ---------------Entry for database. create text boxes-------------------------
 f_name = Entry(root, width=30)
@@ -801,39 +788,39 @@ get_edit_quant = edit_quant.get()
 # -------------Create buttons to submit data------------------------------------
 # Submits data to the database then clears the data.
 sub = "Add record to database"
-# submit_button = Button(root, text=sub, command=add_to_row)
-# submit_button.grid(row=6, column=0, columnspan=2, pady=5, padx=5, ipadx=100)
+submit_button = Button(root, text=sub, command=add_to_row)
+submit_button.grid(row=18, column=0, columnspan=2, pady=5, padx=5, ipadx=100)
 
 # ----------------------Creat query button--------------------------------------
 # This will show all the records in the database, probably not useful.
 que = "See records"
-# que_button = Button(root, text=que, command=query)
-# que_button.grid(row=8, column=0, columnspan=2, pady=5, padx=5, ipadx=131)
+que_button = Button(root, text=que, command=query)
+que_button.grid(row=18, column=2, columnspan=2, pady=5, padx=5, ipadx=131)
 
 # ---------------------Edit quantity button--------------------------------------
 edit = "Edit Record"
-# edit_button = Button(root, text=edit, command=editing)
-# edit_button.grid(row=10, column=0, columnspan=2, pady=5, padx=5, ipadx=130)
+edit_button = Button(root, text=edit, command=editing)
+edit_button.grid(row=19, column=0, columnspan=2, pady=5, padx=5, ipadx=130)
 
 # -------------------Create buttons to delete data-------------------------------
 """
 Make a window pop up saying that the data will be deleted and are you sure?
 """
 erase = "Delete record from database"
-# del_button = Button(root, text=erase, command=delete)
-# del_button.grid(row=11, column=0, columnspan=2, pady=5, padx=5, ipadx=85)
+del_button = Button(root, text=erase, command=delete)
+del_button.grid(row=19, column=2, columnspan=2, pady=5, padx=5, ipadx=85)
 
 
 # ----------------Print out CSV button------------------------------------------
 csv_lab = "Print out to a CSV(Excel)"  # add_to_csv
-# csv_button = Button(root, text=csv_lab, command=csv_2_xlsx)
-# csv_button.grid(row=7, column=0, columnspan=2, pady=5, padx=5, ipadx=97.5)
+csv_button = Button(root, text=csv_lab, command=csv_2_xlsx)
+csv_button.grid(row=20, column=0, columnspan=2, pady=5, padx=5, ipadx=97.5)
 
 # -------------Create buttons to add csv data------------------------------------
 # Submits data to the database then clears the data.
 imp = "Import csv record to database"  # csv_to_postgres
-# submit_button = Button(root, text=imp, command=file_opener)
-# submit_button.grid(row=12, column=0, columnspan=2, pady=5, padx=5, ipadx=83)
+submit_button = Button(root, text=imp, command=file_opener)
+submit_button.grid(row=20, column=2, columnspan=2, pady=5, padx=5, ipadx=83)
 
 
 # ------------------------Canvas------------------------------------------------
