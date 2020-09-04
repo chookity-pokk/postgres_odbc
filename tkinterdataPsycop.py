@@ -87,7 +87,8 @@ def add_to_row():
     else:
         pass
 
-#This as well
+
+# This as well
 def editdb():
     try:
         # record_id = "SELECT * FROM guitable WHERE oid=10"
@@ -136,7 +137,8 @@ def editdb():
             "You were unable to edit records. Make sure you have values for all the text boxes.",
         )
 
-#This needs to be editted so it can handle all of the variables
+
+# This needs to be editted so it can handle all of the variables
 def editing():
     print("This is working")
     global editor
