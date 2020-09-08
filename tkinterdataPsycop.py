@@ -31,7 +31,7 @@ root.title("G&D Chillers")
 root.iconbitmap(
     r"C:\Users\Hank\Documents\Random Python Scripts\postgres-odbc\Icons\IconForTkinter.ico"
 )
-root.geometry("800x500")
+root.geometry("1000x400")
 tb = "invtest5"
 column_change = "testing"  # These can also probably be deleted
 fieldnames = ["first_name", "last_name"]  # These can also probably be deleted
@@ -411,19 +411,19 @@ weight = Entry(root, width=30)
 weight.grid(row=10, column=1, padx=5)
 
 conn_size = Entry(root, width=30)
-conn_size.grid(row=0, column=1, padx=5)
+conn_size.grid(row=0, column=3, padx=5)
 
 conn_type = Entry(root, width=30)
-conn_type.grid(row=1, column=1, padx=5)
+conn_type.grid(row=1, column=3, padx=5)
 
 chiller_pump_hp = Entry(root, width=30)
-chiller_pump_hp.grid(row=2, column=1, padx=5)
+chiller_pump_hp.grid(row=2, column=3, padx=5)
 
 shipping_weight = Entry(root, width=30)
-shipping_weight.grid(row=3, column=1, padx=5)
+shipping_weight.grid(row=3, column=3, padx=5)
 
 heat_exchanger = Entry(root, width=30)
-heat_exchanger.grid(row=4, column=1, padx=5)
+heat_exchanger.grid(row=4, column=3, padx=5)
 
 controls = Entry(root, width=30)
 controls.grid(row=5, column=3, padx=5)
@@ -580,20 +580,25 @@ _40F_label.grid(row=10, column=4)
 
 # -------------Create buttons to submit data------------------------------------
 # Submits data to the database then clears the data.
+
+"""
+Need to change the button sizes
+
+"""
 sub = "Add record to database"
 submit_button = Button(root, text=sub, command=add_to_row)
-submit_button.grid(row=18, column=0, columnspan=2, pady=5, padx=5, ipadx=100)
+submit_button.grid(row=18, column=1, columnspan=2, pady=5, padx=5, ipadx=100)
 
 # ----------------------Creat query button--------------------------------------
 # This will show all the records in the database, probably not useful.
 que = "See records"
 que_button = Button(root, text=que, command=query)
-que_button.grid(row=18, column=2, columnspan=2, pady=5, padx=5, ipadx=131)
+que_button.grid(row=18, column=3, columnspan=2, pady=5, padx=5, ipadx=131)
 
 # ---------------------Edit quantity button--------------------------------------
 edit = "Edit Record"
 edit_button = Button(root, text=edit, command=editing)
-edit_button.grid(row=19, column=0, columnspan=2, pady=5, padx=5, ipadx=130)
+edit_button.grid(row=19, column=1, columnspan=2, pady=5, padx=5, ipadx=130)
 
 # -------------------Create buttons to delete data-------------------------------
 """
@@ -601,19 +606,19 @@ Make a window pop up saying that the data will be deleted and are you sure?
 """
 erase = "Delete record from database"
 del_button = Button(root, text=erase, command=delete)
-del_button.grid(row=19, column=2, columnspan=2, pady=5, padx=5, ipadx=85)
+del_button.grid(row=19, column=3, columnspan=2, pady=5, padx=5, ipadx=85)
 
 
 # ----------------Print out CSV button------------------------------------------
 csv_lab = "Print out to a CSV(Excel)"  # add_to_csv
 csv_button = Button(root, text=csv_lab, command=csv_2_xlsx)
-csv_button.grid(row=20, column=0, columnspan=2, pady=5, padx=5, ipadx=97.5)
+csv_button.grid(row=20, column=1, columnspan=2, pady=5, padx=5, ipadx=97.5)
 
 # -------------Create buttons to add csv data------------------------------------
 # Submits data to the database then clears the data.
 imp = "Import csv record to database"  # csv_to_postgres
 submit_button = Button(root, text=imp, command=file_opener)
-submit_button.grid(row=20, column=2, columnspan=2, pady=5, padx=5, ipadx=83)
+submit_button.grid(row=20, column=3, columnspan=2, pady=5, padx=5, ipadx=83)
 
 
 # ------------------------Canvas------------------------------------------------
