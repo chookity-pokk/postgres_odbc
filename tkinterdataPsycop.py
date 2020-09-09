@@ -32,7 +32,7 @@ root.iconbitmap(
     r"C:\Users\Hank\Documents\Random Python Scripts\postgres-odbc\Icons\IconForTkinter.ico"
 )
 root.geometry("1000x400")
-tb = "invtest5"
+tb = "inv_testing3"
 column_change = "testing"  # These can also probably be deleted
 fieldnames = ["first_name", "last_name"]  # These can also probably be deleted
 
@@ -72,17 +72,71 @@ def disconnect_from_db(dbconnection, cursor):
     dbconnection.close()
 
 
+"""
+fix connection_size and conn_size 
+"""
+
+
 def add_to_row():
     answer = tkinter.messagebox.askquestion(
         "G & D Chillers", "Are you sure you want to commit data to database?"
     )
     if answer == "yes":
         cur.execute(
-            "INSERT INTO guitable (first_name, last_name) VALUES (%s, %s)",
-            (f_name.get(), l_name.get()),
+            f"""INSERT INTO {tb} (model, dimensions, frame, housing, tank_size,
+                    tank_mat, compressor_hp, condenser, process_pump_hp, gpm_at_25psi,
+                    weight, conn_size, conn_type, chiller_pump_hp,
+                    heat_exchanger, controls, electrical_enclosure, shipping_weight,
+                    decibals_at_10_feet, refrigerant, _230_1_FLA, _230_1_MCA, _230_1_MCO,
+                    _230_3_FLA, _230_3_MCA, _230_3_MCO, _460_3_FLA, _460_3_MCA, _460_3_MCO,
+                    _20F, _30F, _40F) VALUES ({model.get()}, {dimensions.get()}, {frame.get()}, {housing.get()}, {tank_size.get()},
+                    {tank_mat.get()}, {compressor_hp.get()}, {condenser.get()}, {process_pump_hp.get()}, {gpm_at_25psi.get()},
+                    {weight.get()}, {conn_size.get()}, {conn_type.get()}, {chiller_pump_hp.get()},
+                    {heat_exchanger.get()}, {controls.get()}, {electrical_enclosure.get()}, {shipping_weight.get()},
+                    {decibals_at_10_feet.get()}, {refrigerant.get()}, {_230_1_FLA.get()}, {_230_1_MCA.get()}, {_230_1_MCO.get()},
+                    {_230_3_FLA.get()}, {_230_3_MCA.get()}, {_230_3_MCO.get()}, {_460_3_FLA.get()}, {_460_3_MCA.get()}, {_460_3_MCO.get()},
+                    {_20F.get()}, {_30F.get()}, {_40F.get()})"""
         )
-        f_name.delete(0, END)
-        l_name.delete(0, END)
+
+        # cur.execute(
+        #    "INSERT INTO guitable (first_name, last_name) VALUES (%s, %s)",
+        #    (f_name.get(), l_name.get()),
+        # )
+        model.delete(0, END)
+        dimensions.delete(0, END)
+        frame.delete(0, END)
+        housing.delete(0, END)
+        tank_size.delete(0, END)
+        tank_mat.delete(0, END)
+        compressor_hp.delete(0, END)
+        condenser.delete(0, END)
+        process_pump_hp.delete(0, END)
+        gpm_at_25psi.delete(0, END)
+        weight.delete(0, END)
+        conn_size.delete(0, END)
+        conn_type.delete(0, END)
+        connection_size.delete(0, END)
+        chiller_pump_hp.delete(0, END)
+        heat_exchanger.delete(0, END)
+        controls.delete(0, END)
+        electrical_enclosure.delete(0, END)
+        shipping_weight.delete(0, END)
+        decibals_at_10_feet.delete(0, END)
+        refrigerant.delete(0, END)
+        _230_1_FLA.delete(0, END)
+        _230_1_MCA.delete(0, END)
+        _230_1_MCO.delete(0, END)
+        _230_3_FLA.delete(0, END)
+        _230_3_MCA.delete(0, END)
+        _230_3_MCO.delete(0, END)
+        _460_3_FLA.delete(0, END)
+        _460_3_MCA.delete(0, END)
+        _460_3_MCO.delete(0, END)
+        _20F.delete(0,END)
+        _30F.delete(0,END)
+        _40F.delete(0,END)
+        # f_name.delete(0, END)
+        # l_name.delete(0, END)
         conn.commit()
     else:
         pass
@@ -258,7 +312,7 @@ def file_opener():
     input = filedialog.askopenfile(
         initialdir="/", filetypes=[("CSV", "*.csv"), ("XLSX", "*.xlsx")]
     )
-    tb = "invtest5"
+    tb = "inv_testing3"
     try:
         sql = f"""COPY {tb} FROM STDIN DELIMITER ',' CSV HEADER;"""
         with open(input.name) as f:
@@ -334,7 +388,7 @@ def csv_2_xlsx():
         from openpyxl import Workbook
         import csv
 
-        tb = "invtest5"
+        tb = "inv_testing3"
         sql1 = """ SELECT * FROM {}""".format(tb)
         rows = cur.execute(sql1)
         col_headers = [i[0] for i in cur.description]
@@ -416,11 +470,11 @@ conn_size.grid(row=0, column=3, padx=5)
 conn_type = Entry(root, width=30)
 conn_type.grid(row=1, column=3, padx=5)
 
-chiller_pump_hp = Entry(root, width=30)
-chiller_pump_hp.grid(row=2, column=3, padx=5)
+connection_size = Entry(root, width=30)
+connection_size.grid(row=2, column=3)
 
-shipping_weight = Entry(root, width=30)
-shipping_weight.grid(row=3, column=3, padx=5)
+chiller_pump_hp = Entry(root, width=30)
+chiller_pump_hp.grid(row=3, column=3, padx=5)
 
 heat_exchanger = Entry(root, width=30)
 heat_exchanger.grid(row=4, column=3, padx=5)
@@ -642,5 +696,5 @@ of the window.
 
 # This will make it so the window can't be resized. Might be worth doing if I
 # Can't figure out how to make it change dynamically with grid.
-# root.resizable(0, 0)
+root.resizable(0, 0)
 root.mainloop()
