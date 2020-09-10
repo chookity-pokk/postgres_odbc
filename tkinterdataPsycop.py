@@ -33,8 +33,6 @@ root.iconbitmap(
 )
 root.geometry("1000x400")
 tb = "inv_testing3"
-column_change = "testing"  # These can also probably be deleted
-fieldnames = ["first_name", "last_name"]  # These can also probably be deleted
 
 
 def connect_to_database(
@@ -70,11 +68,6 @@ def disconnect_from_db(dbconnection, cursor):
     # closes connecttion to database
     cursor.close()
     dbconnection.close()
-
-
-"""
-fix connection_size and conn_size 
-"""
 
 
 def add_to_row():
@@ -132,9 +125,9 @@ def add_to_row():
         _460_3_FLA.delete(0, END)
         _460_3_MCA.delete(0, END)
         _460_3_MCO.delete(0, END)
-        _20F.delete(0,END)
-        _30F.delete(0,END)
-        _40F.delete(0,END)
+        _20F.delete(0, END)
+        _30F.delete(0, END)
+        _40F.delete(0, END)
         # f_name.delete(0, END)
         # l_name.delete(0, END)
         conn.commit()
@@ -165,7 +158,24 @@ def editdb():
             oid_number.insert(0, record[2])
         """
         print("this is also working")
-        sql = f"UPDATE guitable SET first_name='{f_name_editor.get()}', last_name='{l_name_editor.get()}' WHERE oid={edit_oid.get()}"
+        """
+        work in progress sql update
+        sql = 
+             f"UPDATE {tb} set model='{model.get()}',dimensions='{dimensions.get()}',frame='{frame.get()}',
+             housing='{housing.get()}',tank_size='{tank_size.get()}',tank_mat='{tank_mat.get()}',
+             compressor_hp='{compressor_hp.get()}',condenser='{condenser.get()}',
+             process_pump_hp='{process_pump_hp.get}',gpm_at_25psi='{gpm_at_25psi.get()}',
+             weight='{weight.get()}',conn_size='{conn_size.get()}',conn_type='{conn_type.get()}',
+             connection_size='{connection_size.get()}',chiller_pump_hp='{chiller_pump_hp.get()}',
+             heat_exchanger='{heat_exchanger.get()}',controls='{controls.get()}',
+             electrical_enclosure='{electrical_enclosure.get()}',shipping_weight='{shipping_weight.get()}',
+             decibals_at_10_feet='{decibals_at_10_feet.get()}',refrigerant='{refrigerant.get()}',
+             _230_1_FLA='{_230_1_FLA.get()}',_230_1_MCA='{_230_1_MCA.get()}',_230_1_MCO='{_230_1_MCO.get()}',
+             _230_3_FLA='{_230_3_FLA.get()}',_230_3_MCA='{_230_3_MCA.get()}',_230_3_MCO='{_230_3_MCO.get()}',
+             _460_3_FLA='{_460_3_FLA.get()}',_460_3_MCA='{_460_3_MCA.get()}',_460_3_MCO='{_460_3_MCO.get()}',
+             _20F='{_20F.get()}',_30F='{_30F.get()}',_40F='{_40F.get()}'"
+        """
+        sql = f"UPDATE {tb} SET first_name='{f_name_editor.get()}', last_name='{l_name_editor.get()}' WHERE oid={edit_oid.get()}"
         print(sql)
         # Just want to leave this in here to shame it. Using a dictionary for every query is fucking stupid.
         # cur.execute("""UPDATE guitable SET
@@ -250,7 +260,7 @@ def delete():
         "G & D Chillers", "Are you sure you want to delete data to database?"
     )
     if answer == "yes":
-        sql = "DELETE from guitable WHERE oid = {}".format(edit_quant.get())
+        sql = f"DELETE from {tb} WHERE oid = {edit_quant.get()}"
         cur.execute(sql)
         f_name.delete(0, END)
         l_name.delete(0, END)
@@ -399,7 +409,7 @@ def csv_2_xlsx():
         print(f"{input}")
         tkinter.messagebox.showinfo("G&D Chillers", f"Your CSV was saved at {input}")
         ans = tkinter.messagebox.askquestion(
-            "G&D Chillers", "Would you like to convert the CSV to xlsx?"
+            "G&D Chillers", "Would you like to convert the CSV to an Excel file?"
         )
         if ans == "yes":
             print(f"{input}")
@@ -413,9 +423,11 @@ def csv_2_xlsx():
             print("Working Step 3")
             xlsx_path = input + ".xlsx"
             wb.save(xlsx_path)
-            print(f"Your csv has been converted to an xlsx and stored {xlsx_path}")
+            print(
+                f"Your csv has been converted to an Excel file and stored here {xlsx_path}"
+            )
             tkinter.messagebox.showinfo(
-                "G&D Chillers", f"Your xlsx was saved at {xlsx_path}"
+                "G&D Chillers", f"Your Excel file was saved at {xlsx_path}"
             )
     except:
         tkinter.messagebox.showinfo(
