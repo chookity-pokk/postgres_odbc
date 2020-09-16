@@ -157,6 +157,12 @@ realized it wasn't entirely implemented. So FML it isn't working now.
 9/16/2020
 To get rid of the error for the double you can probably remove the
 '' from the doubles and ints.
+
+Well, that worked but there is an issue where the function will complete even if an edit hasn't 
+been made. For example I ran it just putting in number values into the input fields
+and it ran just fine but the issue is I want it to let you know if your value hasn't changed.
+I am not sure how to do that though because a try and except wont work because it runs just fine.
+Also, maybe put in a pop up window saying the database has been editted.
 """
 
 
@@ -187,7 +193,7 @@ def editdb():
     sql = f"""UPDATE {tb} set model='{model_editor.get()}',dimensions='{dimensions_editor.get()}',frame='{frame_editor.get()}',
                 housing='{housing_editor.get()}',tank_size={tank_size_editor.get()},tank_mat='{tank_mat_editor.get()}',
                 compressor_hp='{compressor_hp_editor.get()}',condenser='{condenser_editor.get()}',
-                process_pump_hp={process_pump_hp_editor.get},gpm_at_25psi={gpm_at_25psi_editor.get()},
+                process_pump_hp={process_pump_hp_editor.get()},gpm_at_25psi={gpm_at_25psi_editor.get()},
                 weight={weight_editor.get()},conn_size='{conn_size_editor.get()}',conn_type='{conn_type_editor.get()}',
                 connection_size='{connection_size_editor.get()}',chiller_pump_hp='{chiller_pump_hp_editor.get()}',
                 heat_exchanger='{heat_exchanger_editor.get()}',controls='{controls_editor.get()}',
@@ -200,7 +206,7 @@ def editdb():
            """
     """
     This is what is being printed out. SO the issue is only with process_pump_hp. FML.
-    Fix this tomorrow broski.
+    Fix this tomorrow broski.9/16/2020
     UPDATE inv_testing3 set model='2',dimensions='2',frame='2',
                 housing='2',tank_size=2,tank_mat='2',
                 compressor_hp='22',condenser='2',
