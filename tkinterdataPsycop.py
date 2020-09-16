@@ -200,6 +200,7 @@ def editdb():
            """
     """
     This is what is being printed out. SO the issue is only with process_pump_hp. FML.
+    Fix this tomorrow broski.
     UPDATE inv_testing3 set model='2',dimensions='2',frame='2',
                 housing='2',tank_size=2,tank_mat='2',
                 compressor_hp='22',condenser='2',
