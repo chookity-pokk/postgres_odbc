@@ -70,26 +70,33 @@ def disconnect_from_db(dbconnection, cursor):
     dbconnection.close()
 
 
+
+"""
+Probably add a try and except here.
+"""
+
+    
 def add_to_row():
     answer = tkinter.messagebox.askquestion(
         "G & D Chillers", "Are you sure you want to commit data to database?"
     )
     if answer == "yes":
-        cur.execute(
-            f"""INSERT INTO {tb} (model, dimensions, frame, housing, tank_size,
-                    tank_mat, compressor_hp, condenser, process_pump_hp, gpm_at_25psi,
-                    weight, conn_size, conn_type, chiller_pump_hp,
-                    heat_exchanger, controls, electrical_enclosure, shipping_weight,
-                    decibals_at_10_feet, refrigerant, _230_1_FLA, _230_1_MCA, _230_1_MCO,
-                    _230_3_FLA, _230_3_MCA, _230_3_MCO, _460_3_FLA, _460_3_MCA, _460_3_MCO,
-                    _20F, _30F, _40F) VALUES ({model.get()}, {dimensions.get()}, {frame.get()}, {housing.get()}, {tank_size.get()},
-                    {tank_mat.get()}, {compressor_hp.get()}, {condenser.get()}, {process_pump_hp.get()}, {gpm_at_25psi.get()},
-                    {weight.get()}, {conn_size.get()}, {conn_type.get()}, {chiller_pump_hp.get()},
-                    {heat_exchanger.get()}, {controls.get()}, {electrical_enclosure.get()}, {shipping_weight.get()},
-                    {decibals_at_10_feet.get()}, {refrigerant.get()}, {_230_1_FLA.get()}, {_230_1_MCA.get()}, {_230_1_MCO.get()},
-                    {_230_3_FLA.get()}, {_230_3_MCA.get()}, {_230_3_MCO.get()}, {_460_3_FLA.get()}, {_460_3_MCA.get()}, {_460_3_MCO.get()},
-                    {_20F.get()}, {_30F.get()}, {_40F.get()})"""
-        )
+        sql = f"""INSERT INTO {tb} (model, dimensions, frame, housing, tank_size,
+                tank_mat, compressor_hp, condenser, process_pump_hp, gpm_at_25psi,
+                weight, conn_size, conn_type, chiller_pump_hp,
+                heat_exchanger, controls, electrical_enclosure, shipping_weight,
+                decibals_at_10_feet, refrigerant, _230_1_FLA, _230_1_MCA, _230_1_MCO,
+                _230_3_FLA, _230_3_MCA, _230_3_MCO, _460_3_FLA, _460_3_MCA, _460_3_MCO,
+                _20F, _30F, _40F) VALUES ('{model.get()}', '{dimensions.get()}', '{frame.get()}', '{housing.get()}', {tank_size.get()},
+                '{tank_mat.get()}', '{compressor_hp.get()}', '{condenser.get()}', {process_pump_hp.get()}, {gpm_at_25psi.get()},
+                {weight.get()}, '{conn_size.get()}', '{conn_type.get()}', '{chiller_pump_hp.get()}',
+                '{heat_exchanger.get()}', '{controls.get()}', '{electrical_enclosure.get()}', '{shipping_weight.get()}',
+                {decibals_at_10_feet.get()}, '{refrigerant.get()}', '{_230_1_FLA.get()}', '{_230_1_MCA.get()}', '{_230_1_MCO.get()}',
+                '{_230_3_FLA.get()}', '{_230_3_MCA.get()}', '{_230_3_MCO.get()}', '{_460_3_FLA.get()}', '{_460_3_MCA.get()}', 
+                '{_460_3_MCO.get()}', '{_20F.get()}', '{_30F.get()}', '{_40F.get()}')
+                """
+        print(sql)
+        cur.execute(sql)
 
         # cur.execute(
         #    "INSERT INTO guitable (first_name, last_name) VALUES (%s, %s)",
@@ -136,8 +143,26 @@ def add_to_row():
 
 
 # This as well
+"""
+TODO
+Edit this to make sure that it works because Edit() is working but it calls on this and this obviously
+wont have any of the inputs that it needs to actually edit this. So either add in an oid or figure out what
+else needs to stay the same name for it to be edited.
+
+BRUH!!!!!!!
+I just checked it to make sure it was running but the try and except is doing its job properly so it isn't 
+giving me the error. So after seeing it was working I reimplimented it to make sure it was working but 
+realized it wasn't entirely implemented. So FML it isn't working now.
+
+9/16/2020
+To get rid of the error for the double you can probably remove the
+'' from the doubles and ints.
+"""
+
+
 def editdb():
-    try:
+    print("Working")
+    #try:
         # record_id = "SELECT * FROM guitable WHERE oid=10"
         # cur.execute(record_id)
         # records = cur.fetchall()
@@ -147,36 +172,51 @@ def editdb():
         # print_records = ''
         # for record in records:
         #    print_records += str(record) + '\n'
-        """
-        the code in this comment chunk should auto complete the existing data in
-        the database.
-        cur.execute(f"SELECT * FROM {tb} WHERE oid={input_value}")
-        records = cur.fetchall()
-        for record in records:
-            f_name_editor.insert(0, record[0])
-            l_name_editor.insert(0, record[1])
-            oid_number.insert(0, record[2])
-        """
-        print("this is also working")
-        """
-        work in progress sql update
-        sql = 
-             f"UPDATE {tb} set model='{model.get()}',dimensions='{dimensions.get()}',frame='{frame.get()}',
-             housing='{housing.get()}',tank_size='{tank_size.get()}',tank_mat='{tank_mat.get()}',
-             compressor_hp='{compressor_hp.get()}',condenser='{condenser.get()}',
-             process_pump_hp='{process_pump_hp.get}',gpm_at_25psi='{gpm_at_25psi.get()}',
-             weight='{weight.get()}',conn_size='{conn_size.get()}',conn_type='{conn_type.get()}',
-             connection_size='{connection_size.get()}',chiller_pump_hp='{chiller_pump_hp.get()}',
-             heat_exchanger='{heat_exchanger.get()}',controls='{controls.get()}',
-             electrical_enclosure='{electrical_enclosure.get()}',shipping_weight='{shipping_weight.get()}',
-             decibals_at_10_feet='{decibals_at_10_feet.get()}',refrigerant='{refrigerant.get()}',
-             _230_1_FLA='{_230_1_FLA.get()}',_230_1_MCA='{_230_1_MCA.get()}',_230_1_MCO='{_230_1_MCO.get()}',
-             _230_3_FLA='{_230_3_FLA.get()}',_230_3_MCA='{_230_3_MCA.get()}',_230_3_MCO='{_230_3_MCO.get()}',
-             _460_3_FLA='{_460_3_FLA.get()}',_460_3_MCA='{_460_3_MCA.get()}',_460_3_MCO='{_460_3_MCO.get()}',
-             _20F='{_20F.get()}',_30F='{_30F.get()}',_40F='{_40F.get()}'"
-        """
-        sql = f"UPDATE {tb} SET first_name='{f_name_editor.get()}', last_name='{l_name_editor.get()}' WHERE oid={edit_oid.get()}"
-        print(sql)
+    """
+    the code in this comment chunk should auto complete the existing data in
+    the database.
+    cur.execute(f"SELECT * FROM {tb} WHERE oid={input_value}")
+    records = cur.fetchall()
+    for record in records:
+        f_name_editor.insert(0, record[0])
+        l_name_editor.insert(0, record[1])
+        oid_number.insert(0, record[2])
+    """
+       # print("this is also working")
+        #work in progress sql update
+    sql = f"""UPDATE {tb} set model='{model_editor.get()}',dimensions='{dimensions_editor.get()}',frame='{frame_editor.get()}',
+                housing='{housing_editor.get()}',tank_size={tank_size_editor.get()},tank_mat='{tank_mat_editor.get()}',
+                compressor_hp='{compressor_hp_editor.get()}',condenser='{condenser_editor.get()}',
+                process_pump_hp={process_pump_hp_editor.get},gpm_at_25psi={gpm_at_25psi_editor.get()},
+                weight={weight_editor.get()},conn_size='{conn_size_editor.get()}',conn_type='{conn_type_editor.get()}',
+                connection_size='{connection_size_editor.get()}',chiller_pump_hp='{chiller_pump_hp_editor.get()}',
+                heat_exchanger='{heat_exchanger_editor.get()}',controls='{controls_editor.get()}',
+                electrical_enclosure='{electrical_enclosure_editor.get()}',shipping_weight='{shipping_weight_editor.get()}',
+                decibals_at_10_feet={decibals_at_10_feet_editor.get()},refrigerant='{refrigerant_editor.get()}',
+                _230_1_FLA='{_230_1_FLA_editor.get()}',_230_1_MCA='{_230_1_MCA_editor.get()}',_230_1_MCO='{_230_1_MCO_editor.get()}',
+                _230_3_FLA='{_230_3_FLA_editor.get()}',_230_3_MCA='{_230_3_MCA_editor.get()}',_230_3_MCO='{_230_3_MCO_editor.get()}',
+                _460_3_FLA='{_460_3_FLA_editor.get()}',_460_3_MCA='{_460_3_MCA_editor.get()}',_460_3_MCO='{_460_3_MCO_editor.get()}',
+                _20F='{_20F_editor.get()}',_30F='{_30F_editor.get()}',_40F='{_40F_editor.get()}' WHERE model='{model_editor.get()}'
+           """
+    """
+    This is what is being printed out. SO the issue is only with process_pump_hp. FML.
+    UPDATE inv_testing3 set model='2',dimensions='2',frame='2',
+                housing='2',tank_size=2,tank_mat='2',
+                compressor_hp='22',condenser='2',
+                process_pump_hp=<bound method Entry.get of <tkinter.Entry object .!entry9>>,gpm_at_25psi=2,
+                weight=22,conn_size='2',conn_type='2',
+                connection_size='22',chiller_pump_hp='2',
+                heat_exchanger='22',controls='2',
+                electrical_enclosure='2',shipping_weight='22',
+                decibals_at_10_feet=2,refrigerant='22',
+                _230_1_FLA='2',_230_1_MCA='22',_230_1_MCO='2',
+                _230_3_FLA='2',_230_3_MCA='2',_230_3_MCO='22',
+                _460_3_FLA='2',_460_3_MCA='2',_460_3_MCO='2',
+                _20F='2',_30F='22',_40F='2' WHERE model='2'
+    """
+
+        #sql = f"UPDATE {tb} SET first_name='{f_name_editor.get()}', last_name='{l_name_editor.get()}' WHERE oid={edit_oid.get()}"
+    print(sql)
         # Just want to leave this in here to shame it. Using a dictionary for every query is fucking stupid.
         # cur.execute("""UPDATE guitable SET
         # first_name = :first,
@@ -189,17 +229,17 @@ def editdb():
         # }
         # )
         # This whole setup in code above here is the same thing as my 'sql' line. One is a good coding practice and the other isn't.
-        print("Working again")
-        cur.execute(sql)
-        print("Still working")
-        conn.commit()
-        editor.destroy()
-        print("Mission accomplished!")
-    except:
-        tkinter.messagebox.showinfo(
-            "G&D Chillers",
-            "You were unable to edit records. Make sure you have values for all the text boxes.",
-        )
+        #   print("Working again")
+    cur.execute(sql)
+    print("Still working")
+    conn.commit()
+    editor.destroy()
+    print("Mission accomplished!")
+    #except:
+    #    tkinter.messagebox.showinfo(
+    #        "G&D Chillers",
+    #        "You were unable to edit records. Make sure you have values for all the text boxes.",
+    #    )
 
 
 # This needs to be editted so it can handle all of the variables
@@ -208,39 +248,259 @@ def editing():
     global editor
     editor = Tk()
     editor.title("Update Record")
-    editor.geometry("400x400")
+    editor.geometry("1000x400")
     editor.iconbitmap(
         r"C:\Users\Hank\Documents\Random Python Scripts\postgres-odbc\Icons\IconForTkinter.ico"
     )
-    # ------------------Entry for Database ------------------------------------
-    global f_name_editor
-    global l_name_editor
-    global edit_oid
-    f_name_editor = Entry(editor, width=30)
-    f_name_editor.grid(row=0, column=1, padx=5)
-    l_name_editor = Entry(editor, width=30)
-    l_name_editor.grid(row=1, column=1, padx=5)
-    edit_oid = Entry(editor, width=30)
-    edit_oid.grid(row=2, column=1, padx=5)
-    # ------------------Create text box labels----------------------------------
-    f_name_label = Label(editor, text="First Name", pady=1)
-    f_name_label.grid(row=0, column=0)
-    l_name_label = Label(editor, text="Last Name", pady=1)
-    l_name_label.grid(row=1, column=0)
-    edit_oid_label = Label(editor, text="Insert OID", pady=1)
-    edit_oid_label.grid(row=2, column=0)
-    global get_f
-    global get_l
-    get_f = f_name_editor.get()
-    get_l = l_name_editor.get()
-    # -------------------Save button--------------------------------------------
+    #---------------------------------Global Variables-----------------------------------------
+    #These are all global because it gets rid of having to have a function inside of a function.
+    global model_editor
+    global dimensions_editor
+    global frame_editor
+    global housing_editor
+    global tank_size_editor
+    global tank_mat_editor
+    global compressor_hp_editor
+    global condenser_editor
+    global process_pump_hp_editor
+    global gpm_at_25psi_editor
+    global weight_editor
+    global conn_size_editor
+    global conn_type_editor
+    global connection_size_editor
+    global chiller_pump_hp_editor
+    global heat_exchanger_editor
+    global controls_editor
+    global electrical_enclosure_editor
+    global shipping_weight_editor
+    global decibals_at_10_feet_editor
+    global refrigerant_editor
+    global _230_1_FLA_editor
+    global _230_1_MCA_editor
+    global _230_1_MCO_editor
+    global _230_3_FLA_editor
+    global _230_3_MCA_editor
+    global _230_3_MCO_editor
+    global _460_3_FLA_editor
+    global _460_3_MCA_editor
+    global _460_3_MCO_editor
+    global _20F_editor
+    global _30F_editor
+    global _40F_editor
+    
+    # --------------------------------Database Entries-----------------------------------------
+    model_editor = Entry(editor, width=30)
+    model_editor.grid(row=0, column=1, padx=5)
+    dimensions_editor = Entry(editor, width=30)
+    dimensions_editor.grid(row=1, column=1, padx=5)
+    frame_editor = Entry(editor, width=30)
+    frame_editor.grid(row=2, column=1, padx=5)
+    housing_editor = Entry(editor, width=30)
+    housing_editor.grid(row=3, column=1, padx=5)
+    tank_size_editor = Entry(editor, width=30)
+    tank_size_editor.grid(row=4, column=1, padx=5)
+    tank_mat_editor = Entry(editor, width=30)
+    tank_mat_editor.grid(row=5, column=1, padx=5)
+    compressor_hp_editor = Entry(editor, width=30)
+    compressor_hp_editor.grid(row=6, column=1, padx=5)
+    condenser_editor = Entry(editor, width=30)
+    condenser_editor.grid(row=7, column=1, padx=5)
+    process_pump_hp_editor = Entry(editor, width=30)
+    process_pump_hp_editor.grid(row=8, column=1, padx=5)
+    gpm_at_25psi_editor = Entry(editor, width=30)
+    gpm_at_25psi_editor.grid(row=9, column=1, padx=5)
+    weight_editor = Entry(editor, width=30)
+    weight_editor.grid(row=10, column=1, padx=5)
+    conn_size_editor = Entry(editor, width=30)
+    conn_size_editor.grid(row=0, column=3, padx=5)
+    conn_type_editor = Entry(editor, width=30)
+    conn_type_editor.grid(row=1, column=3, padx=5)
+    connection_size_editor = Entry(editor, width=30)
+    connection_size_editor.grid(row=2, column=3, padx=5)
+    chiller_pump_hp_editor = Entry(editor, width=30)
+    chiller_pump_hp_editor.grid(row=3, column=3, padx=5)
+    heat_exchanger_editor = Entry(editor, width=30)
+    heat_exchanger_editor.grid(row=4, column=3, padx=5)
+    controls_editor = Entry(editor, width=30)
+    controls_editor.grid(row=5, column=3, padx=5)
+    electrical_enclosure_editor = Entry(editor, width=30)
+    electrical_enclosure_editor.grid(row=6, column=3, padx=5)
+    shipping_weight_editor = Entry(editor, width=30)
+    shipping_weight_editor.grid(row=7, column=3, padx=5)
+    decibals_at_10_feet_editor = Entry(editor, width=30)
+    decibals_at_10_feet_editor.grid(row=8, column=3, padx=5)
+    refrigerant_editor = Entry(editor, width=30)
+    refrigerant_editor.grid(row=9, column=3, padx=5)
+    _230_1_FLA_editor = Entry(editor, width=30)
+    _230_1_FLA_editor.grid(row=10, column=3, padx=5)
+    _230_1_MCA_editor = Entry(editor, width=30)
+    _230_1_MCA_editor.grid(row=0, column=5, padx=5)
+    _230_1_MCO_editor = Entry(editor, width=30)
+    _230_1_MCO_editor.grid(row=1, column=5, padx=5)
+    _230_3_FLA_editor = Entry(editor, width=30)
+    _230_3_FLA_editor.grid(row=2, column=5, padx=5)
+    _230_3_MCA_editor = Entry(editor, width=30)
+    _230_3_MCA_editor.grid(row=3, column=5, padx=5)
+    _230_3_MCO_editor = Entry(editor, width=30)
+    _230_3_MCO_editor.grid(row=4, column=5, padx=5)
+    _460_3_FLA_editor = Entry(editor, width=30)
+    _460_3_FLA_editor.grid(row=5, column=5, padx=5)
+    _460_3_MCA_editor = Entry(editor, width=30)
+    _460_3_MCA_editor.grid(row=6, column=5, padx=5)
+    _460_3_MCO_editor = Entry(editor, width=30)
+    _460_3_MCO_editor.grid(row=7, column=5, padx=5)
+    _20F_editor = Entry(editor, width=30)
+    _20F_editor.grid(row=8, column=5, padx=5)
+    _30F_editor = Entry(editor, width=30)
+    _30F_editor.grid(row=9, column=5, padx=5)
+    _40F_editor = Entry(editor, width=30)
+    _40F_editor.grid(row=10, column=5, padx=5)
+    # ----------------------------Create text box labels-------------------------
+    model_editor_label = Label(editor, text="Model", pady=1)
+    model_editor_label.grid(row=0, column=0)
+    dimensions_editor_label = Label(editor, text="Dimensions", pady=1)
+    dimensions_editor_label.grid(row=1, column=0)
+    frame_editor_label = Label(editor, text="Frame", pady=1)
+    frame_editor_label.grid(row=2, column=0)
+    housing_editor_label = Label(editor, text="Housing", pady=1)
+    housing_editor_label.grid(row=3, column=0)
+    tank_size_editor_label = Label(editor, text="Tank Size", pady=1)
+    tank_size_editor_label.grid(row=4, column=0)
+    tank_mat_editor_label = Label(editor, text="Tank Material", pady=1)
+    tank_mat_editor_label.grid(row=5, column=0)
+    compressor_hp_editor_label = Label(editor, text="Compressor HP", pady=1)
+    compressor_hp_editor_label.grid(row=6, column=0)
+    condenser_editor_label = Label(editor, text="Condenser", pady=1)
+    condenser_editor_label.grid(row=7, column=0)
+    process_pump_hp_editor_label = Label(editor, text="Process Pump HP", pady=1)
+    process_pump_hp_editor_label.grid(row=8, column=0)
+    gpm_at_25psi_editor_label = Label(editor, text="GPM at 25 PSI", pady=1)
+    gpm_at_25psi_editor_label.grid(row=9, column=0)
+    weight_editor_label = Label(editor, text="Weight", pady=1)
+    weight_editor_label.grid(row=10, column=0)
+    conn_size_editor_label = Label(editor, text="ConnSize", pady=1)
+    conn_size_editor_label.grid(row=0, column=2)
+    conn_type_editor_label = Label(editor, text="Connection Type", pady=1)
+    conn_type_editor_label.grid(row=1, column=2)
+    connection_size_editor_label = Label(editor, text="Connection Size", pady=1)
+    connection_size_editor_label.grid(row=2, column=2)
+    chiller_pump_hp_editor_label = Label(editor, text="Chiller Pump HP", pady=1)
+    chiller_pump_hp_editor_label.grid(row=3, column=2)
+    heat_exchanger_editor_label = Label(editor, text="Heat Exchanger", pady=1)
+    heat_exchanger_editor_label.grid(row=4, column=2)
+    controls_editor_label = Label(editor, text="Controls", pady=1)
+    controls_editor_label.grid(row=5, column=2)
+    electrical_enclosure_editor_label = Label(
+        editor, text="Electrical Enclosure", pady=1
+    )
+    electrical_enclosure_editor_label.grid(row=6, column=2)
+    shipping_weight_editor_label = Label(editor, text="Shipping Weight", pady=1)
+    shipping_weight_editor_label.grid(row=7, column=2)
+    decibals_at_10_feet_editor_label = Label(editor, text="Decibals at 10 feet", pady=1)
+    decibals_at_10_feet_editor_label.grid(row=8, column=2)
+    refrigerant_editor_label = Label(editor, text="Refrigerant", pady=1)
+    refrigerant_editor_label.grid(row=9, column=2)
+    _230_1_FLA_editor_label = Label(editor, text="230-1-FLA", pady=1)
+    _230_1_FLA_editor_label.grid(row=10, column=2)
+    _230_1_MCA_editor_label = Label(editor, text="230-1-MCA", pady=1)
+    _230_1_MCA_editor_label.grid(row=0, column=4)
+    _230_1_MCO_editor_label = Label(editor, text="230-1-MCO", pady=1)
+    _230_1_MCO_editor_label.grid(row=1, column=4)
+    _230_3_FLA_editor_label = Label(editor, text="230-3-FLA", pady=1)
+    _230_3_FLA_editor_label.grid(row=2, column=4)
+    _230_3_MCA_editor_label = Label(editor, text="230-3-MCA", pady=1)
+    _230_3_MCA_editor_label.grid(row=3, column=4)
+    _230_3_MCO_editor_label = Label(editor, text="230-3-MCO", pady=1)
+    _230_3_MCO_editor_label.grid(row=4, column=4)
+    _460_3_FLA_editor_label = Label(editor, text="460-3-FLA", pady=1)
+    _460_3_FLA_editor_label.grid(row=5, column=4)
+    _460_3_MCA_editor_label = Label(editor, text="460-3-MCA", pady=1)
+    _460_3_MCA_editor_label.grid(row=6, column=4)
+    _460_3_MCO_editor_label = Label(editor, text="460-3-MCO", pady=1)
+    _460_3_MCO_editor_label.grid(row=7, column=4)
+    _20F_editor_label = Label(editor, text="20 F", pady=1)
+    _20F_editor_label.grid(row=8, column=4)
+    _30F_editor_label = Label(editor, text="30 F", pady=1)
+    _30F_editor_label.grid(row=9, column=4)
+    _40F_editor_label = Label(editor, text="40 F", pady=1)
+    _40F_editor_label.grid(row=10, column=4)
+    # ----------------------------Grabbing the info------------------------------
+    get_model = model_editor.get()
+    get_dimensions = dimensions_editor.get()
+    get_frame = frame_editor.get()
+    get_housing = housing_editor.get()
+    get_tank_size = tank_size_editor.get()
+    get_tank_mat = tank_mat_editor.get()
+    get_compressor_hp = compressor_hp_editor.get()
+    get_condenser = condenser_editor.get()
+    get_process_pump_hp = process_pump_hp_editor.get()
+    get_gpm_at_25psi = gpm_at_25psi_editor.get()
+    get_weight = weight_editor.get()
+    get_conn_size = conn_size_editor.get()
+    get_conn_type = conn_type_editor.get()
+    get_connection_size = connection_size_editor.get()
+    get_chiller_pump_hp = chiller_pump_hp_editor.get()
+    get_heat_exchanger = heat_exchanger_editor.get()
+    get_controls = controls_editor.get()
+    get_electrical_enclosure = electrical_enclosure_editor.get()
+    get_shipping_weight = shipping_weight_editor.get()
+    get_decibals_at_10_feet = decibals_at_10_feet_editor.get()
+    get_refrigerant = refrigerant_editor.get()
+    get_230_1_FLA = _230_1_FLA_editor.get()
+    get_230_1_MCA = _230_1_MCA_editor.get()
+    get_230_1_MCO = _230_1_MCO_editor.get()
+    get_230_3_FLA = _230_3_FLA_editor.get()
+    get_230_3_MCA = _230_3_MCA_editor.get()
+    get_230_3_MCO = _230_3_MCO_editor.get()
+    get_460_3_FLA = _460_3_FLA_editor.get()
+    get_460_3_MCA = _460_3_MCA_editor.get()
+    get_460_3_MCO = _460_3_MCO_editor.get()
+    get_20F = _20F_editor.get()
+    get_30F = _30F_editor.get()
+    get_40F = _40F_editor.get()
+    # ---------------------------------Save button----------------------------------
     edit = "Save Editted Record"
     edit_button = Button(editor, text=edit, command=editdb)
-    edit_button.grid(row=3, column=0, columnspan=2, pady=5, padx=5, ipadx=130)
+    edit_button.grid(row=12, column=2, columnspan=2, pady=5, padx=5, ipadx=130)
+
+#def editing():
+#    print("This is working")
+#    global editor
+#    editor = Tk()
+#    editor.title("Update Record")
+#    editor.geometry("1000x400")
+#    editor.iconbitmap(
+#        r"C:\Users\Hank\Documents\Random Python Scripts\postgres-odbc\Icons\IconForTkinter.ico"
+#    )
+#    # ------------------Entry for Database ------------------------------------
+#    global f_name_editor
+#    global l_name_editor
+#    global edit_oid
+#    f_name_editor = Entry(editor, width=30)
+#    f_name_editor.grid(row=0, column=1, padx=5)
+#    l_name_editor = Entry(editor, width=30)
+#    l_name_editor.grid(row=1, column=1, padx=5)
+#    edit_oid = Entry(editor, width=30)
+#    edit_oid.grid(row=2, column=1, padx=5)
+#    # ------------------Create text box labels----------------------------------
+#    f_name_label = Label(editor, text="First Name", pady=1)
+#    f_name_label.grid(row=0, column=0)
+#    l_name_label = Label(editor, text="Last Name", pady=1)
+#    l_name_label.grid(row=1, column=0)
+#    edit_oid_label = Label(editor, text="Insert OID", pady=1)
+#    edit_oid_label.grid(row=2, column=0)
+#    global get_f
+#    global get_l
+#    get_f = f_name_editor.get()
+#    get_l = l_name_editor.get()
+#    # -------------------Save button--------------------------------------------
+#    edit = "Save Editted Record"
+#    edit_button = Button(editor, text=edit, command=editdb)
+#    edit_button.grid(row=3, column=0, columnspan=2, pady=5, padx=5, ipadx=130)
 
 
 def query():
-    sql = "SELECT * FROM {}".format(tb)
+    sql = f"SELECT * FROM {tb}"
     cur.execute(sql)
     records = cur.fetchall()
     # Loop through results and print them out.
@@ -647,64 +907,38 @@ _40F_label.grid(row=10, column=4)
 # -------------Create buttons to submit data------------------------------------
 # Submits data to the database then clears the data.
 
-"""
-Need to change the button sizes
-
-"""
 sub = "Add record to database"
 submit_button = Button(root, text=sub, command=add_to_row)
 submit_button.grid(row=18, column=1, columnspan=2, pady=5, padx=5, ipadx=100)
 
 # ----------------------Creat query button--------------------------------------
 # This will show all the records in the database, probably not useful.
-que = "See records"
-que_button = Button(root, text=que, command=query)
-que_button.grid(row=18, column=3, columnspan=2, pady=5, padx=5, ipadx=131)
+#9/14/2020 Commenting out this button because the database will almost certainly be too big to see
+#In one window
+#que = "See records"
+#que_button = Button(root, text=que, command=query)
+#que_button.grid(row=18, column=3, columnspan=2, pady=5, padx=5, ipadx=131)
 
 # ---------------------Edit quantity button--------------------------------------
 edit = "Edit Record"
 edit_button = Button(root, text=edit, command=editing)
-edit_button.grid(row=19, column=1, columnspan=2, pady=5, padx=5, ipadx=130)
+edit_button.grid(row=18, column=3, columnspan=2, pady=5, padx=5, ipadx=130)
 
 # -------------------Create buttons to delete data-------------------------------
-"""
-Make a window pop up saying that the data will be deleted and are you sure?
-"""
 erase = "Delete record from database"
 del_button = Button(root, text=erase, command=delete)
-del_button.grid(row=19, column=3, columnspan=2, pady=5, padx=5, ipadx=85)
-
+del_button.grid(row=19, column=1, columnspan=2, pady=5, padx=5, ipadx=85)
 
 # ----------------Print out CSV button------------------------------------------
 csv_lab = "Print out to a CSV(Excel)"  # add_to_csv
 csv_button = Button(root, text=csv_lab, command=csv_2_xlsx)
-csv_button.grid(row=20, column=1, columnspan=2, pady=5, padx=5, ipadx=97.5)
+csv_button.grid(row=19, column=3, columnspan=2, pady=5, padx=5, ipadx=97.5)
 
 # -------------Create buttons to add csv data------------------------------------
 # Submits data to the database then clears the data.
 imp = "Import csv record to database"  # csv_to_postgres
 submit_button = Button(root, text=imp, command=file_opener)
-submit_button.grid(row=20, column=3, columnspan=2, pady=5, padx=5, ipadx=83)
-
-
-# ------------------------Canvas------------------------------------------------
-canvas = Canvas(root)
-
-
-# -----------------Scroll Bar---------------------------------------------------
-"""
-This needs to be figured out or I guess I can just try a bunch of different sizes
-and just use root.resizable(0,0) instead and make it so no one can edit the size
-of the window.
-"""
-
-# ybar = Scrollbar(root, orient='vertical', command=canvas.yview)
-# canvas.configure(yscrollcommand=ybar.set)
-# ybar.grid(row=1,column=5, sticky="ns")
-
-# resize = Label(root)
-# resize.grid(row=1, column=2,sticky='nsew')
-
+submit_button.grid(row=20, column=1, columnspan=4, pady=5, padx=5, ipadx=150)
 
 # This will make it so the window can't be resized. Might be worth doing if I
 # Can't figure out how to make it change dynamically with grid.
