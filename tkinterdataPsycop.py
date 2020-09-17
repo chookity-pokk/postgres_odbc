@@ -530,7 +530,7 @@ def add_to_csv():
     contents of the database in a public place that people can easily access
     i.e. pushing the csv to a public folder for the company to look at.
     """
-    global csv_exp
+    #global csv_exp These two use to be useful but are no longer needed.
     csv_exp = Tk()
     csv_exp.title("Update a record")
     csv_exp.geometry("300x300")
@@ -547,14 +547,14 @@ def csv_to_postgres():
         "G & D Chillers", "Are you sure you want to import data from a CSV?"
     )
     if answer == "yes":
-        global csv_imp
+        #global csv_imp These two use to be useful but are no longer needed.
         csv_imp = Tk()
         csv_imp.title("Update a record")
         csv_imp.geometry("300x300")
         csv_imp.iconbitmap(
             r"C:\Users\Hank\Documents\Random Python Scripts\postgres-odbc\Icons\IconForTkinter.ico"
         )
-        csv_lab = "Click here to import CSV file"
+        csv_lab = "Click here to impport a CSV file"
         csv_button = Button(csv_imp, text=csv_lab, command=file_opener)
         csv_button.grid(row=3, column=3, columnspan=2, pady=5, padx=5, ipadx=66)
 
@@ -578,11 +578,6 @@ def file_opener():
             "G&D Chillers", f"Your data has been imported from {input.name} to {tb}."
         )
     except:
-        """
-        Obviously change the error message here. We don't want this going straight to Tim
-        and honestly who knows if I even want my email attached to this or if
-        it is even going to get implemented. ¯\_(ツ)_/¯
-        """
         words = """It is likely because it doesn't have the same column names.
         Please check and if you can't resolve the issue email hank@gdchillers.com"""
         tkinter.messagebox.showinfo(
