@@ -7,6 +7,15 @@ import os
 from tkinter import filedialog
 
 """
+El Importante!!!!
+Make an edit to the add function that pulls data from a database so it sort of auto
+completes after inserting the model name if that is possible.
+"""
+
+
+
+
+"""
 dyanically changing oid:
 This won't work as an oid is a primary key so it can not be changed.
 Though there can be up to 2^32 -1 oid's so there is plenty of room
@@ -505,6 +514,11 @@ def editing():
 #    edit_button = Button(editor, text=edit, command=editdb)
 #    edit_button.grid(row=3, column=0, columnspan=2, pady=5, padx=5, ipadx=130)
 
+"""
+The query function button is commented out below becuase it basically
+serves no real purpose when you have more than a handful of entries in
+the database because it will take over the entire screen.
+"""
 
 def query():
     sql = f"SELECT * FROM {tb}"
@@ -522,17 +536,57 @@ def query():
     conn.commit()
 
 
+"""
+Need to add this in the backend where maybe it deletes by model name or something like that
+This also seems like the 'edit_quant.get()' button doesn't actually exists anymore.
+"""
+
 def delete():
     answer = tkinter.messagebox.askquestion(
         "G & D Chillers", "Are you sure you want to delete data to database?"
     )
     if answer == "yes":
-        sql = f"DELETE from {tb} WHERE oid = {edit_quant.get()}"
+        sql = f"DELETE from {tb} WHERE model = '{model.get()}'"
         cur.execute(sql)
-        f_name.delete(0, END)
-        l_name.delete(0, END)
-        edit_quant.delete(0, END)
+        print(f"Model {model.get()} was deleted from {tb}")
+        model.delete(0, END)
+        dimensions.delete(0, END)
+        frame.delete(0, END)
+        housing.delete(0, END)
+        tank_size.delete(0, END)
+        tank_mat.delete(0, END)
+        compressor_hp.delete(0, END)
+        condenser.delete(0, END)
+        process_pump_hp.delete(0, END)
+        gpm_at_25psi.delete(0, END)
+        weight.delete(0, END)
+        conn_size.delete(0, END)
+        conn_type.delete(0, END)
+        connection_size.delete(0, END)
+        chiller_pump_hp.delete(0, END)
+        heat_exchanger.delete(0, END)
+        controls.delete(0, END)
+        electrical_enclosure.delete(0, END)
+        shipping_weight.delete(0, END)
+        decibals_at_10_feet.delete(0, END)
+        refrigerant.delete(0, END)
+        _230_1_FLA.delete(0, END)
+        _230_1_MCA.delete(0, END)
+        _230_1_MCO.delete(0, END)
+        _230_3_FLA.delete(0, END)
+        _230_3_MCA.delete(0, END)
+        _230_3_MCO.delete(0, END)
+        _460_3_FLA.delete(0, END)
+        _460_3_MCA.delete(0, END)
+        _460_3_MCO.delete(0, END)
+        _20F.delete(0, END)
+        _30F.delete(0, END)
+        _40F.delete(0, END)
+        #f_name.delete(0, END)
+        #l_name.delete(0, END)
+        #edit_quant.delete(0, END)
         conn.commit()
+        tkinter.messagebox.showinfo("G&D Chillers",f"{model.get()} has been deleted from the database")
     else:
         pass
 
@@ -554,13 +608,6 @@ def add_to_csv():
     csv_lab = "Click here to export CSV file"
     csv_button = Button(csv_exp, text=csv_lab, command=save_file)
     csv_button.grid(row=3, column=3, columnspan=2, pady=5, padx=5, ipadx=66)
-
-
-def csv_add_button():
-    answer = tkinter.messagebox.askquestion(
-        "G & D Chillers", "Are you sure you want to export data to a CSV?"
-    )
-
 
 # Adds the option to push a csv into the database.
 def csv_to_postgres():
@@ -624,6 +671,8 @@ def save_file():
         col_headers = [i[0] for i in cur.description]
         rows = [list(i) for i in cur.fetchall()]
         df = pd.DataFrame(rows, columns=col_headers)
+        print(df)
+        df.sort_values('model')
         """
         The two df.to_csv seem to either be working or not depending on how it is
         feeling because it was working then I did something then it wasn't working
@@ -671,7 +720,9 @@ def csv_2_xlsx():
         col_headers = [i[0] for i in cur.description]
         rows = [list(i) for i in cur.fetchall()]
         df = pd.DataFrame(rows, columns=col_headers)
-        print("Working step 1")
+        print(df)
+        df.sort_values('model',inplace=True)#This line is sorting the output of the database. FML, without having inplace=True it doesn't fucking work.
+        print(df)
         df.to_csv(input + ".csv", index=False)
         print(f"{input}")
         tkinter.messagebox.showinfo("G&D Chillers", f"Your CSV was saved at {input}")
@@ -913,7 +964,7 @@ _40F_label.grid(row=10, column=4)
 
 # -------------Create buttons to submit data------------------------------------
 # Submits data to the database then clears the data.
-
+#[X]This is completed with the new data 
 sub = "Add record to database"
 submit_button = Button(root, text=sub, command=add_to_row)
 submit_button.grid(row=18, column=1, columnspan=2, pady=5, padx=5, ipadx=100)
@@ -927,22 +978,26 @@ submit_button.grid(row=18, column=1, columnspan=2, pady=5, padx=5, ipadx=100)
 #que_button.grid(row=18, column=3, columnspan=2, pady=5, padx=5, ipadx=131)
 
 # ---------------------Edit quantity button--------------------------------------
+#[]This needs to be verified
 edit = "Edit Record"
 edit_button = Button(root, text=edit, command=editing)
 edit_button.grid(row=18, column=3, columnspan=2, pady=5, padx=5, ipadx=130)
 
 # -------------------Create buttons to delete data-------------------------------
+#[]Hasn't been added into the backend
 erase = "Delete record from database"
 del_button = Button(root, text=erase, command=delete)
 del_button.grid(row=19, column=1, columnspan=2, pady=5, padx=5, ipadx=85)
 
 # ----------------Print out CSV button------------------------------------------
+#[X] This works
 csv_lab = "Print out to a CSV(Excel)"  # add_to_csv
 csv_button = Button(root, text=csv_lab, command=csv_2_xlsx)
 csv_button.grid(row=19, column=3, columnspan=2, pady=5, padx=5, ipadx=97.5)
 
 # -------------Create buttons to add csv data------------------------------------
 # Submits data to the database then clears the data.
+#[X]This works but only when the columns are the same name but that will always be a restriction.
 imp = "Import csv record to database"  # csv_to_postgres
 submit_button = Button(root, text=imp, command=file_opener)
 submit_button.grid(row=20, column=1, columnspan=4, pady=5, padx=5, ipadx=150)
