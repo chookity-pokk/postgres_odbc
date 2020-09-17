@@ -106,11 +106,7 @@ def add_to_row():
                 """
         print(sql)
         cur.execute(sql)
-
-        # cur.execute(
-        #    "INSERT INTO guitable (first_name, last_name) VALUES (%s, %s)",
-        #    (f_name.get(), l_name.get()),
-        # )
+        #This deletes the entries of the box after submitting the data.
         model.delete(0, END)
         dimensions.delete(0, END)
         frame.delete(0, END)
@@ -144,8 +140,6 @@ def add_to_row():
         _20F.delete(0, END)
         _30F.delete(0, END)
         _40F.delete(0, END)
-        # f_name.delete(0, END)
-        # l_name.delete(0, END)
         conn.commit()
     else:
         pass
@@ -177,7 +171,7 @@ Also, maybe put in a pop up window saying the database has been editted.
 
 def editdb():
     print("Working")
-    #try:
+    try:
         # record_id = "SELECT * FROM guitable WHERE oid=10"
         # cur.execute(record_id)
         # records = cur.fetchall()
@@ -187,19 +181,17 @@ def editdb():
         # print_records = ''
         # for record in records:
         #    print_records += str(record) + '\n'
-    """
-    the code in this comment chunk should auto complete the existing data in
-    the database.
-    cur.execute(f"SELECT * FROM {tb} WHERE oid={input_value}")
-    records = cur.fetchall()
-    for record in records:
-        f_name_editor.insert(0, record[0])
-        l_name_editor.insert(0, record[1])
-        oid_number.insert(0, record[2])
-    """
-       # print("this is also working")
-        #work in progress sql update
-    sql = f"""UPDATE {tb} set model='{model_editor.get()}',dimensions='{dimensions_editor.get()}',frame='{frame_editor.get()}',
+        """
+        the code in this comment chunk should auto complete the existing data in
+        the database.
+        cur.execute(f"SELECT * FROM {tb} WHERE oid={input_value}")
+        records = cur.fetchall()
+        for record in records:
+            f_name_editor.insert(0, record[0])
+            l_name_editor.insert(0, record[1])
+            oid_number.insert(0, record[2])
+        """
+        sql = f"""UPDATE {tb} set model='{model_editor.get()}',dimensions='{dimensions_editor.get()}',frame='{frame_editor.get()}',
                 housing='{housing_editor.get()}',tank_size={tank_size_editor.get()},tank_mat='{tank_mat_editor.get()}',
                 compressor_hp='{compressor_hp_editor.get()}',condenser='{condenser_editor.get()}',
                 process_pump_hp={process_pump_hp_editor.get()},gpm_at_25psi={gpm_at_25psi_editor.get()},
@@ -212,27 +204,9 @@ def editdb():
                 _230_3_FLA='{_230_3_FLA_editor.get()}',_230_3_MCA='{_230_3_MCA_editor.get()}',_230_3_MCO='{_230_3_MCO_editor.get()}',
                 _460_3_FLA='{_460_3_FLA_editor.get()}',_460_3_MCA='{_460_3_MCA_editor.get()}',_460_3_MCO='{_460_3_MCO_editor.get()}',
                 _20F='{_20F_editor.get()}',_30F='{_30F_editor.get()}',_40F='{_40F_editor.get()}' WHERE model='{model_editor.get()}'
-           """
-    """
-    This is what is being printed out. SO the issue is only with process_pump_hp. FML.
-    Fix this tomorrow broski.9/16/2020
-    UPDATE inv_testing3 set model='2',dimensions='2',frame='2',
-                housing='2',tank_size=2,tank_mat='2',
-                compressor_hp='22',condenser='2',
-                process_pump_hp=<bound method Entry.get of <tkinter.Entry object .!entry9>>,gpm_at_25psi=2,
-                weight=22,conn_size='2',conn_type='2',
-                connection_size='22',chiller_pump_hp='2',
-                heat_exchanger='22',controls='2',
-                electrical_enclosure='2',shipping_weight='22',
-                decibals_at_10_feet=2,refrigerant='22',
-                _230_1_FLA='2',_230_1_MCA='22',_230_1_MCO='2',
-                _230_3_FLA='2',_230_3_MCA='2',_230_3_MCO='22',
-                _460_3_FLA='2',_460_3_MCA='2',_460_3_MCO='2',
-                _20F='2',_30F='22',_40F='2' WHERE model='2'
-    """
+             """
 
-        #sql = f"UPDATE {tb} SET first_name='{f_name_editor.get()}', last_name='{l_name_editor.get()}' WHERE oid={edit_oid.get()}"
-    print(sql)
+        print(sql)
         # Just want to leave this in here to shame it. Using a dictionary for every query is fucking stupid.
         # cur.execute("""UPDATE guitable SET
         # first_name = :first,
@@ -246,16 +220,16 @@ def editdb():
         # )
         # This whole setup in code above here is the same thing as my 'sql' line. One is a good coding practice and the other isn't.
         #   print("Working again")
-    cur.execute(sql)
-    print("Still working")
-    conn.commit()
-    editor.destroy()
-    print("Mission accomplished!")
-    #except:
-    #    tkinter.messagebox.showinfo(
-    #        "G&D Chillers",
-    #        "You were unable to edit records. Make sure you have values for all the text boxes.",
-    #    )
+        cur.execute(sql)
+        print("Still working")
+        conn.commit()
+        editor.destroy()
+        print("Mission accomplished!")
+    except:
+        tkinter.messagebox.showinfo(
+            "G&D Chillers",
+            "You were unable to edit records. Make sure you have values for all the text boxes.",
+        )
 
 
 # This needs to be editted so it can handle all of the variables
@@ -479,41 +453,6 @@ def editing():
     edit_button = Button(editor, text=edit, command=editdb)
     edit_button.grid(row=12, column=2, columnspan=2, pady=5, padx=5, ipadx=130)
 
-#def editing():
-#    print("This is working")
-#    global editor
-#    editor = Tk()
-#    editor.title("Update Record")
-#    editor.geometry("1000x400")
-#    editor.iconbitmap(
-#        r"C:\Users\Hank\Documents\Random Python Scripts\postgres-odbc\Icons\IconForTkinter.ico"
-#    )
-#    # ------------------Entry for Database ------------------------------------
-#    global f_name_editor
-#    global l_name_editor
-#    global edit_oid
-#    f_name_editor = Entry(editor, width=30)
-#    f_name_editor.grid(row=0, column=1, padx=5)
-#    l_name_editor = Entry(editor, width=30)
-#    l_name_editor.grid(row=1, column=1, padx=5)
-#    edit_oid = Entry(editor, width=30)
-#    edit_oid.grid(row=2, column=1, padx=5)
-#    # ------------------Create text box labels----------------------------------
-#    f_name_label = Label(editor, text="First Name", pady=1)
-#    f_name_label.grid(row=0, column=0)
-#    l_name_label = Label(editor, text="Last Name", pady=1)
-#    l_name_label.grid(row=1, column=0)
-#    edit_oid_label = Label(editor, text="Insert OID", pady=1)
-#    edit_oid_label.grid(row=2, column=0)
-#    global get_f
-#    global get_l
-#    get_f = f_name_editor.get()
-#    get_l = l_name_editor.get()
-#    # -------------------Save button--------------------------------------------
-#    edit = "Save Editted Record"
-#    edit_button = Button(editor, text=edit, command=editdb)
-#    edit_button.grid(row=3, column=0, columnspan=2, pady=5, padx=5, ipadx=130)
-
 """
 The query function button is commented out below becuase it basically
 serves no real purpose when you have more than a handful of entries in
@@ -536,11 +475,7 @@ def query():
     conn.commit()
 
 
-"""
-Need to add this in the backend where maybe it deletes by model name or something like that
-This also seems like the 'edit_quant.get()' button doesn't actually exists anymore.
-"""
-
+#This deletes the database entry by the model name. Not sure how to deal with it.
 def delete():
     answer = tkinter.messagebox.askquestion(
         "G & D Chillers", "Are you sure you want to delete data to database?"
@@ -549,6 +484,7 @@ def delete():
         sql = f"DELETE from {tb} WHERE model = '{model.get()}'"
         cur.execute(sql)
         print(f"Model {model.get()} was deleted from {tb}")
+        tkinter.messagebox.showinfo("G&D Chillers",f"{model.get()} has been deleted from the database")
         model.delete(0, END)
         dimensions.delete(0, END)
         frame.delete(0, END)
@@ -582,11 +518,7 @@ def delete():
         _20F.delete(0, END)
         _30F.delete(0, END)
         _40F.delete(0, END)
-        #f_name.delete(0, END)
-        #l_name.delete(0, END)
-        #edit_quant.delete(0, END)
         conn.commit()
-        tkinter.messagebox.showinfo("G&D Chillers",f"{model.get()} has been deleted from the database")
     else:
         pass
 
@@ -657,10 +589,6 @@ def file_opener():
             "G&D Chillers", f"There was an error uploading {input.name}. {words}"
         )
 
-    # finally:
-    #    csv_imp.destroy()
-
-
 def save_file():
     # This is connected to add_to_csv
     # https://www.tutorialspoint.com/asksaveasfile-function-in-python-tkinter
@@ -672,7 +600,7 @@ def save_file():
         rows = [list(i) for i in cur.fetchall()]
         df = pd.DataFrame(rows, columns=col_headers)
         print(df)
-        df.sort_values('model')
+        df.sort_values('tank_size', inplace=True)
         """
         The two df.to_csv seem to either be working or not depending on how it is
         feeling because it was working then I did something then it wasn't working
@@ -692,8 +620,6 @@ def save_file():
         tkinter.messagebox.showinfo(
             "G&D Chillers", f"There was an error downloading {input}.csv" + words
         )
-    # finally:
-    #     csv_exp.destroy()
 
 
 """
@@ -721,7 +647,7 @@ def csv_2_xlsx():
         rows = [list(i) for i in cur.fetchall()]
         df = pd.DataFrame(rows, columns=col_headers)
         print(df)
-        df.sort_values('model',inplace=True)#This line is sorting the output of the database. FML, without having inplace=True it doesn't fucking work.
+        df.sort_values('tank_size',inplace=True)#This line is sorting the output of the database. FML, without having inplace=True it doesn't fucking work.
         print(df)
         df.to_csv(input + ".csv", index=False)
         print(f"{input}")
@@ -753,8 +679,6 @@ def csv_2_xlsx():
             f"You were unable to save your file {input}, {input}. If this issue continues please email hank@gdchillers.com",
         )
 
-
-# csv_2_xlsx()
 
 # ----------------Testing proper entries for DB ------------------------------
 """
@@ -984,7 +908,7 @@ edit_button = Button(root, text=edit, command=editing)
 edit_button.grid(row=18, column=3, columnspan=2, pady=5, padx=5, ipadx=130)
 
 # -------------------Create buttons to delete data-------------------------------
-#[]Hasn't been added into the backend
+#[X]Hasn't been added into the backend
 erase = "Delete record from database"
 del_button = Button(root, text=erase, command=delete)
 del_button.grid(row=19, column=1, columnspan=2, pady=5, padx=5, ipadx=85)
