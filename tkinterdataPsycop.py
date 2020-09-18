@@ -596,18 +596,6 @@ def save_file():
         )
 
 
-"""
-This function probably needs a button to save as a xlsx
-that will take the database, convert it into a csv then
-convert that csv into a xlsx file. Postgres doesn't natively
-allow exporting a xlsx file so it has to be pulled out
-as a csv and then converted into the xlsx.
-
-This is now supported by having it save the CSV then ask
-if the user would like to convert it to a csv as well.
-"""
-
-
 def csv_2_xlsx():
     input = filedialog.asksaveasfilename(initialdir="/", filetypes=[("CSV", "*.csv")])
     try:
@@ -876,7 +864,7 @@ submit_button.grid(row=18, column=1, columnspan=2, pady=5, padx=5, ipadx=100)
 #que_button.grid(row=18, column=3, columnspan=2, pady=5, padx=5, ipadx=131)
 
 # ---------------------Edit quantity button--------------------------------------
-#[]This needs to be verified
+#[X]This needs to be verified
 edit = "Edit Record"
 edit_button = Button(root, text=edit, command=editing)
 edit_button.grid(row=18, column=3, columnspan=2, pady=5, padx=5, ipadx=130)
