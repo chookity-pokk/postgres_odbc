@@ -12,8 +12,10 @@ Make an edit to the add function that pulls data from a database so it sort of a
 completes after inserting the model name if that is possible.
 """
 
-
-
+"""
+Maybe look into adding a drop down menu that lets you pick the database you are 
+looking to use.
+"""
 
 """
 dyanically changing oid:
@@ -23,7 +25,6 @@ to space them out to make room for them to be inserted at a later time.
 Though I do need to look into having the database ordered alphabetically.
 Or rather look into organizing them before storing into the database.
 """
-
 
 """
 8/7/2020
@@ -106,6 +107,7 @@ def add_to_row():
                 """
         print(sql)
         cur.execute(sql)
+        tkinter.messagebox.showinfo("G&D Chilllers", f"You have added {model.get()} to your database.")
         #This deletes the entries of the box after submitting the data.
         model.delete(0, END)
         dimensions.delete(0, END)
@@ -143,30 +145,6 @@ def add_to_row():
         conn.commit()
     else:
         pass
-
-
-# This as well
-"""
-TODO
-Edit this to make sure that it works because Edit() is working but it calls on this and this obviously
-wont have any of the inputs that it needs to actually edit this. So either add in an oid or figure out what
-else needs to stay the same name for it to be edited.
-
-BRUH!!!!!!!
-I just checked it to make sure it was running but the try and except is doing its job properly so it isn't 
-giving me the error. So after seeing it was working I reimplimented it to make sure it was working but 
-realized it wasn't entirely implemented. So FML it isn't working now.
-
-9/16/2020
-To get rid of the error for the double you can probably remove the
-'' from the doubles and ints.
-
-Well, that worked but there is an issue where the function will complete even if an edit hasn't 
-been made. For example I ran it just putting in number values into the input fields
-and it ran just fine but the issue is I want it to let you know if your value hasn't changed.
-I am not sure how to do that though because a try and except wont work because it runs just fine.
-Also, maybe put in a pop up window saying the database has been editted.
-"""
 
 
 def editdb():
@@ -223,6 +201,7 @@ def editdb():
         cur.execute(sql)
         print("Still working")
         conn.commit()
+        tkinter.messagebox.showinfo("G&D Chillers", f"You have edited {model_editor.get()}")
         editor.destroy()
         print("Mission accomplished!")
     except:
