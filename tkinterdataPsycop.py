@@ -80,12 +80,11 @@ def disconnect_from_db(dbconnection, cursor):
     dbconnection.close()
 
 
-
 """
 Probably add a try and except here.
 """
 
-    
+
 def add_to_row():
     answer = tkinter.messagebox.askquestion(
         "G & D Chillers", "Are you sure you want to commit data to database?"
@@ -107,8 +106,10 @@ def add_to_row():
                 """
         print(sql)
         cur.execute(sql)
-        tkinter.messagebox.showinfo("G&D Chilllers", f"You have added {model.get()} to your database.")
-        #This deletes the entries of the box after submitting the data.
+        tkinter.messagebox.showinfo(
+            "G&D Chilllers", f"You have added {model.get()} to your database."
+        )
+        # This deletes the entries of the box after submitting the data.
         model.delete(0, END)
         dimensions.delete(0, END)
         frame.delete(0, END)
@@ -201,7 +202,9 @@ def editdb():
         cur.execute(sql)
         print("Still working")
         conn.commit()
-        tkinter.messagebox.showinfo("G&D Chillers", f"You have edited {model_editor.get()}")
+        tkinter.messagebox.showinfo(
+            "G&D Chillers", f"You have edited {model_editor.get()}"
+        )
         editor.destroy()
         print("Mission accomplished!")
     except:
@@ -221,8 +224,8 @@ def editing():
     editor.iconbitmap(
         r"C:\Users\Hank\Documents\Random Python Scripts\postgres-odbc\Icons\IconForTkinter.ico"
     )
-    #---------------------------------Global Variables-----------------------------------------
-    #These are all global because it gets rid of having to have a function inside of a function.
+    # ---------------------------------Global Variables-----------------------------------------
+    # These are all global because it gets rid of having to have a function inside of a function.
     global model_editor
     global dimensions_editor
     global frame_editor
@@ -256,7 +259,7 @@ def editing():
     global _20F_editor
     global _30F_editor
     global _40F_editor
-    
+
     # --------------------------------Database Entries-----------------------------------------
     model_editor = Entry(editor, width=30)
     model_editor.grid(row=0, column=1, padx=5)
@@ -432,11 +435,13 @@ def editing():
     edit_button = Button(editor, text=edit, command=editdb)
     edit_button.grid(row=12, column=2, columnspan=2, pady=5, padx=5, ipadx=130)
 
+
 """
 The query function button is commented out below becuase it basically
 serves no real purpose when you have more than a handful of entries in
 the database because it will take over the entire screen.
 """
+
 
 def query():
     sql = f"SELECT * FROM {tb}"
@@ -454,7 +459,7 @@ def query():
     conn.commit()
 
 
-#This deletes the database entry by the model name. Not sure how to deal with it.
+# This deletes the database entry by the model name. Not sure how to deal with it.
 def delete():
     answer = tkinter.messagebox.askquestion(
         "G & D Chillers", "Are you sure you want to delete data to database?"
@@ -463,7 +468,9 @@ def delete():
         sql = f"DELETE from {tb} WHERE model = '{model.get()}'"
         cur.execute(sql)
         print(f"Model {model.get()} was deleted from {tb}")
-        tkinter.messagebox.showinfo("G&D Chillers",f"{model.get()} has been deleted from the database")
+        tkinter.messagebox.showinfo(
+            "G&D Chillers", f"{model.get()} has been deleted from the database"
+        )
         model.delete(0, END)
         dimensions.delete(0, END)
         frame.delete(0, END)
@@ -509,7 +516,7 @@ def add_to_csv():
     contents of the database in a public place that people can easily access
     i.e. pushing the csv to a public folder for the company to look at.
     """
-    #global csv_exp These two use to be useful but are no longer needed.
+    # global csv_exp These two use to be useful but are no longer needed.
     csv_exp = Tk()
     csv_exp.title("Update a record")
     csv_exp.geometry("300x300")
@@ -520,13 +527,14 @@ def add_to_csv():
     csv_button = Button(csv_exp, text=csv_lab, command=save_file)
     csv_button.grid(row=3, column=3, columnspan=2, pady=5, padx=5, ipadx=66)
 
+
 # Adds the option to push a csv into the database.
 def csv_to_postgres():
     answer = tkinter.messagebox.askquestion(
         "G & D Chillers", "Are you sure you want to import data from a CSV?"
     )
     if answer == "yes":
-        #global csv_imp These two use to be useful but are no longer needed.
+        # global csv_imp These two use to be useful but are no longer needed.
         csv_imp = Tk()
         csv_imp.title("Update a record")
         csv_imp.geometry("300x300")
@@ -563,6 +571,7 @@ def file_opener():
             "G&D Chillers", f"There was an error uploading {input.name}. {words}"
         )
 
+
 def save_file():
     # This is connected to add_to_csv
     # https://www.tutorialspoint.com/asksaveasfile-function-in-python-tkinter
@@ -574,7 +583,7 @@ def save_file():
         rows = [list(i) for i in cur.fetchall()]
         df = pd.DataFrame(rows, columns=col_headers)
         print(df)
-        df.sort_values('tank_size', inplace=True)
+        df.sort_values("tank_size", inplace=True)
         """
         The two df.to_csv seem to either be working or not depending on how it is
         feeling because it was working then I did something then it wasn't working
@@ -609,7 +618,9 @@ def csv_2_xlsx():
         rows = [list(i) for i in cur.fetchall()]
         df = pd.DataFrame(rows, columns=col_headers)
         print(df)
-        df.sort_values('tank_size',inplace=True)#This line is sorting the output of the database. FML, without having inplace=True it doesn't fucking work.
+        df.sort_values(
+            "tank_size", inplace=True
+        )  # This line is sorting the output of the database. FML, without having inplace=True it doesn't fucking work.
         print(df)
         df.to_csv(input + ".csv", index=False)
         print(f"{input}")
@@ -654,9 +665,9 @@ def autofill():
         process_pump_hp.insert(0, 0.5)
         gpm_at_25psi.insert(0, 20)
         weight.insert(0, 250)
-        conn_size.insert(0, "1\"")
+        conn_size.insert(0, '1"')
         conn_type.insert(0, "FPT")
-        connection_size.insert(0, "1\" FPT")
+        connection_size.insert(0, '1" FPT')
         chiller_pump_hp.insert(0, 0)
         heat_exchanger.insert(0, "Stainless Steel Brazed Plate")
         controls.insert(0, "Single Stage Digital")
@@ -687,9 +698,9 @@ def autofill():
         process_pump_hp.insert(0, 0.75)
         gpm_at_25psi.insert(0, 25)
         weight.insert(0, 810)
-        conn_size.insert(0, "1\"")
+        conn_size.insert(0, '1"')
         conn_type.insert(0, "FPT")
-        connection_size.insert(0, "1\" FPT")
+        connection_size.insert(0, '1" FPT')
         chiller_pump_hp.insert(0, 0)
         heat_exchanger.insert(0, "Stainless Steel Brazed Plate")
         controls.insert(0, "Single Stage Digital")
@@ -721,9 +732,9 @@ def autofill():
         process_pump_hp.insert(0, 1.5)
         gpm_at_25psi.insert(0, 40)
         weight.insert(0, 1450)
-        conn_size.insert(0, "1\"")
+        conn_size.insert(0, '1"')
         conn_type.insert(0, "FPT")
-        connection_size.insert(0, "1\" FPT")
+        connection_size.insert(0, '1" FPT')
         chiller_pump_hp.insert(0, 0)
         heat_exchanger.insert(0, "Stainless Steel Brazed Plate")
         controls.insert(0, "Single Stage Digital")
@@ -755,9 +766,9 @@ def autofill():
         process_pump_hp.insert(0, 1.5)
         gpm_at_25psi.insert(0, 40)
         weight.insert(0, 1450)
-        conn_size.insert(0, "1\"")
+        conn_size.insert(0, '1"')
         conn_type.insert(0, "FPT")
-        connection_size.insert(0, "1\" FPT")
+        connection_size.insert(0, '1" FPT')
         chiller_pump_hp.insert(0, 0)
         heat_exchanger.insert(0, "Stainless Steel Brazed Plate")
         controls.insert(0, "Single Stage Digital")
@@ -789,9 +800,9 @@ def autofill():
         process_pump_hp.insert(0, 2)
         gpm_at_25psi.insert(0, 65)
         weight.insert(0, 2320)
-        conn_size.insert(0, "1.5\"")
+        conn_size.insert(0, '1.5"')
         conn_type.insert(0, "FPT")
-        connection_size.insert(0, "1.5\" FPT")
+        connection_size.insert(0, '1.5" FPT')
         chiller_pump_hp.insert(0, 0)
         heat_exchanger.insert(0, "Stainless Steel Brazed Plate")
         controls.insert(0, "Single Stage Digital")
@@ -823,9 +834,9 @@ def autofill():
         process_pump_hp.insert(0, 2)
         gpm_at_25psi.insert(0, 65)
         weight.insert(0, 2370)
-        conn_size.insert(0, "1.5\"")
+        conn_size.insert(0, '1.5"')
         conn_type.insert(0, "FPT")
-        connection_size.insert(0, "1.5\" FPT")
+        connection_size.insert(0, '1.5" FPT')
         chiller_pump_hp.insert(0, 0)
         heat_exchanger.insert(0, "Stainless Steel Brazed Plate")
         controls.insert(0, "Single Stage Digital")
@@ -857,9 +868,9 @@ def autofill():
         process_pump_hp.insert(0, 1.5)
         gpm_at_25psi.insert(0, 40)
         weight.insert(0, 2350)
-        conn_size.insert(0, "1.5\"")
+        conn_size.insert(0, '1.5"')
         conn_type.insert(0, "FPT")
-        connection_size.insert(0, "1.5\" FPT")
+        connection_size.insert(0, '1.5" FPT')
         chiller_pump_hp.insert(0, 0)
         heat_exchanger.insert(0, "Stainless Steel Brazed Plate")
         controls.insert(0, "Multi Stage Digital")
@@ -891,9 +902,9 @@ def autofill():
         process_pump_hp.insert(0, 2)
         gpm_at_25psi.insert(0, 65)
         weight.insert(0, 2468)
-        conn_size.insert(0, "1.5\"")
+        conn_size.insert(0, '1.5"')
         conn_type.insert(0, "FPT")
-        connection_size.insert(0, "1.5\" FPT")
+        connection_size.insert(0, '1.5" FPT')
         chiller_pump_hp.insert(0, 1.5)
         heat_exchanger.insert(0, "Stainless Steel Brazed Plate")
         controls.insert(0, "Multi Stage Digital")
@@ -925,9 +936,9 @@ def autofill():
         process_pump_hp.insert(0, 5)
         gpm_at_25psi.insert(0, 150)
         weight.insert(0, 3910)
-        conn_size.insert(0, "2\"")
+        conn_size.insert(0, '2"')
         conn_type.insert(0, "CTS Flange")
-        connection_size.insert(0, "2\" CTS Flange")
+        connection_size.insert(0, '2" CTS Flange')
         chiller_pump_hp.insert(0, 1.5)
         heat_exchanger.insert(0, "Stainless Steel Brazed Plate")
         controls.insert(0, "Multi Stage Digital")
@@ -959,9 +970,9 @@ def autofill():
         process_pump_hp.insert(0, 5)
         gpm_at_25psi.insert(0, 150)
         weight.insert(0, 3960)
-        conn_size.insert(0, "2\"")
+        conn_size.insert(0, '2"')
         conn_type.insert(0, "CTS Flange")
-        connection_size.insert(0, "2\" CTS Flange")
+        connection_size.insert(0, '2" CTS Flange')
         chiller_pump_hp.insert(0, 1.5)
         heat_exchanger.insert(0, "Stainless Steel Brazed Plate")
         controls.insert(0, "Multi Stage Digital")
@@ -981,6 +992,8 @@ def autofill():
         _20F.insert(0, 155822)
         _30F.insert(0, 190164)
         _40F.insert(0, 228386)
+
+
 # ----------------Testing proper entries for DB ------------------------------
 """
 There are 33 entries here so the only way to make it even is 3 rows of 11.
@@ -1189,45 +1202,46 @@ _40F_label.grid(row=10, column=4)
 
 # -------------Create buttons to submit data------------------------------------
 # Submits data to the database then clears the data.
-#[X]This is completed with the new data 
+# [X]This is completed with the new data
 sub = "Add record to database"
 submit_button = Button(root, text=sub, command=add_to_row)
 submit_button.grid(row=18, column=1, columnspan=2, pady=5, padx=5, ipadx=100)
 
 # ----------------------Creat query button--------------------------------------
 # This will show all the records in the database, probably not useful.
-#9/14/2020 Commenting out this button because the database will almost certainly be too big to see
-#In one window
-#que = "See records"
-#que_button = Button(root, text=que, command=query)
-#que_button.grid(row=18, column=3, columnspan=2, pady=5, padx=5, ipadx=131)
+# 9/14/2020 Commenting out this button because the database will almost certainly be too big to see
+# In one window
+# que = "See records"
+# que_button = Button(root, text=que, command=query)
+# que_button.grid(row=18, column=3, columnspan=2, pady=5, padx=5, ipadx=131)
 
 # --------------------Autofill button-------------------------------------------
+# [] If there is an X here then this is working for all entries
 fill = "Auto Complete Based on Model Name"
 fill_button = Button(root, text=fill, command=autofill)
 fill_button.grid(row=21, column=2, columnspan=2, pady=5, padx=5, ipadx=100)
 
 # ---------------------Edit quantity button--------------------------------------
-#[X]This needs to be verified
+# [X]This needs to be verified
 edit = "Edit Record"
 edit_button = Button(root, text=edit, command=editing)
 edit_button.grid(row=18, column=3, columnspan=2, pady=5, padx=5, ipadx=130)
 
 # -------------------Create buttons to delete data-------------------------------
-#[X]Hasn't been added into the backend
+# [X]Hasn't been added into the backend
 erase = "Delete record from database"
 del_button = Button(root, text=erase, command=delete)
 del_button.grid(row=19, column=1, columnspan=2, pady=5, padx=5, ipadx=85)
 
 # ----------------Print out CSV button------------------------------------------
-#[X] This works
+# [X] This works
 csv_lab = "Print out to a CSV(Excel)"  # add_to_csv
 csv_button = Button(root, text=csv_lab, command=csv_2_xlsx)
 csv_button.grid(row=19, column=3, columnspan=2, pady=5, padx=5, ipadx=97.5)
 
 # -------------Create buttons to add csv data------------------------------------
 # Submits data to the database then clears the data.
-#[X]This works but only when the columns are the same name but that will always be a restriction.
+# [X]This works but only when the columns are the same name but that will always be a restriction.
 imp = "Import csv record to database"  # csv_to_postgres
 submit_button = Button(root, text=imp, command=file_opener)
 submit_button.grid(row=20, column=1, columnspan=4, pady=5, padx=5, ipadx=150)
