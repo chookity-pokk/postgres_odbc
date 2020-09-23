@@ -14,7 +14,6 @@ or allow importing and exporting csvs through there.
 """
 
 
-
 """
 Maybe look into adding a drop down menu that lets you pick the database you are 
 looking to use.
@@ -665,6 +664,7 @@ to autofill/autocomplete then list the available chillers
 that can be filled.
 """
 
+
 def autofill():
     print(model.get())
     if model.get() == "GD-1.5H" or model.get() == "gd-1.5h":
@@ -1251,11 +1251,17 @@ _40F_label = Label(root, text="40 F", pady=1)
 _40F_label.grid(row=10, column=4)
 
 # ------------------Making a menu button for deleting entries-------------------
+"""
+Want to add contact info and import/exporting csv stuff here
+just so that there are multiple ways to do everything
+"""
+
 menubar = Menu(root)
 file = Menu(menubar, tearoff=0)
-menubar.add_cascade(label="Help", menu=file)
-file.add_command(label="Delete", command = delete_text)
-file.add_command(label="BLah", command=None)
+menubar.add_cascade(label="Shortcuts", menu=file)
+file.add_command(label="Delete", command=delete_text)
+file.add_command(label="Export CSV", command=save_file)
+file.add_command(label="Import CSV", command=file_opener)
 
 # -------------Create buttons to submit data------------------------------------
 # Submits data to the database then clears the data.
