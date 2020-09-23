@@ -1280,7 +1280,7 @@ menubar = Menu(root)
 file = Menu(menubar, tearoff=0)
 menubar.add_cascade(label="Shortcuts", menu=file)
 file.add_command(label="Delete", command=delete_text)
-file.add_command(label="Export CSV", command=save_file)
+file.add_command(label="Export CSV", command=csv_2_xlsx)
 file.add_command(label="Import CSV", command=file_opener)
 
 # -------------Create buttons to submit data------------------------------------
