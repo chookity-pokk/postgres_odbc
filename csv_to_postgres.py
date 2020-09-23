@@ -81,3 +81,17 @@ https://www.youtube.com/watch?v=A7E18apPQJs
 That is a video for adding a python path in windows 10. Fucking windows 10.
 """
 
+"""
+Object oriented programming in python
+"""
+class person:
+    """Documentation for person
+
+    """
+    def __init__(self,name):
+        super(person, self).__init__()
+        self.name = name
+p = person("Hank")
+print(p.name)
+        
+        
