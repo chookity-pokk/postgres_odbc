@@ -8,6 +8,14 @@ from tkinter import filedialog
 import time
 
 """
+Add button to the top of the window ie a menu
+Maybe add a few things to that menu, like contact info
+or allow importing and exporting csvs through there.
+"""
+
+
+
+"""
 Maybe look into adding a drop down menu that lets you pick the database you are 
 looking to use.
 """
@@ -85,60 +93,68 @@ def add_to_row():
         "G & D Chillers", "Are you sure you want to commit data to database?"
     )
     if answer == "yes":
-        sql = f"""INSERT INTO {tb} (model, dimensions, frame, housing, tank_size,
-                tank_mat, compressor_hp, condenser, process_pump_hp, gpm_at_25psi,
-                weight, conn_size, conn_type, chiller_pump_hp,
-                heat_exchanger, controls, electrical_enclosure, shipping_weight,
-                decibals_at_10_feet, refrigerant, _230_1_FLA, _230_1_MCA, _230_1_MCO,
-                _230_3_FLA, _230_3_MCA, _230_3_MCO, _460_3_FLA, _460_3_MCA, _460_3_MCO,
-                _20F, _30F, _40F) VALUES ('{model.get()}', '{dimensions.get()}', '{frame.get()}', '{housing.get()}', {tank_size.get()},
-                '{tank_mat.get()}', '{compressor_hp.get()}', '{condenser.get()}', {process_pump_hp.get()}, {gpm_at_25psi.get()},
-                {weight.get()}, '{conn_size.get()}', '{conn_type.get()}', '{chiller_pump_hp.get()}',
-                '{heat_exchanger.get()}', '{controls.get()}', '{electrical_enclosure.get()}', '{shipping_weight.get()}',
-                {decibals_at_10_feet.get()}, '{refrigerant.get()}', '{_230_1_FLA.get()}', '{_230_1_MCA.get()}', '{_230_1_MCO.get()}',
-                '{_230_3_FLA.get()}', '{_230_3_MCA.get()}', '{_230_3_MCO.get()}', '{_460_3_FLA.get()}', '{_460_3_MCA.get()}', 
-                '{_460_3_MCO.get()}', '{_20F.get()}', '{_30F.get()}', '{_40F.get()}')
-                """
-        print(sql)
-        cur.execute(sql)
-        tkinter.messagebox.showinfo(
-            "G&D Chilllers", f"You have added {model.get()} to your database."
-        )
-        # This deletes the entries of the box after submitting the data.
-        model.delete(0, END)
-        dimensions.delete(0, END)
-        frame.delete(0, END)
-        housing.delete(0, END)
-        tank_size.delete(0, END)
-        tank_mat.delete(0, END)
-        compressor_hp.delete(0, END)
-        condenser.delete(0, END)
-        process_pump_hp.delete(0, END)
-        gpm_at_25psi.delete(0, END)
-        weight.delete(0, END)
-        conn_size.delete(0, END)
-        conn_type.delete(0, END)
-        connection_size.delete(0, END)
-        chiller_pump_hp.delete(0, END)
-        heat_exchanger.delete(0, END)
-        controls.delete(0, END)
-        electrical_enclosure.delete(0, END)
-        shipping_weight.delete(0, END)
-        decibals_at_10_feet.delete(0, END)
-        refrigerant.delete(0, END)
-        _230_1_FLA.delete(0, END)
-        _230_1_MCA.delete(0, END)
-        _230_1_MCO.delete(0, END)
-        _230_3_FLA.delete(0, END)
-        _230_3_MCA.delete(0, END)
-        _230_3_MCO.delete(0, END)
-        _460_3_FLA.delete(0, END)
-        _460_3_MCA.delete(0, END)
-        _460_3_MCO.delete(0, END)
-        _20F.delete(0, END)
-        _30F.delete(0, END)
-        _40F.delete(0, END)
-        conn.commit()
+        try:
+            sql = f"""INSERT INTO {tb} (model, dimensions, frame, housing, tank_size,
+                    tank_mat, compressor_hp, condenser, process_pump_hp, gpm_at_25psi,
+                    weight, conn_size, conn_type, chiller_pump_hp,
+                    heat_exchanger, controls, electrical_enclosure, shipping_weight,
+                    decibals_at_10_feet, refrigerant, _230_1_FLA, _230_1_MCA, _230_1_MCO,
+                    _230_3_FLA, _230_3_MCA, _230_3_MCO, _460_3_FLA, _460_3_MCA, _460_3_MCO,
+                    _20F, _30F, _40F) VALUES ('{model.get()}', '{dimensions.get()}', '{frame.get()}', 
+                    '{housing.get()}', {tank_size.get()}, '{tank_mat.get()}', '{compressor_hp.get()}', 
+                    '{condenser.get()}', {process_pump_hp.get()}, {gpm_at_25psi.get()},{weight.get()}, 
+                    '{conn_size.get()}', '{conn_type.get()}', '{chiller_pump_hp.get()}','{heat_exchanger.get()}', 
+                    '{controls.get()}', '{electrical_enclosure.get()}', '{shipping_weight.get()}',
+                    {decibals_at_10_feet.get()}, '{refrigerant.get()}', '{_230_1_FLA.get()}', 
+                    '{_230_1_MCA.get()}', '{_230_1_MCO.get()}','{_230_3_FLA.get()}', '{_230_3_MCA.get()}', 
+                    '{_230_3_MCO.get()}', '{_460_3_FLA.get()}', '{_460_3_MCA.get()}', 
+                    '{_460_3_MCO.get()}', '{_20F.get()}', '{_30F.get()}', '{_40F.get()}')
+                    """
+            print(sql)
+            cur.execute(sql)
+            tkinter.messagebox.showinfo(
+                "G&D Chilllers", f"You have added {model.get()} to your database."
+            )
+            # This deletes the entries of the box after submitting the data.
+            model.delete(0, END)
+            dimensions.delete(0, END)
+            frame.delete(0, END)
+            housing.delete(0, END)
+            tank_size.delete(0, END)
+            tank_mat.delete(0, END)
+            compressor_hp.delete(0, END)
+            condenser.delete(0, END)
+            process_pump_hp.delete(0, END)
+            gpm_at_25psi.delete(0, END)
+            weight.delete(0, END)
+            conn_size.delete(0, END)
+            conn_type.delete(0, END)
+            connection_size.delete(0, END)
+            chiller_pump_hp.delete(0, END)
+            heat_exchanger.delete(0, END)
+            controls.delete(0, END)
+            electrical_enclosure.delete(0, END)
+            shipping_weight.delete(0, END)
+            decibals_at_10_feet.delete(0, END)
+            refrigerant.delete(0, END)
+            _230_1_FLA.delete(0, END)
+            _230_1_MCA.delete(0, END)
+            _230_1_MCO.delete(0, END)
+            _230_3_FLA.delete(0, END)
+            _230_3_MCA.delete(0, END)
+            _230_3_MCO.delete(0, END)
+            _460_3_FLA.delete(0, END)
+            _460_3_MCA.delete(0, END)
+            _460_3_MCO.delete(0, END)
+            _20F.delete(0, END)
+            _30F.delete(0, END)
+            _40F.delete(0, END)
+            conn.commit()
+        except:
+            warning = "Make sure that the entries are the proper data type ie numbers or words."
+            tkinter.messagebox.showinfo(
+                "G&D Chillers", f"Unable to add the data to the database. {warning}"
+            )
     else:
         pass
 
@@ -146,25 +162,6 @@ def add_to_row():
 def editdb():
     print("Working")
     try:
-        # record_id = "SELECT * FROM guitable WHERE oid=10"
-        # cur.execute(record_id)
-        # records = cur.fetchall()
-        # for record in records:
-        #    f_name_editor.insert(0, record[0])
-        #    l_name_editor.insert(0, record[1])
-        # print_records = ''
-        # for record in records:
-        #    print_records += str(record) + '\n'
-        """
-        the code in this comment chunk should auto complete the existing data in
-        the database.
-        cur.execute(f"SELECT * FROM {tb} WHERE oid={input_value}")
-        records = cur.fetchall()
-        for record in records:
-            f_name_editor.insert(0, record[0])
-            l_name_editor.insert(0, record[1])
-            oid_number.insert(0, record[2])
-        """
         sql = f"""UPDATE {tb} set model='{model_editor.get()}',dimensions='{dimensions_editor.get()}',frame='{frame_editor.get()}',
                 housing='{housing_editor.get()}',tank_size={tank_size_editor.get()},tank_mat='{tank_mat_editor.get()}',
                 compressor_hp='{compressor_hp_editor.get()}',condenser='{condenser_editor.get()}',
@@ -459,46 +456,55 @@ def delete():
         "G & D Chillers", "Are you sure you want to delete data to database?"
     )
     if answer == "yes":
-        sql = f"DELETE from {tb} WHERE model = '{model.get()}'"
-        cur.execute(sql)
-        print(f"Model {model.get()} was deleted from {tb}")
-        tkinter.messagebox.showinfo(
-            "G&D Chillers", f"{model.get()} has been deleted from the database"
-        )
-        model.delete(0, END)
-        dimensions.delete(0, END)
-        frame.delete(0, END)
-        housing.delete(0, END)
-        tank_size.delete(0, END)
-        tank_mat.delete(0, END)
-        compressor_hp.delete(0, END)
-        condenser.delete(0, END)
-        process_pump_hp.delete(0, END)
-        gpm_at_25psi.delete(0, END)
-        weight.delete(0, END)
-        conn_size.delete(0, END)
-        conn_type.delete(0, END)
-        connection_size.delete(0, END)
-        chiller_pump_hp.delete(0, END)
-        heat_exchanger.delete(0, END)
-        controls.delete(0, END)
-        electrical_enclosure.delete(0, END)
-        shipping_weight.delete(0, END)
-        decibals_at_10_feet.delete(0, END)
-        refrigerant.delete(0, END)
-        _230_1_FLA.delete(0, END)
-        _230_1_MCA.delete(0, END)
-        _230_1_MCO.delete(0, END)
-        _230_3_FLA.delete(0, END)
-        _230_3_MCA.delete(0, END)
-        _230_3_MCO.delete(0, END)
-        _460_3_FLA.delete(0, END)
-        _460_3_MCA.delete(0, END)
-        _460_3_MCO.delete(0, END)
-        _20F.delete(0, END)
-        _30F.delete(0, END)
-        _40F.delete(0, END)
-        conn.commit()
+        try:
+            sql = f"DELETE from {tb} WHERE model = '{model.get()}'"
+            cur.execute(sql)
+            print(f"Model {model.get()} was deleted from {tb}")
+            tkinter.messagebox.showinfo(
+                "G&D Chillers", f"{model.get()} has been deleted from the database"
+            )
+            model.delete(0, END)
+            dimensions.delete(0, END)
+            frame.delete(0, END)
+            housing.delete(0, END)
+            tank_size.delete(0, END)
+            tank_mat.delete(0, END)
+            compressor_hp.delete(0, END)
+            condenser.delete(0, END)
+            process_pump_hp.delete(0, END)
+            gpm_at_25psi.delete(0, END)
+            weight.delete(0, END)
+            conn_size.delete(0, END)
+            conn_type.delete(0, END)
+            connection_size.delete(0, END)
+            chiller_pump_hp.delete(0, END)
+            heat_exchanger.delete(0, END)
+            controls.delete(0, END)
+            electrical_enclosure.delete(0, END)
+            shipping_weight.delete(0, END)
+            decibals_at_10_feet.delete(0, END)
+            refrigerant.delete(0, END)
+            _230_1_FLA.delete(0, END)
+            _230_1_MCA.delete(0, END)
+            _230_1_MCO.delete(0, END)
+            _230_3_FLA.delete(0, END)
+            _230_3_MCA.delete(0, END)
+            _230_3_MCO.delete(0, END)
+            _460_3_FLA.delete(0, END)
+            _460_3_MCA.delete(0, END)
+            _460_3_MCO.delete(0, END)
+            _20F.delete(0, END)
+            _30F.delete(0, END)
+            _40F.delete(0, END)
+            conn.commit()
+        except:
+            d_text = (
+                "Unable to delete entry from database. Make sure that the model name"
+            )
+            tkinter.messagebox.showinfo(
+                "G&D Chillers",
+                f"{d_text} matches a model name from the database. Email hank@gdchillers.com if you have issues.",
+            )
     else:
         pass
 
@@ -510,7 +516,6 @@ def add_to_csv():
     contents of the database in a public place that people can easily access
     i.e. pushing the csv to a public folder for the company to look at.
     """
-    # global csv_exp These two use to be useful but are no longer needed.
     csv_exp = Tk()
     csv_exp.title("Update a record")
     csv_exp.geometry("300x300")
@@ -528,7 +533,7 @@ def csv_to_postgres():
         "G & D Chillers", "Are you sure you want to import data from a CSV?"
     )
     if answer == "yes":
-        # global csv_imp These two use to be useful but are no longer needed.
+
         csv_imp = Tk()
         csv_imp.title("Update a record")
         csv_imp.geometry("300x300")
@@ -538,9 +543,6 @@ def csv_to_postgres():
         csv_lab = "Click here to impport a CSV file"
         csv_button = Button(csv_imp, text=csv_lab, command=file_opener)
         csv_button.grid(row=3, column=3, columnspan=2, pady=5, padx=5, ipadx=66)
-
-
-# csv_to_postgres()
 
 
 def file_opener():
@@ -657,6 +659,11 @@ chosen in time.sleep(X) then resets. So I don't know how to
 implement it.
 """
 
+"""
+Add a try and except and if it isn't an available option
+to autofill/autocomplete then list the available chillers
+that can be filled.
+"""
 
 def autofill():
     print(model.get())
@@ -693,7 +700,7 @@ def autofill():
         _20F.insert(0, 8460)
         _30F.insert(0, 10200)
         _40F.insert(0, 12400)
-        
+
     elif model.get() == "GD-3H" or model.get() == "gd-3h":
         dimensions.insert(0, "32x48x35")
         frame.insert(0, "Powder Coated Steel")
@@ -727,7 +734,7 @@ def autofill():
         _20F.insert(0, 17213)
         _30F.insert(0, 21436)
         _40F.insert(0, 26098)
-       
+
     elif model.get() == "GD-5H" or model.get() == "gd-5h":
         dimensions.insert(0, "45x61x49")
         frame.insert(0, "Powder Coated Steel")
@@ -761,14 +768,14 @@ def autofill():
         _20F.insert(0, 32717)
         _30F.insert(0, 40850)
         _40F.insert(0, 49965)
-       
+
     elif model.get() == "GD-7H" or model.get() == "gd-7h":
         dimensions.insert(0, "45x61x49")
         frame.insert(0, "Powder Coated Steel")
         housing.insert(0, "Powder Coated Aluminum")
         tank_size.insert(0, 60)
         tank_mat.insert(0, "SST")
-        compressor_hp.insert(0, 5)
+        compressor_hp.insert(0, 7)
         condenser.insert(0, "Air-Cooled")
         process_pump_hp.insert(0, 1.5)
         gpm_at_25psi.insert(0, 40)
@@ -795,7 +802,7 @@ def autofill():
         _20F.insert(0, 41395)
         _30F.insert(0, 51046)
         _40F.insert(0, 61824)
-       
+
     elif model.get() == "GD-10H" or model.get() == "gd-10h":
         dimensions.insert(0, "48x73x57")
         frame.insert(0, "Powder Coated Steel")
@@ -829,7 +836,7 @@ def autofill():
         _20F.insert(0, 64218)
         _30F.insert(0, 79372)
         _40F.insert(0, 96495)
-       
+
     elif model.get() == "GD-13.5H" or model.get() == "gd-13.5h":
         dimensions.insert(0, "48x73x57")
         frame.insert(0, "Powder Coated Steel")
@@ -863,7 +870,7 @@ def autofill():
         _20F.insert(0, 77911)
         _30F.insert(0, 95082)
         _40F.insert(0, 114193)
-       
+
     elif model.get() == "GD-5x5H" or model.get() == "gd-5x5h":
         dimensions.insert(0, "48x84x62")
         frame.insert(0, "Powder Coated Steel")
@@ -964,7 +971,7 @@ def autofill():
         _460_3_MCO.insert(0, 72)
         _20F.insert(0, 128436)
         _30F.insert(0, 158744)
-        _40F.insert(0, 192900)
+        _40F.insert(0, 192990)
 
     elif model.get() == "GD-27H" or model.get() == "gd-27h":
         dimensions.insert(0, "48x120x81")
@@ -1035,6 +1042,7 @@ def delete_text():
     _20F.delete(0, END)
     _30F.delete(0, END)
     _40F.delete(0, END)
+
 
 # ----------------Testing proper entries for DB ------------------------------
 """
@@ -1242,6 +1250,13 @@ _30F_label.grid(row=9, column=4)
 _40F_label = Label(root, text="40 F", pady=1)
 _40F_label.grid(row=10, column=4)
 
+# ------------------Making a menu button for deleting entries-------------------
+menubar = Menu(root)
+file = Menu(menubar, tearoff=0)
+menubar.add_cascade(label="Help", menu=file)
+file.add_command(label="Delete", command = delete_text)
+file.add_command(label="BLah", command=None)
+
 # -------------Create buttons to submit data------------------------------------
 # Submits data to the database then clears the data.
 # [X]This is completed with the new data
@@ -1295,5 +1310,6 @@ submit_button.grid(row=20, column=1, columnspan=4, pady=5, padx=5, ipadx=150)
 
 # This will make it so the window can't be resized. Might be worth doing if I
 # Can't figure out how to make it change dynamically with grid.
+root.config(menu=menubar)
 root.resizable(0, 0)
 root.mainloop()
