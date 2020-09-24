@@ -1064,6 +1064,10 @@ def delete_text():
         )
 
 
+def contact_info():
+    contact_email = "Please contact Hank at hank@gdchillers.com"
+    tkinter.messagebox.showinfo("G&D Chillers", f"{contact_email}")
+
 # ----------------Testing proper entries for DB ------------------------------
 """
 There are 33 entries here so the only way to make it even is 3 rows of 11.
@@ -1275,14 +1279,16 @@ _40F_label.grid(row=10, column=4)
 Want to add contact info and import/exporting csv stuff here
 just so that there are multiple ways to do everything
 """
-
+# [X] Adding a menubar in the window
 menubar = Menu(root)
-file = Menu(menubar, tearoff=0)
-menubar.add_cascade(label="Shortcuts", menu=file)
-file.add_command(label="Delete", command=delete_text)
-file.add_command(label="Export CSV", command=csv_2_xlsx)
-file.add_command(label="Import CSV", command=file_opener)
-
+files = Menu(menubar, tearoff=1)#Might need to take this tearoff off.
+#I can see the usecase with it but at the same time others might not. 
+menubar.add_cascade(label="Shortcuts", menu=files)
+files.add_command(label="Delete", command=delete_text)
+files.add_command(label="Export CSV", command=csv_2_xlsx)
+files.add_command(label="Import CSV", command=file_opener)
+files.add_separator()
+files.add_command(label="Contact Info", command=contact_info)
 # -------------Create buttons to submit data------------------------------------
 # Submits data to the database then clears the data.
 # [X]This is completed with the new data
