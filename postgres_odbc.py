@@ -2,6 +2,7 @@ import pyodbc
 import pandas as pd
 import argparse
 
+
 def connect_to_database():
     """
     This function will make a database, so I am not sure how useful
@@ -9,13 +10,16 @@ def connect_to_database():
     with their database. Because if I can just make a server that will
     pull their inventory daily then I  won't need this.
     """
-    #You have to put in the exact driver name here.
-    #UID is username and PWD is the password
-    cnxn = pyodbc.connect('DRIVER={PostgreSQL Unicode}; SERVER=localhost;DATABASE=testdb;UID=postgres;PWD=postgres')
+    # You have to put in the exact driver name here.
+    # UID is username and PWD is the password
+    cnxn = pyodbc.connect(
+        "DRIVER={PostgreSQL Unicode}; SERVER=localhost;DATABASE=testdb;UID=postgres;PWD=postgres"
+    )
     cursor = cnxn.cursor()
-    cnxn.setdecoding(pyodbc.SQL_WCHAR, encoding='utf-8')
-    cnxn.setencoding(encoding='utf-8')
+    cnxn.setdecoding(pyodbc.SQL_WCHAR, encoding="utf-8")
+    cnxn.setencoding(encoding="utf-8")
     return cnxn, cursor
+
 
 # Specifying the ODBC driver, server name, database, etc. directly
 """
@@ -28,40 +32,46 @@ I believe what I have now is good enough with the password and the
 UID (user ID, basically your username) needing to be changed when that all
 gets sorted out.
 """
-#test file: UID=hanktesting, PWD=postgres
-#QODBC file location
-#C:\Program Files (x86)\QODBC Driver for QuickBooks
-#cnxn = pyodbc.connect('DRIVER={PostgreSQL Unicode};DSN=QuickBooks;DATABASE=testdb;UID=hanktesting;PWD=postgres')
+# test file: UID=hanktesting, PWD=postgres
+# QODBC file location
+# C:\Program Files (x86)\QODBC Driver for QuickBooks
+# cnxn = pyodbc.connect('DRIVER={PostgreSQL Unicode};DSN=QuickBooks;DATABASE=testdb;UID=hanktesting;PWD=postgres')
 
 conn, cur = connect_to_database()
-#The fieldnames will either have to be changed or may even not need to be included
-#as I may not be needing to name the columns depending on the structure of the table
+# The fieldnames will either have to be changed or may even not need to be included
+# as I may not be needing to name the columns depending on the structure of the table
 
-#fieldnames = ['id', 'names']
-fieldnames=['first_name','last_name']
-#tb = str(input("Input name of the table: \n " ))
+# fieldnames = ['id', 'names']
+fieldnames = ["first_name", "last_name"]
+# tb = str(input("Input name of the table: \n " ))
+
 
 def create_table(cnxn, cursor, tb):
     """
     This will create a table in the postgres database.
     """
-    sql = '''CREATE TABLE {0} (oid serial PRIMARY KEY)'''.format(tb)
+    sql = """CREATE TABLE {0} (oid serial PRIMARY KEY)""".format(tb)
     cursor.execute(sql)
     cnxn.commit()
 
 
-def add_field(cnxn, cursor, tablename, fieldname='newfield',fieldtype='TEXT'):
+def add_field(cnxn, cursor, tablename, fieldname="newfield", fieldtype="TEXT"):
     """
     Takes the connection to the database and adds a new field information and updates the
     table with a new field.
     """
-    sql = '''ALTER TABLE {0} ADD COLUMN {1} {2}'''.format(tablename, fieldname, fieldtype)
+    sql = """ALTER TABLE {0} ADD COLUMN {1} {2}""".format(
+        tablename, fieldname, fieldtype
+    )
     cursor.execute(sql)
     cnxn.commit()
 
-def add_to_row(cnxn, cursor, tablename,fieldnames):
-    sql = '''INSERT INTO {0}({1},{2}) VALUES (?,?)'''.format(tablename,fieldnames[0],fieldnames[1])
-    cursor.execute(sql, 'Python Stuff', 'Named Entry')
+
+def add_to_row(cnxn, cursor, tablename, fieldnames):
+    sql = """INSERT INTO {0}({1},{2}) VALUES (?,?)""".format(
+        tablename, fieldnames[0], fieldnames[1]
+    )
+    cursor.execute(sql, "Python Stuff", "Named Entry")
     """
     pyodbc and awesome library(values from the line above) are currently just
     filler lines to put entrees into the table to make sure this function was
@@ -69,9 +79,12 @@ def add_to_row(cnxn, cursor, tablename,fieldnames):
     """
     cnxn.commit()
 
+
 def edit_column():
-    sql = 'UPDATE {0} SET first_name = {1} WHERE oid=1'.format(tb, edit)
+    sql = "UPDATE {0} SET first_name = {1} WHERE oid=1".format(tb, edit)
     cur.execute(sql)
+
+
 """
 This will edit columns within a table.
 UPDATE guitable
@@ -79,7 +92,6 @@ SET first_name = 'Test',
 last_name = 'Table'
 WHERE oid=1
 """
-
 
 
 def disconnect_from_database(cnxn, cursor):
@@ -91,6 +103,7 @@ def disconnect_from_database(cnxn, cursor):
     cursor.close()
     cnxn.close()
 
+
 def add_to_csv(cnxn, cursor, tb):
     """
     This function will take the contents of the table in PostgreSQL
@@ -101,15 +114,17 @@ def add_to_csv(cnxn, cursor, tb):
     sql1 = """ SELECT * FROM {}""".format(tb)
     rows = cursor.execute(sql1)
 
-    #This will obviously need to be editted to a company path as apposed to a personal folder
-    #Also, boo having to use Windows. smh.
-    #This is currently working and writing the table to the csv.
-    col_headers = [ i[0] for i in cursor.description ]
-    rows = [ list(i) for i in cursor.fetchall()]
+    # This will obviously need to be editted to a company path as apposed to a personal folder
+    # Also, boo having to use Windows. smh.
+    # This is currently working and writing the table to the csv.
+    col_headers = [i[0] for i in cursor.description]
+    rows = [list(i) for i in cursor.fetchall()]
     df = pd.DataFrame(rows, columns=col_headers)
-    #Boo, Windows path... :'(
+    # Boo, Windows path... :'(
     path = r"C:\Users\Hank\Documents\Random Python Scripts\postgres-odbc\testing.csv"
     df.to_csv(path, index=False)
+
+
 """
 Notes on how to implement into QuickBooks. Seems like anything with '_line_inv'
 at the end of it is an inventory item. Check out the pdf sent by time on 7/29/2020
@@ -122,7 +137,8 @@ The pdf is very helpful but also is mostly for getting access through Excel
 or Access.
 """
 
-def printl(cnxn, cursor,tb):
+
+def printl(cnxn, cursor, tb):
     """
     This will print out the contents of the 'sql1' query. In this context it will
     print out everything that is in the tablename entered. Or everything that is
@@ -133,12 +149,14 @@ def printl(cnxn, cursor,tb):
     some and the print out definitely isn't pretty.
     """
     sql1 = """ SELECT * FROM {}""".format(tb)
-    #sql2 = """COPY {} to STDOUT WITH CSV HEADER""".format(tb)
+    # sql2 = """COPY {} to STDOUT WITH CSV HEADER""".format(tb)
     rows = cursor.execute(sql1)
-    col_headers = [ i[0] for i in cursor.description ]
-    rows = [ list(i) for i in cursor.fetchall()]
+    col_headers = [i[0] for i in cursor.description]
+    rows = [list(i) for i in cursor.fetchall()]
     print(rows)
-#printl(conn, cur, tb)
+
+
+# printl(conn, cur, tb)
 
 """
 Below is an command line argument parser. What this will do is give you the
@@ -153,66 +171,77 @@ uncomment out 'main()' and you'll be able to run it just fine like that.
 parse = argparse.ArgumentParser()
 # choices limits argument values to the
 # given list
-parse.add_argument('--db',dest='Table', choices=['test29', 'newtesttable'],
-                   help='Pick table name here')
+parse.add_argument(
+    "--db",
+    dest="Table",
+    choices=["test29", "newtesttable"],
+    help="Pick table name here",
+)
 
 args = parse.parse_args()
 fmt = args.Table
-if fmt == 'test29':
+if fmt == "test29":
+
     def main():
         connect_to_database()
-        tb = 'test29'
-        fieldnames = ['id', 'names']
+        tb = "test29"
+        fieldnames = ["id", "names"]
         try:
-            create_table(conn,cur, tb)
+            create_table(conn, cur, tb)
             for name in fieldnames:
-            #Going to need to change 'papers' to whatever the inventory table is called
-                add_field(conn, cur, tb, fieldname=name, fieldtype='TEXT')
+                # Going to need to change 'papers' to whatever the inventory table is called
+                add_field(conn, cur, tb, fieldname=name, fieldtype="TEXT")
         except:
             pass
-        add_to_row(conn, cur, tb,fieldnames=fieldnames)
+        add_to_row(conn, cur, tb, fieldnames=fieldnames)
         add_to_csv(conn, cur, tb)
         printl(conn, cur, tb)
         conn.close()
-    #main()
+
+    # main()
 
 
-if fmt == 'newtesttable':
+if fmt == "newtesttable":
+
     def main():
         connect_to_database()
-        tb = 'NewTestTable'
-        #This will be changed to the name of the columns
-        fieldnames = ['id', 'names']
+        tb = "NewTestTable"
+        # This will be changed to the name of the columns
+        fieldnames = ["id", "names"]
         try:
-            create_table(conn,cur, tb)
+            create_table(conn, cur, tb)
             for name in fieldnames:
-            #Going to need to change 'papers' to whatever the inventory table is called
-                add_field(conn, cur, tb, fieldname=name, fieldtype='TEXT')
+                # Going to need to change 'papers' to whatever the inventory table is called
+                add_field(conn, cur, tb, fieldname=name, fieldtype="TEXT")
         except:
             pass
-        add_to_row(conn, cur, tb,fieldnames=fieldnames)
+        add_to_row(conn, cur, tb, fieldnames=fieldnames)
         add_to_csv(conn, cur, tb)
         printl(conn, cur, tb)
         conn.close()
-    #main()
+
+    # main()
+
 
 def main():
     connect_to_database()
-    tb = str(input("Input new table name: \n " ))
-    fieldnames = ['first_name', 'last_name']
+    tb = str(input("Input new table name: \n "))
+    fieldnames = ["first_name", "last_name"]
     try:
-        create_table(conn,cur, tb)
+        create_table(conn, cur, tb)
         for name in fieldnames:
-                #Going to need to change 'papers' to whatever the inventory table is called
-            add_field(conn, cur, tb, fieldname=name, fieldtype='TEXT')
+            # Going to need to change 'papers' to whatever the inventory table is called
+            add_field(conn, cur, tb, fieldname=name, fieldtype="TEXT")
     except:
         pass
-    add_to_row(conn, cur, tb,fieldnames=fieldnames)
+    add_to_row(conn, cur, tb, fieldnames=fieldnames)
     add_to_csv(conn, cur, tb)
     printl(conn, cur, tb)
     conn.close()
-#main()
-tb = 'test29'
+
+
+# main()
+tb = "test29"
 add_to_csv(conn, cur, tb)
 """
 Use tkinter to give a gui to the choice of the database you want and
