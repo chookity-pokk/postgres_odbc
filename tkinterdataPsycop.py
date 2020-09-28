@@ -6,7 +6,7 @@ from tkinter import scrolledtext
 import os
 from tkinter import filedialog
 import time
-
+import sys
 """
 Maybe look into adding a drop down menu that lets you pick the database you are 
 looking to use.
@@ -641,38 +641,45 @@ Add a try and except and if it isn't an available option
 to autofill/autocomplete then list the available chillers
 that can be filled.
 
-For some reason this isn't working. 
+For some reason this isn't working. So right now it will run
+whatever is done and won't ever throw up the exception.
+It is also breaking in that if an entry doesn't have 
+an entry for each grid then it will break the connection 
+right there and stop filling out the columns.
+So I am going to get rid of the try and except for now.
 """
 
 
 def autofill():
     record_id = model.get()
     sql = f"SELECT * FROM {tb} where model = '{model.get()}'"
+    print(sql)
+    #try:
     cur.execute(sql)
     records = cur.fetchall()
     for record in records:
         dimensions.insert(0, record[1])
-        frame.insert(0,record[2] )
-        housing.insert(0,record[3] )
-        tank_size.insert(0,record[4] )
-        tank_mat.insert(0,record[5] )
-        condenser.insert(0,record[6] )
-        compressor_hp.insert(0,record[7])
+        frame.insert(0, record[2])
+        housing.insert(0, record[3])
+        tank_size.insert(0, record[4])
+        tank_mat.insert(0, record[5])
+        condenser.insert(0, record[6])
+        compressor_hp.insert(0, record[7])
         process_pump_hp.insert(0, record[8])
-        gpm_at_25psi.insert(0,record[9] )
-        weight.insert(0,record[10] )
-        conn_size.insert(0,record[11] )
-        conn_type.insert(0,record[12] )
-        connection_size.insert(0,record[13] )
-        chiller_pump_hp.insert(0,record[14])
-        heat_exchanger.insert(0,record[15] )
-        controls.insert(0,record[16] )
-        electrical_enclosure.insert(0,record[17] )
-        shipping_weight.insert(0,record[18] )
-        decibals_at_10_feet.insert(0,record[19])
-        refrigerant.insert(0,record[20] )
-        _230_1_FLA.insert(0,record[21] )
-        _230_1_MCA.insert(0,record[22] )
+        gpm_at_25psi.insert(0, record[9])
+        weight.insert(0, record[10])
+        conn_size.insert(0, record[11])
+        conn_type.insert(0, record[12])
+        connection_size.insert(0, record[13])
+        chiller_pump_hp.insert(0, record[14])
+        heat_exchanger.insert(0, record[15])
+        controls.insert(0, record[16])
+        electrical_enclosure.insert(0, record[17])
+        shipping_weight.insert(0, record[18])
+        decibals_at_10_feet.insert(0, record[19])
+        refrigerant.insert(0, record[20])
+        _230_1_FLA.insert(0, record[21])
+        _230_1_MCA.insert(0, record[22])
         _230_1_MCO.insert(0, record[23])
         _230_3_FLA.insert(0, record[24])
         _230_3_MCA.insert(0, record[25])
@@ -680,27 +687,15 @@ def autofill():
         _460_3_FLA.insert(0, record[27])
         _460_3_MCA.insert(0, record[28])
         _460_3_MCO.insert(0, record[29])
-        _20F.insert(0,record[30])
-        _30F.insert(0,record[31])
-        _40F.insert(0,record[32])
-    """
-    except:
-        available_models = [
-            "GD-1.5H",
-            "GD-3H",
-            "GD-5H",
-            "GD-7H",
-            "GD-10H",
-            "GD-13.5H",
-            "GD-5x5H",
-            "GD-7x7H",
-            "GD-20H",
-            "GD-27H",
-        ]
-        words = "Unable to auto complete the entries. Make sure you are spelling the model name properly"
-        model_name = f"Here is a list of available model names to auto complete {available_models}"
-        tkinter.messagebox.showinfo("G&D Chillers", f"{words}")
-    """
+        _20F.insert(0, record[30])
+        _30F.insert(0, record[31])
+        _40F.insert(0, record[32])
+    
+    #except:
+    #    words = "Unable to auto complete the entries. Make sure you are spelling the model name properly"
+    #    tkinter.messagebox.showinfo("G&D Chillers", f"{words}")
+    
+
 
 def delete_text():
     try:
@@ -747,7 +742,6 @@ def delete_text():
 def contact_info():
     contact_email = "Please contact Hank at hank@gdchillers.com"
     tkinter.messagebox.showinfo("G&D Chillers", f"{contact_email}")
-
 
 # ----------------Testing proper entries for DB ------------------------------
 """
@@ -962,14 +956,23 @@ just so that there are multiple ways to do everything
 """
 # [X] Adding a menubar in the window
 menubar = Menu(root)
-files = Menu(menubar, tearoff=1)  # Might need to take this tearoff off.
-# I can see the usecase with it but at the same time others might not.
-menubar.add_cascade(label="Shortcuts", menu=files)
-files.add_command(label="Delete", command=delete_text)
+files = Menu(menubar, tearoff=1)
+"""
+Might need to take this tearoff off.
+I can see the usecase with it but at the same time others might not.
+https://stackoverflow.com/questions/3485397/tkinter-dropdown-menu-with-keyboard-shortcuts
+The above link is for creating keyboard shortcuts for tkinter but unfortunately
+it requires this whole script being a class but I didn't do that
+because the script has molded into something different from
+what it was supposed to be.
+"""
+menubar.add_cascade(label="Shortcuts",underline=0, menu=files)
+files.add_command(label="Delete Inputs", command=delete_text)
 files.add_command(label="Export CSV", command=csv_2_xlsx)
 files.add_command(label="Import CSV", command=file_opener)
 files.add_separator()
 files.add_command(label="Contact Info", command=contact_info)
+
 # -------------Create buttons to submit data------------------------------------
 # Submits data to the database then clears the data.
 # [X]This is completed with the new data
