@@ -532,13 +532,13 @@ def csv_to_postgres():
         csv_button.grid(row=3, column=3, columnspan=2, pady=5, padx=5, ipadx=66)
 
 
-def file_opener():
+def file_opener(event=None):
     # This is connected to csv_to_postgres
     # https://www.tutorialspoint.com/askopenfile-function-in-python-tkinter
     input = filedialog.askopenfile(
         initialdir="/", filetypes=[("CSV", "*.csv"), ("XLSX", "*.xlsx")]
     )
-    tb = "inv_testing3"
+    #tb = "inv_testing3"
     try:
         sql = f"""COPY {tb} FROM STDIN DELIMITER ',' CSV HEADER;"""
         with open(input.name) as f:
@@ -554,11 +554,17 @@ def file_opener():
             "G&D Chillers", f"There was an error uploading {input.name}. {words}"
         )
 
+"""
+This is mostly replaced by csv_2_xlsx
+"""
 
-def save_file():
+def save_file(event=None):
     # This is connected to add_to_csv
     # https://www.tutorialspoint.com/asksaveasfile-function-in-python-tkinter
     input = filedialog.asksaveasfilename(initialdir="/", filetypes=[("CSV", "*.csv")])
+    if input == "":
+        #This makes it so that the if they don't input a name it won't run the rest of the function.
+        return
     try:
         sql1 = """ SELECT * FROM {}""".format(tb)
         rows = cur.execute(sql1)
@@ -582,19 +588,22 @@ def save_file():
             "G&D Chillers", f"Your data has been exported to {input}"
         )
     except:
-        words = " If this continues please email hank@gdchillers.com"
+        words = "If this continues please email hank@gdchillers.com"
         tkinter.messagebox.showinfo(
             "G&D Chillers", f"There was an error downloading {input}.csv" + words
         )
 
 
-def csv_2_xlsx():
+def csv_2_xlsx(event=None):
     input = filedialog.asksaveasfilename(initialdir="/", filetypes=[("CSV", "*.csv")])
+    if input == "":
+        #This makes it so that the if they don't input a name it won't run the rest of the function.
+        return
     try:
         from openpyxl import Workbook
         import csv
 
-        tb = "inv_testing3"
+        #tb = "inv_testing3"
         sql1 = """ SELECT * FROM {}""".format(tb)
         rows = cur.execute(sql1)
         col_headers = [i[0] for i in cur.description]
@@ -650,7 +659,7 @@ So I am going to get rid of the try and except for now.
 """
 
 
-def autofill():
+def autofill(event=None):
     record_id = model.get()
     sql = f"SELECT * FROM {tb} where model = '{model.get()}'"
     print(sql)
@@ -697,7 +706,7 @@ def autofill():
     
 
 
-def delete_text():
+def delete_text(event=None):
     try:
         model.delete(0, END)
         dimensions.delete(0, END)
@@ -733,13 +742,13 @@ def delete_text():
         _30F.delete(0, END)
         _40F.delete(0, END)
     except:
-        words = "Make sure there are entries before trying to delete. If this isn't working contact hank@gdchillers.com"
+        words = "I have never been able to produce this result so if you see this message please contact me at hank@gdchillers.com"
         tkinter.messagebox.showinfo(
             "G&D Chillers", f"Unable to delete entries for some reason. {words}"
         )
 
 
-def contact_info():
+def contact_info(event=None):
     contact_email = "Please contact Hank at hank@gdchillers.com"
     tkinter.messagebox.showinfo("G&D Chillers", f"{contact_email}")
 
@@ -967,11 +976,11 @@ because the script has molded into something different from
 what it was supposed to be.
 """
 menubar.add_cascade(label="Shortcuts",underline=0, menu=files)
-files.add_command(label="Delete Inputs", command=delete_text)
-files.add_command(label="Export CSV", command=csv_2_xlsx)
-files.add_command(label="Import CSV", command=file_opener)
+files.add_command(label="Delete Inputs", accelerator="ctrl+d", command=delete_text)
+files.add_command(label="Export CSV",accelerator="ctrl+s", command=csv_2_xlsx)
+files.add_command(label="Import CSV",accelerator="ctrl+i", command=file_opener)
 files.add_separator()
-files.add_command(label="Contact Info", command=contact_info)
+files.add_command(label="Contact Info",accelerator="ctrl+c", command=contact_info)
 
 # -------------Create buttons to submit data------------------------------------
 # Submits data to the database then clears the data.
@@ -1018,6 +1027,17 @@ csv_button.grid(row=19, column=3, columnspan=2, pady=5, padx=5, ipadx=97.5)
 imp = "Import csv record to database"  # csv_to_postgres
 submit_button = Button(root, text=imp, command=file_opener)
 submit_button.grid(row=20, column=1, columnspan=4, pady=5, padx=5, ipadx=150)
+
+#--------------------Key Bindings link below -------------------------------------
+#https://stackoverflow.com/questions/56041280/accelerators-not-working-in-python-tkinter-how-to-fix
+"""
+Still need to add accelerators to the shortcuts dropdown
+"""
+root.bind_all("<Control-d>",delete_text)
+root.bind_all("<Control-a>",autofill)
+root.bind_all("<Control-s>",csv_2_xlsx)
+root.bind_all("<Control-i>",file_opener)
+root.bind_all("<Control-c>",contact_info)
 
 # This will make it so the window can't be resized. Might be worth doing if I
 # Can't figure out how to make it change dynamically with grid.
