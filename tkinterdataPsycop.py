@@ -6,7 +6,7 @@ from tkinter import scrolledtext
 import os
 from tkinter import filedialog
 import time
-import sys
+
 """
 Maybe look into adding a drop down menu that lets you pick the database you are 
 looking to use.
@@ -29,6 +29,12 @@ and tkinter as apposed to pyodbc. If needed I can convert it to pyodbc without
 a ton of challenges but I honesly don't want to. I have a similar script running
 on pyodbc but the functionality isn't as good because it is more annoying to work with.
 """
+
+"""
+Some of these functions have (event=None) inside and that is because they 
+are bound to a key input and need that so that the function will run on the key input
+"""
+
 
 # Connection modules
 root = Tk()
@@ -538,7 +544,7 @@ def file_opener(event=None):
     input = filedialog.askopenfile(
         initialdir="/", filetypes=[("CSV", "*.csv"), ("XLSX", "*.xlsx")]
     )
-    #tb = "inv_testing3"
+    # tb = "inv_testing3"
     try:
         sql = f"""COPY {tb} FROM STDIN DELIMITER ',' CSV HEADER;"""
         with open(input.name) as f:
@@ -554,16 +560,18 @@ def file_opener(event=None):
             "G&D Chillers", f"There was an error uploading {input.name}. {words}"
         )
 
+
 """
 This is mostly replaced by csv_2_xlsx
 """
+
 
 def save_file(event=None):
     # This is connected to add_to_csv
     # https://www.tutorialspoint.com/asksaveasfile-function-in-python-tkinter
     input = filedialog.asksaveasfilename(initialdir="/", filetypes=[("CSV", "*.csv")])
     if input == "":
-        #This makes it so that the if they don't input a name it won't run the rest of the function.
+        # This makes it so that the if they don't input a name it won't run the rest of the function.
         return
     try:
         sql1 = """ SELECT * FROM {}""".format(tb)
@@ -597,13 +605,13 @@ def save_file(event=None):
 def csv_2_xlsx(event=None):
     input = filedialog.asksaveasfilename(initialdir="/", filetypes=[("CSV", "*.csv")])
     if input == "":
-        #This makes it so that the if they don't input a name it won't run the rest of the function.
+        # This makes it so that the if they don't input a name it won't run the rest of the function.
         return
     try:
         from openpyxl import Workbook
         import csv
 
-        #tb = "inv_testing3"
+        # tb = "inv_testing3"
         sql1 = """ SELECT * FROM {}""".format(tb)
         rows = cur.execute(sql1)
         col_headers = [i[0] for i in cur.description]
@@ -663,7 +671,7 @@ def autofill(event=None):
     record_id = model.get()
     sql = f"SELECT * FROM {tb} where model = '{model.get()}'"
     print(sql)
-    #try:
+    # try:
     cur.execute(sql)
     records = cur.fetchall()
     for record in records:
@@ -699,11 +707,10 @@ def autofill(event=None):
         _20F.insert(0, record[30])
         _30F.insert(0, record[31])
         _40F.insert(0, record[32])
-    
-    #except:
+
+    # except:
     #    words = "Unable to auto complete the entries. Make sure you are spelling the model name properly"
     #    tkinter.messagebox.showinfo("G&D Chillers", f"{words}")
-    
 
 
 def delete_text(event=None):
@@ -751,6 +758,22 @@ def delete_text(event=None):
 def contact_info(event=None):
     contact_email = "Please contact Hank at hank@gdchillers.com"
     tkinter.messagebox.showinfo("G&D Chillers", f"{contact_email}")
+
+
+"""
+Wanted to use a list here but there are issues printing lists to 
+tkinters messagebox.
+"""
+
+def keyboard_shortcuts(event=None):
+    ctrl_d = "Control+d = Delete Text \n"
+    ctrl_a = "Control+a = Autofill \n"
+    ctrl_s = "Control+s = Save to Excel \n"
+    ctrl_i = "Control+i = Import CSV \n"
+    ctrl_c = "Control+c = Contact Info \n"
+    keyboard_shortcut_list = f"A list of keyboard shortcuts: \n {ctrl_d} {ctrl_a} {ctrl_s} {ctrl_i} {ctrl_c}"
+    tkinter.messagebox.showinfo("G&D Chillers", f"{keyboard_shortcut_list}")
+
 
 # ----------------Testing proper entries for DB ------------------------------
 """
@@ -975,12 +998,13 @@ it requires this whole script being a class but I didn't do that
 because the script has molded into something different from
 what it was supposed to be.
 """
-menubar.add_cascade(label="Shortcuts",underline=0, menu=files)
+menubar.add_cascade(label="Shortcuts", underline=0, menu=files)
 files.add_command(label="Delete Inputs", accelerator="ctrl+d", command=delete_text)
-files.add_command(label="Export CSV",accelerator="ctrl+s", command=csv_2_xlsx)
-files.add_command(label="Import CSV",accelerator="ctrl+i", command=file_opener)
+files.add_command(label="Export CSV", accelerator="ctrl+s", command=csv_2_xlsx)
+files.add_command(label="Import CSV", accelerator="ctrl+i", command=file_opener)
 files.add_separator()
-files.add_command(label="Contact Info",accelerator="ctrl+c", command=contact_info)
+files.add_command(label="Contact Info", accelerator="ctrl+c", command=contact_info)
+files.add_command(label="Keyboard Shortcuts", command=keyboard_shortcuts)
 
 # -------------Create buttons to submit data------------------------------------
 # Submits data to the database then clears the data.
@@ -1028,16 +1052,16 @@ imp = "Import csv record to database"  # csv_to_postgres
 submit_button = Button(root, text=imp, command=file_opener)
 submit_button.grid(row=20, column=1, columnspan=4, pady=5, padx=5, ipadx=150)
 
-#--------------------Key Bindings link below -------------------------------------
-#https://stackoverflow.com/questions/56041280/accelerators-not-working-in-python-tkinter-how-to-fix
+# --------------------Key Bindings link below -------------------------------------
+# https://stackoverflow.com/questions/56041280/accelerators-not-working-in-python-tkinter-how-to-fix
 """
 Still need to add accelerators to the shortcuts dropdown
 """
-root.bind_all("<Control-d>",delete_text)
-root.bind_all("<Control-a>",autofill)
-root.bind_all("<Control-s>",csv_2_xlsx)
-root.bind_all("<Control-i>",file_opener)
-root.bind_all("<Control-c>",contact_info)
+root.bind_all("<Control-d>", delete_text)
+root.bind_all("<Control-a>", autofill)
+root.bind_all("<Control-s>", csv_2_xlsx)
+root.bind_all("<Control-i>", file_opener)
+root.bind_all("<Control-c>", contact_info)
 
 # This will make it so the window can't be resized. Might be worth doing if I
 # Can't figure out how to make it change dynamically with grid.
