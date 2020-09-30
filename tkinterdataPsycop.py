@@ -8,6 +8,12 @@ from tkinter import filedialog
 import time
 
 """
+Need to consider making editing its own
+script and just calling it because it is kinda blowing up.
+"""
+
+
+"""
 Maybe look into adding a drop down menu that lets you pick the database you are 
 looking to use.
 """
@@ -148,11 +154,16 @@ def add_to_row():
             tkinter.messagebox.showinfo(
                 "G&D Chillers", f"Unable to add the data to the database. {warning}"
             )
-    else:
-        pass
 
 
-def editdb():
+"""
+There are variable names for each of theseso I 
+can either make this a fair amount shorter or just
+delete those variables and make that shorter.
+"""
+
+            
+def editdb(event=None):
     print("Working")
     try:
         sql = f"""UPDATE {tb} set model='{model_editor.get()}',dimensions='{dimensions_editor.get()}',frame='{frame_editor.get()}',
@@ -199,7 +210,7 @@ def editdb():
         )
 
 
-def editing():
+def editing(event=None):
     print("This is working")
     global editor
     editor = Tk()
@@ -415,9 +426,57 @@ def editing():
     get_30F = _30F_editor.get()
     get_40F = _40F_editor.get()
     # ---------------------------------Save button----------------------------------
-    edit = "Save Editted Record"
+    edit = "Save Editted Record (control+e)"
     edit_button = Button(editor, text=edit, command=editdb)
-    edit_button.grid(row=12, column=2, columnspan=2, pady=5, padx=5, ipadx=130)
+    edit_button.grid(row=12, column=1, columnspan=2, pady=5, padx=5, ipadx=110)
+    # --------------------------------Autofill button ------------------------------
+    fill = "Auto Complete Based on Model Name (control+a)"
+    fill_button = Button(editor, text=fill, command=edit_autofill)
+    fill_button.grid(row=12, column=3, columnspan=2, pady=5, padx=5, ipadx=65)
+    # -------------------------------Key Bindings ----------------------------------
+    editor.bind_all("<Control-a>", edit_autofill)
+    editor.bind_all("<Control-e>", editdb)
+
+def edit_autofill(event=None):
+    record_id = model_editor.get()
+    sql = f"SELECT * FROM {tb} where model = '{model_editor.get()}'"
+    print(sql)
+    cur.execute(sql)
+    records = cur.fetchall()
+    for record in records:
+        dimensions.insert(0, record[1])
+        frame.insert(0, record[2])
+        housing.insert(0, record[3])
+        tank_size.insert(0, record[4])
+        tank_mat.insert(0, record[5])
+        condenser.insert(0, record[6])
+        compressor_hp.insert(0, record[7])
+        process_pump_hp.insert(0, record[8])
+        gpm_at_25psi.insert(0, record[9])
+        weight.insert(0, record[10])
+        conn_size.insert(0, record[11])
+        conn_type.insert(0, record[12])
+        connection_size.insert(0, record[13])
+        chiller_pump_hp.insert(0, record[14])
+        heat_exchanger.insert(0, record[15])
+        controls.insert(0, record[16])
+        electrical_enclosure.insert(0, record[17])
+        shipping_weight.insert(0, record[18])
+        decibals_at_10_feet.insert(0, record[19])
+        refrigerant.insert(0, record[20])
+        _230_1_FLA.insert(0, record[21])
+        _230_1_MCA.insert(0, record[22])
+        _230_1_MCO.insert(0, record[23])
+        _230_3_FLA.insert(0, record[24])
+        _230_3_MCA.insert(0, record[25])
+        _230_3_MCO.insert(0, record[26])
+        _460_3_FLA.insert(0, record[27])
+        _460_3_MCA.insert(0, record[28])
+        _460_3_MCO.insert(0, record[29])
+        _20F.insert(0, record[30])
+        _30F.insert(0, record[31])
+        _40F.insert(0, record[32])
+
 
 
 """
@@ -498,8 +557,6 @@ def delete():
                 "G&D Chillers",
                 f"{d_text} matches a model name from the database. Email hank@gdchillers.com if you have issues.",
             )
-    else:
-        pass
 
 
 def add_to_csv():
@@ -765,13 +822,16 @@ Wanted to use a list here but there are issues printing lists to
 tkinters messagebox.
 """
 
+
 def keyboard_shortcuts(event=None):
     ctrl_d = "Control+d = Delete Text \n"
     ctrl_a = "Control+a = Autofill \n"
     ctrl_s = "Control+s = Save to Excel \n"
     ctrl_i = "Control+i = Import CSV \n"
     ctrl_c = "Control+c = Contact Info \n"
-    keyboard_shortcut_list = f"A list of keyboard shortcuts: \n {ctrl_d} {ctrl_a} {ctrl_s} {ctrl_i} {ctrl_c}"
+    keyboard_shortcut_list = (
+        f"A list of keyboard shortcuts: \n {ctrl_d} {ctrl_a} {ctrl_s} {ctrl_i} {ctrl_c}"
+    )
     tkinter.messagebox.showinfo("G&D Chillers", f"{keyboard_shortcut_list}")
 
 
@@ -1054,14 +1114,12 @@ submit_button.grid(row=20, column=1, columnspan=4, pady=5, padx=5, ipadx=150)
 
 # --------------------Key Bindings link below -------------------------------------
 # https://stackoverflow.com/questions/56041280/accelerators-not-working-in-python-tkinter-how-to-fix
-"""
-Still need to add accelerators to the shortcuts dropdown
-"""
 root.bind_all("<Control-d>", delete_text)
 root.bind_all("<Control-a>", autofill)
 root.bind_all("<Control-s>", csv_2_xlsx)
 root.bind_all("<Control-i>", file_opener)
 root.bind_all("<Control-c>", contact_info)
+root.bind_all("<Control-e>", editing)
 
 # This will make it so the window can't be resized. Might be worth doing if I
 # Can't figure out how to make it change dynamically with grid.
