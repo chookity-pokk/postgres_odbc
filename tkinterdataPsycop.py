@@ -1,11 +1,20 @@
-from tkinter import *
-import psycopg2
-import pandas as pd
-import tkinter.messagebox
-from tkinter import scrolledtext
 import os
-from tkinter import filedialog
 import time
+import tkinter.messagebox
+from tkinter import *
+from tkinter import filedialog, scrolledtext
+
+import pandas as pd
+import psycopg2
+
+"""
+Make a different script that includes the contents
+of a drop down menu to incorperate different items in
+an inventory system. Such as condensers, pump, pipes, 
+ya know, shit like that.
+"""
+
+
 
 """
 Need to consider making editing its own
@@ -149,13 +158,12 @@ def add_to_row():
             _30F.delete(0, END)
             _40F.delete(0, END)
             conn.commit()
-        except:
+        except Except as e:
+            print(f"this is your error for add_to_row: \n {e}")
             warning = "Make sure that the entries are the proper data type ie numbers or words."
             tkinter.messagebox.showinfo(
                 "G&D Chillers", f"Unable to add the data to the database. {warning}"
             )
-
-
 """
 There are variable names for each of theseso I 
 can either make this a fair amount shorter or just
@@ -203,7 +211,8 @@ def editdb(event=None):
         )
         editor.destroy()
         print("Mission accomplished!")
-    except:
+    except Except as e:
+        print(f"this is your error for editdb: \n {e}")
         tkinter.messagebox.showinfo(
             "G&D Chillers",
             "You were unable to edit records. Make sure you have values for all the text boxes.",
@@ -549,7 +558,8 @@ def delete():
             _30F.delete(0, END)
             _40F.delete(0, END)
             conn.commit()
-        except:
+        except Except as e:
+            print(f"this is your error for delete: \n {e}")
             d_text = (
                 "Unable to delete entry from database. Make sure that the model name"
             )
@@ -610,7 +620,8 @@ def file_opener(event=None):
         tkinter.messagebox.showinfo(
             "G&D Chillers", f"Your data has been imported from {input.name} to {tb}."
         )
-    except:
+    except Except as e:
+        print(f"this is your error for file_opener: \n {e}")
         words = """It is likely because it doesn't have the same column names.
         Please check and if you can't resolve the issue email hank@gdchillers.com"""
         tkinter.messagebox.showinfo(
@@ -652,7 +663,8 @@ def save_file(event=None):
         tkinter.messagebox.showinfo(
             "G&D Chillers", f"Your data has been exported to {input}"
         )
-    except:
+    except Except as e:
+        print(f"this is your error for save_file: \n {e}")
         words = "If this continues please email hank@gdchillers.com"
         tkinter.messagebox.showinfo(
             "G&D Chillers", f"There was an error downloading {input}.csv" + words
@@ -665,8 +677,9 @@ def csv_2_xlsx(event=None):
         # This makes it so that the if they don't input a name it won't run the rest of the function.
         return
     try:
-        from openpyxl import Workbook
         import csv
+
+        from openpyxl import Workbook
 
         # tb = "inv_testing3"
         sql1 = """ SELECT * FROM {}""".format(tb)
@@ -703,7 +716,8 @@ def csv_2_xlsx(event=None):
             tkinter.messagebox.showinfo(
                 "G&D Chillers", f"Your Excel file was saved at {xlsx_path}"
             )
-    except:
+    except Except as e:
+        print(f"this is your error for csv_2_xlsx: \n {e}")
         tkinter.messagebox.showinfo(
             "G&D Chillers",
             f"You were unable to save your file {input}, {input}. If this issue continues please email hank@gdchillers.com",
@@ -805,7 +819,8 @@ def delete_text(event=None):
         _20F.delete(0, END)
         _30F.delete(0, END)
         _40F.delete(0, END)
-    except:
+    except Except as e:
+        print(f"this is your error for delete_text: \n {e}")
         words = "I have never been able to produce this result so if you see this message please contact me at hank@gdchillers.com"
         tkinter.messagebox.showinfo(
             "G&D Chillers", f"Unable to delete entries for some reason. {words}"
@@ -1041,11 +1056,27 @@ _30F_label.grid(row=9, column=4)
 _40F_label = Label(root, text="40 F", pady=1)
 _40F_label.grid(row=10, column=4)
 
-# ------------------Making a menu button for deleting entries-------------------
+
+def change_dropdown(*args):
+    print(tkvar.get())
+
+
+# ------------------------Drop down menu---------------------------------------
+
 """
-Want to add contact info and import/exporting csv stuff here
-just so that there are multiple ways to do everything
+I don't know where to put this.
 """
+
+
+tkvar = StringVar(root)
+choices = {"Condensers","Compressors","Chillers","Other","Parts"}
+tkvar.set("Chillers")
+popup_menu = OptionMenu(root, tkvar, *choices)
+popup_menu.grid(row=20, column=0)
+tkvar.trace('w', change_dropdown)#Attaches a function to the button clicked from
+#The dropdown menu. This needs to be changed so that it will change the tkinter window
+#to the different type of database.
+
 # [X] Adding a menubar in the window
 menubar = Menu(root)
 files = Menu(menubar, tearoff=1)
