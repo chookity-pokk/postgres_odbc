@@ -7,6 +7,12 @@ import psycopg2
 # import tkinterdataPsycop
 # from tkinterdataPsycop import *
 
+"""
+May need to put this in its own
+folder labeled 'Parts' just to 
+organize the code
+"""
+
 tb = "condenser_db"
 
 cond = Tk()

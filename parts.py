@@ -7,23 +7,31 @@ import psycopg2
 # import tkinterdataPsycop
 # from tkinterdataPsycop import *
 
+"""
+May need to put this in its own
+folder labeled 'Parts' just to 
+organize the code
+"""
+
+
 tb = "parts_db"
 
 
 def parts_save():
-    #sql = f"""INSERT INTO {tb} {cond_size, cond_hp} VALUES
+    # sql = f"""INSERT INTO {tb} {cond_size, cond_hp} VALUES
     #       ('{cond_size.get()}', '{cond_hp.get()}')"""
-    #print(sql)
-    #cur.execute(sql)
-    #cond_size.delete(0, END)
-    #cond_hp.delete(0, END)
+    # print(sql)
+    # cur.execute(sql)
+    # cond_size.delete(0, END)
+    # cond_hp.delete(0, END)
     print("Figure out what needs to be added here.")
+
 
 parts = Tk()
 parts.title("Parts")
 part.geometry("400x200")
 part.iconbitmap(
-       r"C:\Users\Hank\Documents\Random Python Scripts\postgres-odbc\Icons\IconForTkinter.ico"
+    r"C:\Users\Hank\Documents\Random Python Scripts\postgres-odbc\Icons\IconForTkinter.ico"
 )
 # ------------------------------------------------Entries-----------------------------------------------------
 part_num = Entry(parts, width=30)
