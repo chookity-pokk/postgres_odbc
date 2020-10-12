@@ -6,7 +6,10 @@ from tkinter import filedialog, scrolledtext
 
 import pandas as pd
 import psycopg2
-import compressor, condenser, parts
+
+from compressor import *
+from condenser import *
+from parts import *
 
 """
 Make a different script that includes the contents
@@ -1060,11 +1063,11 @@ _40F_label.grid(row=10, column=4)
 
 
 def change_dropdown(*args):
-    if tkvar.get() == "Compressor":
+    if tkvar.get() == "Compressors":
         comp_db()
-    if tkvar.get() == "Condenser":
+    if tkvar.get() == "Condensers":
         cond_db()
-    if tkver.get() == "Parts":
+    if tkvar.get() == "Parts":
         parts_db()
 
 
