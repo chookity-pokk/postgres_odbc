@@ -6,6 +6,7 @@ from tkinter import filedialog, scrolledtext
 
 import pandas as pd
 import psycopg2
+import compressor, condenser, parts
 
 """
 Make a different script that includes the contents
@@ -13,7 +14,6 @@ of a drop down menu to incorperate different items in
 an inventory system. Such as condensers, pump, pipes, 
 ya know, shit like that.
 """
-
 
 
 """
@@ -164,13 +164,15 @@ def add_to_row():
             tkinter.messagebox.showinfo(
                 "G&D Chillers", f"Unable to add the data to the database. {warning}"
             )
+
+
 """
 There are variable names for each of theseso I 
 can either make this a fair amount shorter or just
 delete those variables and make that shorter.
 """
 
-            
+
 def editdb(event=None):
     print("Working")
     try:
@@ -446,6 +448,7 @@ def editing(event=None):
     editor.bind_all("<Control-a>", edit_autofill)
     editor.bind_all("<Control-e>", editdb)
 
+
 def edit_autofill(event=None):
     record_id = model_editor.get()
     sql = f"SELECT * FROM {tb} where model = '{model_editor.get()}'"
@@ -485,7 +488,6 @@ def edit_autofill(event=None):
         _20F.insert(0, record[30])
         _30F.insert(0, record[31])
         _40F.insert(0, record[32])
-
 
 
 """
@@ -1058,7 +1060,12 @@ _40F_label.grid(row=10, column=4)
 
 
 def change_dropdown(*args):
-    print(tkvar.get())
+    if tkvar.get() == "Compressor":
+        comp_db()
+    if tkvar.get() == "Condenser":
+        cond_db()
+    if tkver.get() == "Parts":
+        parts_db()
 
 
 # ------------------------Drop down menu---------------------------------------
@@ -1069,13 +1076,13 @@ I don't know where to put this.
 
 
 tkvar = StringVar(root)
-choices = {"Condensers","Compressors","Chillers","Other","Parts"}
+choices = {"Condensers", "Compressors", "Chillers", "Other", "Parts"}
 tkvar.set("Chillers")
 popup_menu = OptionMenu(root, tkvar, *choices)
 popup_menu.grid(row=20, column=0)
-tkvar.trace('w', change_dropdown)#Attaches a function to the button clicked from
-#The dropdown menu. This needs to be changed so that it will change the tkinter window
-#to the different type of database.
+tkvar.trace("w", change_dropdown)  # Attaches a function to the button clicked from
+# The dropdown menu. This needs to be changed so that it will change the tkinter window
+# to the different type of database.
 
 # [X] Adding a menubar in the window
 menubar = Menu(root)
@@ -1084,10 +1091,6 @@ files = Menu(menubar, tearoff=1)
 Might need to take this tearoff off.
 I can see the usecase with it but at the same time others might not.
 https://stackoverflow.com/questions/3485397/tkinter-dropdown-menu-with-keyboard-shortcuts
-The above link is for creating keyboard shortcuts for tkinter but unfortunately
-it requires this whole script being a class but I didn't do that
-because the script has molded into something different from
-what it was supposed to be.
 """
 menubar.add_cascade(label="Shortcuts", underline=0, menu=files)
 files.add_command(label="Delete Inputs", accelerator="ctrl+d", command=delete_text)
