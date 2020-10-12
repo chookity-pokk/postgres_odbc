@@ -16,6 +16,12 @@ organize the code
 tb = "condenser_db"
 
 def cond_db():
+    # ---------------------------------Global Vars--------------------------
+    global cond
+    global cond_model
+    global cond_hp
+    global cond_size
+    # --------------------------------Stuff---------------------------------
     cond = Tk()
     cond.title("Condensers")
     cond.geometry("600x200")

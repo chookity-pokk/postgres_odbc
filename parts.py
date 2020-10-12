@@ -16,6 +16,10 @@ organize the code
 
 tb = "parts_db"
 def parts_db():
+    # --------------------------------------- Global Vars -------------------------------------------------------
+    global parts
+    global part_num
+    # ---------------------------------------Other Stuff---------------------------------------------------------
     parts = Tk()
     parts.title("Parts")
     parts.geometry("400x200")

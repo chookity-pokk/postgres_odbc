@@ -16,6 +16,12 @@ organize the code
 
 tb = "compressor_db"
 def comp_db():
+    # -------------------------Global Vars---------------------
+    global comp
+    global comp_size
+    global comp_model
+    global comp_hp
+    #-------------------------------Other Stuff--------------------
     comp = Tk()
     comp.title("Compressors")
     comp.geometry("600x200")

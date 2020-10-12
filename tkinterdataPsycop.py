@@ -1061,14 +1061,23 @@ _30F_label.grid(row=9, column=4)
 _40F_label = Label(root, text="40 F", pady=1)
 _40F_label.grid(row=10, column=4)
 
+"""
+This needs to be fixed because it is only working
+the one time. So any other time other than the first 
+time doesn't work.
+"""
+
 
 def change_dropdown(*args):
     if tkvar.get() == "Compressors":
         comp_db()
+        print("Calling comp_db")
     if tkvar.get() == "Condensers":
         cond_db()
+        print("Calling cond_db")
     if tkvar.get() == "Parts":
         parts_db()
+        print("Calling parts_db")
 
 
 # ------------------------Drop down menu---------------------------------------
