@@ -1,10 +1,20 @@
-import os
+import os, sys
 from tkinter import *
 from tkinter import filedialog, scrolledtext
 import tkinter.messagebox
 
 import pandas as pd
 import psycopg2
+
+#NEED TO FIND A WAY TO KILL THIS SCRIPT
+#AFTER BEING CALLED BECAUSE IT LOOKS LIKE IT
+#IS NOT CLOSING AFTER ACTUALLY KILLING
+#IT SO THAT WOULD EXPLAIN WHY I AM NOT ABLE TO
+#OPEN MORE THAN ONE AT ONCE.
+
+ROOT.QUIT() MIGHT WORK BETTER THAN ROOT.DESTROY()
+OR I MAY HAVE TO DO BOTH SO IT WILL PROPERLY DO WHAT
+I WANT.
 
 """
 May need to put this in its own
@@ -106,14 +116,14 @@ def comp_save():
     )
     if answer == "yes":
         try:
-            sql = f"""INSERT INTO {tb} (comp_size, comp_hp) VALUES 
-                      ('{comp_size.get()}', '{comp_hp.get()}')"""
+            sql = f"""INSERT INTO {tb} (comp_model, comp_size, comp_hp) VALUES 
+                      ('{comp_model.get()}','{comp_size.get()}', {comp_hp.get()})"""
 
             print(sql)
             cur.execute(sql)
             comp_size.delete(0, END)
             comp_hp.delete(0, END)
-            comp.destroy()
+            comp.quit()
         except Exception as e:
             print(f"This is what is happening with this bad boy: \n {e}")
             
