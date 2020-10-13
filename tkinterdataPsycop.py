@@ -1069,30 +1069,25 @@ time doesn't work.
 
 
 def change_dropdown(*args):
-    if tkvar.get() == "Compressors":
+    if db_choices.get() == "Compressors":
         comp_db()
         print("Calling comp_db")
-    if tkvar.get() == "Condensers":
+    if db_choices.get() == "Condensers":
         cond_db()
         print("Calling cond_db")
-    if tkvar.get() == "Parts":
+    if db_choices.get() == "Parts":
         parts_db()
         print("Calling parts_db")
 
 
 # ------------------------Drop down menu---------------------------------------
-
-"""
-I don't know where to put this.
-"""
-
-
-tkvar = StringVar(root)
+#I could probably rename tkvar to make it more explicit
+db_choices = StringVar(root)
 choices = {"Condensers", "Compressors", "Chillers", "Other", "Parts"}
-tkvar.set("Chillers")
-popup_menu = OptionMenu(root, tkvar, *choices)
+db_choices.set("Chillers")
+popup_menu = OptionMenu(root, db_choices, *choices)
 popup_menu.grid(row=20, column=0)
-tkvar.trace("w", change_dropdown)  # Attaches a function to the button clicked from
+db_choices.trace("w", change_dropdown)  # Attaches a function to the button clicked from
 # The dropdown menu. This needs to be changed so that it will change the tkinter window
 # to the different type of database.
 

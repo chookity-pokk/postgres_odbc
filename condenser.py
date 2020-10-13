@@ -13,6 +13,9 @@ folder labeled 'Parts' just to
 organize the code
 """
 
+#[] TODO
+#Connect each of these part scripts to the database.
+
 tb = "condenser_db"
 
 def cond_db():

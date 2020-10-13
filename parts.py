@@ -13,6 +13,8 @@ folder labeled 'Parts' just to
 organize the code
 """
 
+#[] TODO
+#Connect each of these part scripts to the database.
 
 tb = "parts_db"
 def parts_db():

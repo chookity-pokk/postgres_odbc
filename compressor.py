@@ -14,7 +14,11 @@ organize the code
 """
 
 
+#[] TODO
+#Connect each of these part scripts to the database.
+
 tb = "compressor_db"
+
 def comp_db():
     # -------------------------Global Vars---------------------
     global comp
