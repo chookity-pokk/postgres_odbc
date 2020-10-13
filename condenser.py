@@ -1,11 +1,10 @@
+import os
 from tkinter import *
 from tkinter import filedialog, scrolledtext
+import tkinter.messagebox
 
 import pandas as pd
 import psycopg2
-
-Add try and excepts throughout this bad boy.
-
 
 """
 May need to put this in its own
@@ -104,14 +103,14 @@ def cond_save():
     )
     if answer == "yes":
         try:
-            sql = f"""INSERT INTO {tb} {cond_size, cond_hp} VALUES
+            sql = f"""INSERT INTO {tb} (cond_size, cond_hp) VALUES
                    ('{cond_size.get()}', '{cond_hp.get()}')"""
             print(sql)
             cur.execute(sql)
             cond_size.delete(0, END)
             cond_hp.delete(0, END)
             cond.destroy()
-        except Except as e:
+        except Exception as e:
             print(f"This is what is happening with this bad boy: {e}")
             
     else:

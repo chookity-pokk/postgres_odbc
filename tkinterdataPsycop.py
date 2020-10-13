@@ -161,7 +161,7 @@ def add_to_row():
             _30F.delete(0, END)
             _40F.delete(0, END)
             conn.commit()
-        except Except as e:
+        except Exception as e:
             print(f"this is your error for add_to_row: \n {e}")
             warning = "Make sure that the entries are the proper data type ie numbers or words."
             tkinter.messagebox.showinfo(
@@ -216,7 +216,7 @@ def editdb(event=None):
         )
         editor.destroy()
         print("Mission accomplished!")
-    except Except as e:
+    except Exception as e:
         print(f"this is your error for editdb: \n {e}")
         tkinter.messagebox.showinfo(
             "G&D Chillers",
@@ -563,7 +563,7 @@ def delete():
             _30F.delete(0, END)
             _40F.delete(0, END)
             conn.commit()
-        except Except as e:
+        except Exception as e:
             print(f"this is your error for delete: \n {e}")
             d_text = (
                 "Unable to delete entry from database. Make sure that the model name"
@@ -625,7 +625,7 @@ def file_opener(event=None):
         tkinter.messagebox.showinfo(
             "G&D Chillers", f"Your data has been imported from {input.name} to {tb}."
         )
-    except Except as e:
+    except Exception as e:
         print(f"this is your error for file_opener: \n {e}")
         words = """It is likely because it doesn't have the same column names.
         Please check and if you can't resolve the issue email hank@gdchillers.com"""
@@ -668,7 +668,7 @@ def save_file(event=None):
         tkinter.messagebox.showinfo(
             "G&D Chillers", f"Your data has been exported to {input}"
         )
-    except Except as e:
+    except Exception as e:
         print(f"this is your error for save_file: \n {e}")
         words = "If this continues please email hank@gdchillers.com"
         tkinter.messagebox.showinfo(
@@ -721,7 +721,7 @@ def csv_2_xlsx(event=None):
             tkinter.messagebox.showinfo(
                 "G&D Chillers", f"Your Excel file was saved at {xlsx_path}"
             )
-    except Except as e:
+    except Exception as e:
         print(f"this is your error for csv_2_xlsx: \n {e}")
         tkinter.messagebox.showinfo(
             "G&D Chillers",
@@ -824,7 +824,7 @@ def delete_text(event=None):
         _20F.delete(0, END)
         _30F.delete(0, END)
         _40F.delete(0, END)
-    except Except as e:
+    except Exception as e:
         print(f"this is your error for delete_text: \n {e}")
         words = "I have never been able to produce this result so if you see this message please contact me at hank@gdchillers.com"
         tkinter.messagebox.showinfo(

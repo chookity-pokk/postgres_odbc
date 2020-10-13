@@ -1,11 +1,10 @@
+import os
 from tkinter import *
 from tkinter import filedialog, scrolledtext
+import tkinter.messagebox
 
 import pandas as pd
 import psycopg2
-
-Add a bunch of try and excepts here.
-
 
 """
 May need to put this in its own
@@ -79,22 +78,20 @@ def parts_save():
     # cond_size.delete(0, END)
     # cond_hp.delete(0, END)
     print("Figure out what needs to be added here.")
-    """
-    answer = tkinter.messagebox.askquestion(
-        "G & D Chillers", "Are you sure you want to save data to database?"
-    )
-    if answer == "yes":
-        try:
-            sql = f"""INSERT INTO {tb} {cond_size, cond_hp} VALUES
-                   ('{cond_size.get()}', '{cond_hp.get()}')"""
-            print(sql)
-            cur.execute(sql)
-            cond_size.delete(0, END)
-            cond_hp.delete(0, END)
-            parts.destroy()
-        except Except as e:
-            print(f"This is what is happening with this bad boy: {e}")
-            
-    else:
-        pass
-    """
+    #answer = tkinter.messagebox.askquestion(
+    #    "G & D Chillers", "Are you sure you want to save data to database?"
+    #)
+    #if answer == "yes":
+    #    try:
+    #        sql = f"""INSERT INTO {tb} (cond_size, cond_hp) VALUES
+    #               ('{cond_size.get()}', '{cond_hp.get()}')"""
+    #        print(sql)
+    #        cur.execute(sql)
+    #        cond_size.delete(0, END)
+    #        cond_hp.delete(0, END)
+    #        parts.destroy()
+    #    except Exception as e:
+    #        print(f"This is what is happening with this bad boy: {e}")
+    #        
+    #else:
+    #    pass
