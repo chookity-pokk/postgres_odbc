@@ -4,18 +4,13 @@ from tkinter import filedialog, scrolledtext
 import pandas as pd
 import psycopg2
 
-# import tkinterdataPsycop
-# from tkinterdataPsycop import *
+add a bunch of try and excepts in this bad boy.
 
 """
 May need to put this in its own
 folder labeled 'Parts' just to 
 organize the code
 """
-
-
-#[X] TODO
-#Connect each of these part scripts to the database.
 
 tb = "compressor_db"
 
@@ -106,12 +101,23 @@ def comp_autofill():
 
 
 def comp_save():
-    sql = f"""INSERT INTO {tb} {comp_size, comp_hp} VALUES 
-          ('{comp_size.get()}', '{comp_hp.get()}')"""
+    answer = tkinter.messagebox.askquestion(
+        "G & D Chillers", "Are you sure you want to save data to database?"
+    )
+    if answer == "yes":
+        try:
+            sql = f"""INSERT INTO {tb} {comp_size, comp_hp} VALUES 
+                      ('{comp_size.get()}', '{comp_hp.get()}')"""
 
-    print(sql)
-    cur.execute(sql)
-    comp_size.delete(0, END)
-    comp_hp.delete(0, END)
+            print(sql)
+            cur.execute(sql)
+            comp_size.delete(0, END)
+            comp_hp.delete(0, END)
+            comp.destroy()
+        except Except as e:
+            print(f"This is what is happening with this bad boy: {e}")
+            
+    else:
+        pass
 
 

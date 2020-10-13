@@ -4,17 +4,14 @@ from tkinter import filedialog, scrolledtext
 import pandas as pd
 import psycopg2
 
-# import tkinterdataPsycop
-# from tkinterdataPsycop import *
+Add a bunch of try and excepts here.
+
 
 """
 May need to put this in its own
 folder labeled 'Parts' just to 
 organize the code
 """
-
-#[X] TODO
-#Connect each of these part scripts to the database.
 
 tb = "parts_db"
 
@@ -82,24 +79,22 @@ def parts_save():
     # cond_size.delete(0, END)
     # cond_hp.delete(0, END)
     print("Figure out what needs to be added here.")
-
-"""
-parts = Tk()
-parts.title("Parts")
-parts.geometry("400x200")
-parts.iconbitmap(
-)
-# ------------------------------------------------Entries-----------------------------------------------------
-part_num = Entry(parts, width=30)
-part_num.grid(row=0, column=1, padx=5)
-part_num_label = Label(parts, text="Parts Number", pady=1)
-part_num_label.grid(row=0,column=0)
-# -------------------------------------------- Save Button ---------------------------------------------------
-save_text = "Save Part in Database"
-save_button = Button(parts, text=save_text, command=parts_save)
-save_button.grid(row=3, column=1, columnspan=1, pady=5, padx=5, ipadx=80)
-# -------------------------------------------Key Bindings------------------------------------------------------
-parts.bind_all("<Control-s>", parts_save)
-
-parts.mainloop()
-"""
+    """
+    answer = tkinter.messagebox.askquestion(
+        "G & D Chillers", "Are you sure you want to save data to database?"
+    )
+    if answer == "yes":
+        try:
+            sql = f"""INSERT INTO {tb} {cond_size, cond_hp} VALUES
+                   ('{cond_size.get()}', '{cond_hp.get()}')"""
+            print(sql)
+            cur.execute(sql)
+            cond_size.delete(0, END)
+            cond_hp.delete(0, END)
+            parts.destroy()
+        except Except as e:
+            print(f"This is what is happening with this bad boy: {e}")
+            
+    else:
+        pass
+    """
