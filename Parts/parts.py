@@ -51,8 +51,12 @@ def parts_db():
     # ------------------------------------------------Entries-----------------------------------------------------
     part_num = Entry(parts, width=30)
     part_num.grid(row=0, column=1, padx=5)
-    part_num_label = Label(parts, text="Parts Number", pady=1)
+    part_name = Entry(parts, width=30)
+    part_name.grid(row=1, column=1, padx=5)
+    part_num_label = Label(parts, text="Part Number", pady=1)
     part_num_label.grid(row=0,column=0)
+    part_name_label = Label(parts, text="Part Name", pady=1)
+    part_name_label.grid(row=1,column=0)
     # -------------------------------------------- Save Button ---------------------------------------------------
     save_text = "Save Part in Database"
     save_button = Button(parts, text=save_text, command=parts_save)
@@ -72,6 +76,8 @@ def parts_save():
     # cond_size.delete(0, END)
     # cond_hp.delete(0, END)
     print("Figure out what needs to be added here.")
+    parts.quit()
+    parts.destroy()
     #answer = tkinter.messagebox.askquestion(
     #    "G & D Chillers", "Are you sure you want to save data to database?"
     #)
