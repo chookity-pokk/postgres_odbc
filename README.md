@@ -6,4 +6,6 @@ I have currently added a gui version of it that is able to push, pull, edit and 
 
 ## Current issues:
  - The placement of the dropdown menu is pretty garbage.
- - When choosing more than one other item from the dropdown menu it doesn't seem to load but the first one works.
+----
+## Resolved issues and how:
+ - Fixed having more than one item opened from dropdown menu by adding `conn.commit()` which I totally spaced out on adding in.
