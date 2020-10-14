@@ -7,9 +7,8 @@ from tkinter import filedialog, scrolledtext
 import pandas as pd
 import psycopg2
 
-from compressor import *
-from condenser import *
-from parts import *
+#Theoretically this works because of the 'Parts' folder that contains the init file with all the imports for the different parts.
+from Parts import cond_db, parts_db, comp_db
 
 """
 Make a different script that includes the contents
