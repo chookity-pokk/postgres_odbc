@@ -5,7 +5,7 @@ Connecting to a postgres database and making/editing tables etc using the ODBC p
 I have currently added a gui version of it that is able to push, pull, edit and import data into the database. The testing branch has a smoother experience and will probably make that the main branch but have yet to do so. Everything should be working without bugs or glitches.
 
 ## Current issues:
- - The placement of the dropdown menu is pretty garbage.
-----
+- The placement of the dropdown menu is pretty garbage.<br>
+
 ## Resolved issues and how:
  - Fixed having more than one item opened from dropdown menu by adding `conn.commit()` which I totally spaced out on adding in.
