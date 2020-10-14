@@ -6,12 +6,6 @@ import tkinter.messagebox
 import pandas as pd
 import psycopg2
 
-"""
-May need to put this in its own
-folder labeled 'Parts' just to 
-organize the code
-"""
-
 tb = "parts_db"
 
 def connect_to_database(
@@ -87,6 +81,7 @@ def parts_save():
     #               ('{cond_size.get()}', '{cond_hp.get()}')"""
     #        print(sql)
     #        cur.execute(sql)
+    #        conn.commit()
     #        cond_size.delete(0, END)
     #        cond_hp.delete(0, END)
     #        parts.destroy()

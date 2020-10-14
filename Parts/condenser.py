@@ -6,12 +6,6 @@ import tkinter.messagebox
 import pandas as pd
 import psycopg2
 
-"""
-May need to put this in its own
-folder labeled 'Parts' just to 
-organize the code
-"""
-
 tb = "condenser_db"
 
 def connect_to_database(
@@ -86,7 +80,7 @@ def cond_db():
     cond.mainloop()
     
 
-def cond_autofill():
+def cond_autofill(event=None):
     record_id = cond_model.get()
     sql = f"SELECT * FROM {tb} where model = '{cond_model.get()}'"
     print(sql)
@@ -107,11 +101,14 @@ def cond_save():
                    ('{cond_size.get()}', '{cond_hp.get()}')"""
             print(sql)
             cur.execute(sql)
+            conn.commit()
+            cond_model.delete(0, END)
             cond_size.delete(0, END)
             cond_hp.delete(0, END)
+            cond.quit()
             cond.destroy()
         except Exception as e:
-            print(f"This is what is happening with this bad boy: {e}")
+            print(f"This is what is happening with this bad boy: \n {e}")
             
     else:
         pass

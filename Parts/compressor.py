@@ -6,21 +6,11 @@ import tkinter.messagebox
 import pandas as pd
 import psycopg2
 
-#NEED TO FIND A WAY TO KILL THIS SCRIPT
-#AFTER BEING CALLED BECAUSE IT LOOKS LIKE IT
-#IS NOT CLOSING AFTER ACTUALLY KILLING
-#IT SO THAT WOULD EXPLAIN WHY I AM NOT ABLE TO
-#OPEN MORE THAN ONE AT ONCE.
-
 """
 ROOT.QUIT() MIGHT WORK BETTER THAN ROOT.DESTROY()
 OR I MAY HAVE TO DO BOTH SO IT WILL PROPERLY DO WHAT
 I WANT.
-"""
-"""
-May need to put this in its own
-folder labeled 'Parts' just to 
-organize the code
+This seems to be working now by using quit and destroy.
 """
 
 tb = "compressor_db"
@@ -68,18 +58,18 @@ def comp_db():
         r"C:\Users\Hank\Documents\Random Python Scripts\postgres-odbc\Icons\IconForTkinter.ico"
     )
         
-    # --------------------------------------------Entries--------------------------------------------------------
-    comp_size = Entry(comp, width=30)
-    comp_size.grid(row=0, column=1, padx=5)
+    # --------------------------------------------Entries-------------------------------------------------------
     comp_model = Entry(comp, width=30)
-    comp_model.grid(row=1, column=1, padx=5)
+    comp_model.grid(row=0, column=1, padx=5)
+    comp_size = Entry(comp, width=30)
+    comp_size.grid(row=1, column=1, padx=5)
     comp_hp = Entry(comp, width=30)
     comp_hp.grid(row=2, column=1, padx=5)
     # -----------------------------------------Text box labels--------------------------------------------------
-    comp_size_label = Label(comp, text="Compressor Size", pady=1)
-    comp_size_label.grid(row=0, column=0)
     comp_model_label = Label(comp, text="Compressor Model", pady=1)
-    comp_model_label.grid(row=1, column=0)
+    comp_model_label.grid(row=0, column=0)
+    comp_size_label = Label(comp, text="Compressor Size", pady=1)
+    comp_size_label.grid(row=1, column=0)
     comp_hp_label = Label(comp, text="Compressor HP", pady=1)
     comp_hp_label.grid(row=2, column=0)
     # ----------------------------------------Save Button ------------------------------------------------------
@@ -97,16 +87,13 @@ def comp_db():
     comp.mainloop()
     
 
-def comp_autofill():
+def comp_autofill(event=None):
     record_id = comp_model.get()
-    sql = f"SELECT * FROM {tb} where model = '{comp_model.get()}'"
+    sql = f"SELECT * FROM {tb} where comp_model = '{comp_model.get()}'"
     print(sql)
     cur.execute(sql)
     records = cur.fetchall()
     for record in records:
-        """
-        Insert stuff here.
-        """
         comp_size.insert(0, record[1])
         comp_hp.insert(0, record[2])
 
@@ -122,9 +109,12 @@ def comp_save():
 
             print(sql)
             cur.execute(sql)
+            conn.commit()
             comp_size.delete(0, END)
+            comp_model.delete(0,END)
             comp_hp.delete(0, END)
             comp.quit()
+            comp.destroy()
         except Exception as e:
             print(f"This is what is happening with this bad boy: \n {e}")
             
