@@ -4,6 +4,8 @@ Connecting to a postgres database and making/editing tables etc using the ODBC p
 
 I have currently added a gui version of it that is able to push, pull, edit and import data into the database. The testing branch has a smoother experience and will probably make that the main branch but have yet to do so. Everything should be working without bugs or glitches.
 
+All the code that is currently not being used but were just test scripts to see if/how certain function work are in the `Archive` folder and I moved all the different databases inside of the `Parts` folders to make the main script much smaller and cleaner. 
+
 ## Current issues:
 - The placement of the dropdown menu is pretty garbage.<br>
 
