@@ -8,11 +8,41 @@ import pandas as pd
 import psycopg2
 
 """
-There are variable names for each of theseso I 
-can either make this a fair amount shorter or just
-delete those variables and make that shorter.
+NEED TO CHANGE THE SIZING FOR THIS WINDOW BECAUSE
+IT THE TEXT BOXES ARE TOO BIG BUT I CAN SHRINK THE
+SECTIONS FOR THE TEXT.
 """
 
+tb = "inv_testing3"
+
+
+def connect_to_database(
+    databasename="testdb",
+    databaseIP="localhost",
+    databaseport="5432",
+    username="postgres",
+    password="postgres",
+):
+    """Module takes arguments to connect to a PostgreSQL database using PostgreSQL and returns a connection.
+   Args:
+       databasename: Name of the database to connect. Default livingdb
+       databaseIP: IP address of the database server.
+       databaseport: Port of the database server
+       username: DB username
+       password: User password
+   Returns:
+       connection: connection to the database
+       cursor: cursor for database connection
+   """
+    # Create the connection
+    connection = psycopg2.connect(
+        host=databaseIP, user=username, password=password, dbname=databasename
+    )
+    cursor = connection.cursor()
+    return connection, cursor
+
+
+conn, cur = connect_to_database()
 
 def editdb(event=None):
     print("Working")
@@ -61,6 +91,11 @@ def editdb(event=None):
             "You were unable to edit records. Make sure you have values for all the text boxes.",
         )
 
+"""
+NEED TO CHANGE THE SIZING FOR THIS WINDOW BECAUSE
+IT THE TEXT BOXES ARE TOO BIG BUT I CAN SHRINK THE
+SECTIONS FOR THE TEXT.
+"""
 
 def editing(event=None):
     print("This is working")
