@@ -13,22 +13,23 @@ can either make this a fair amount shorter or just
 delete those variables and make that shorter.
 """
 
+
 def editdb(event=None):
     print("Working")
     try:
-        sql = f"""UPDATE {tb} set model='{model_editor.get()}',dimensions='{dimensions_editor.get()}',frame='{frame_editor.get()}',
-                housing='{housing_editor.get()}',tank_size={tank_size_editor.get()},tank_mat='{tank_mat_editor.get()}',
-                compressor_hp='{compressor_hp_editor.get()}',condenser='{condenser_editor.get()}',
-                process_pump_hp={process_pump_hp_editor.get()},gpm_at_25psi={gpm_at_25psi_editor.get()},
-                weight={weight_editor.get()},conn_size='{conn_size_editor.get()}',conn_type='{conn_type_editor.get()}',
-                connection_size='{connection_size_editor.get()}',chiller_pump_hp='{chiller_pump_hp_editor.get()}',
-                heat_exchanger='{heat_exchanger_editor.get()}',controls='{controls_editor.get()}',
-                electrical_enclosure='{electrical_enclosure_editor.get()}',shipping_weight='{shipping_weight_editor.get()}',
-                decibals_at_10_feet={decibals_at_10_feet_editor.get()},refrigerant='{refrigerant_editor.get()}',
-                _230_1_FLA='{_230_1_FLA_editor.get()}',_230_1_MCA='{_230_1_MCA_editor.get()}',_230_1_MCO='{_230_1_MCO_editor.get()}',
-                _230_3_FLA='{_230_3_FLA_editor.get()}',_230_3_MCA='{_230_3_MCA_editor.get()}',_230_3_MCO='{_230_3_MCO_editor.get()}',
-                _460_3_FLA='{_460_3_FLA_editor.get()}',_460_3_MCA='{_460_3_MCA_editor.get()}',_460_3_MCO='{_460_3_MCO_editor.get()}',
-                _20F='{_20F_editor.get()}',_30F='{_30F_editor.get()}',_40F='{_40F_editor.get()}' WHERE model='{model_editor.get()}'
+        sql = f"""UPDATE {tb} set model='{get_model}',dimensions='{get_dimensions}',frame='{get_frame}',
+                housing='{get_housing}',tank_size={get_tank_size},tank_mat='{get_tank_mat}',
+                compressor_hp='{get_compressor_hp}',condenser='{get_condenser}',
+                process_pump_hp={get_process_pump_hp},gpm_at_25psi={get_gpm_at_25psi},
+                weight={get_weight},conn_size='{get_conn_size}',conn_type='{get_conn_type}',
+                connection_size='{get_connection_size}',chiller_pump_hp='{get_chiller_pump_hp}',
+                heat_exchanger='{get_heat_exchanger}',controls='{get_controls}',
+                electrical_enclosure='{get_electrical_enclosure}',shipping_weight='{get_shipping_weight}',
+                decibals_at_10_feet={get_decibals_at_10_feet},refrigerant='{get_refrigerant}',
+                _230_1_FLA='{get_230_1_FLA}',_230_1_MCA='{get_230_1_MCA}',_230_1_MCO='{get_230_1_MCO}',
+                _230_3_FLA='{get_230_3_FLA}',_230_3_MCA='{get_230_3_MCA}',_230_3_MCO='{get_230_3_MCO}',
+                _460_3_FLA='{get_460_3_FLA}',_460_3_MCA='{get_460_3_MCA}',_460_3_MCO='{get_460_3_MCO}',
+                _20F='{get_20F}',_30F='{get_30F}',_40F='{get_40F}' WHERE model='{get_model}'
              """
 
         print(sql)
