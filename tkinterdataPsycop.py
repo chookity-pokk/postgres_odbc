@@ -1,16 +1,13 @@
-from tkinter import *
-import psycopg2
-import pandas as pd
-import tkinter.messagebox
-from tkinter import scrolledtext
 import os
-from tkinter import filedialog
 import time
+import tkinter.messagebox
+from tkinter import *
+from tkinter import filedialog, scrolledtext
 
-"""
-Maybe look into adding a drop down menu that lets you pick the database you are 
-looking to use.
-"""
+import pandas as pd
+import psycopg2
+
+from Parts import comp_db, cond_db, edit_autofill, editdb, editing, parts_db
 
 """
 dyanically changing oid:
@@ -29,6 +26,12 @@ and tkinter as apposed to pyodbc. If needed I can convert it to pyodbc without
 a ton of challenges but I honesly don't want to. I have a similar script running
 on pyodbc but the functionality isn't as good because it is more annoying to work with.
 """
+
+"""
+Some of these functions have (event=None) inside and that is because they 
+are bound to a key input and need that so that the function will run on the key input
+"""
+
 
 # Connection modules
 root = Tk()
@@ -137,281 +140,12 @@ def add_to_row():
             _30F.delete(0, END)
             _40F.delete(0, END)
             conn.commit()
-        except:
+        except Exception as e:
+            print(f"this is your error for add_to_row: \n {e}")
             warning = "Make sure that the entries are the proper data type ie numbers or words."
             tkinter.messagebox.showinfo(
                 "G&D Chillers", f"Unable to add the data to the database. {warning}"
             )
-    else:
-        pass
-
-
-def editdb():
-    print("Working")
-    try:
-        sql = f"""UPDATE {tb} set model='{model_editor.get()}',dimensions='{dimensions_editor.get()}',frame='{frame_editor.get()}',
-                housing='{housing_editor.get()}',tank_size={tank_size_editor.get()},tank_mat='{tank_mat_editor.get()}',
-                compressor_hp='{compressor_hp_editor.get()}',condenser='{condenser_editor.get()}',
-                process_pump_hp={process_pump_hp_editor.get()},gpm_at_25psi={gpm_at_25psi_editor.get()},
-                weight={weight_editor.get()},conn_size='{conn_size_editor.get()}',conn_type='{conn_type_editor.get()}',
-                connection_size='{connection_size_editor.get()}',chiller_pump_hp='{chiller_pump_hp_editor.get()}',
-                heat_exchanger='{heat_exchanger_editor.get()}',controls='{controls_editor.get()}',
-                electrical_enclosure='{electrical_enclosure_editor.get()}',shipping_weight='{shipping_weight_editor.get()}',
-                decibals_at_10_feet={decibals_at_10_feet_editor.get()},refrigerant='{refrigerant_editor.get()}',
-                _230_1_FLA='{_230_1_FLA_editor.get()}',_230_1_MCA='{_230_1_MCA_editor.get()}',_230_1_MCO='{_230_1_MCO_editor.get()}',
-                _230_3_FLA='{_230_3_FLA_editor.get()}',_230_3_MCA='{_230_3_MCA_editor.get()}',_230_3_MCO='{_230_3_MCO_editor.get()}',
-                _460_3_FLA='{_460_3_FLA_editor.get()}',_460_3_MCA='{_460_3_MCA_editor.get()}',_460_3_MCO='{_460_3_MCO_editor.get()}',
-                _20F='{_20F_editor.get()}',_30F='{_30F_editor.get()}',_40F='{_40F_editor.get()}' WHERE model='{model_editor.get()}'
-             """
-
-        print(sql)
-        # Just want to leave this in here to shame it. Using a dictionary for every query is fucking stupid.
-        # cur.execute("""UPDATE guitable SET
-        # first_name = :first,
-        # last_name = :last
-        # WHERE oid = 47
-        # """,
-        # {
-        #'first':f_name_editor.get(),
-        #'last':l_name_editor.get()
-        # }
-        # )
-        # This whole setup in code above here is the same thing as my 'sql' line. One is a good coding practice and the other isn't.
-        #   print("Working again")
-        cur.execute(sql)
-        print("Still working")
-        conn.commit()
-        tkinter.messagebox.showinfo(
-            "G&D Chillers", f"You have edited {model_editor.get()}"
-        )
-        editor.destroy()
-        print("Mission accomplished!")
-    except:
-        tkinter.messagebox.showinfo(
-            "G&D Chillers",
-            "You were unable to edit records. Make sure you have values for all the text boxes.",
-        )
-
-
-def editing():
-    print("This is working")
-    global editor
-    editor = Tk()
-    editor.title("Update Record")
-    editor.geometry("1000x400")
-    editor.iconbitmap(
-        r"C:\Users\Hank\Documents\Random Python Scripts\postgres-odbc\Icons\IconForTkinter.ico"
-    )
-    # ---------------------------------Global Variables-----------------------------------------
-    # These are all global because it gets rid of having to have a function inside of a function.
-    global model_editor
-    global dimensions_editor
-    global frame_editor
-    global housing_editor
-    global tank_size_editor
-    global tank_mat_editor
-    global compressor_hp_editor
-    global condenser_editor
-    global process_pump_hp_editor
-    global gpm_at_25psi_editor
-    global weight_editor
-    global conn_size_editor
-    global conn_type_editor
-    global connection_size_editor
-    global chiller_pump_hp_editor
-    global heat_exchanger_editor
-    global controls_editor
-    global electrical_enclosure_editor
-    global shipping_weight_editor
-    global decibals_at_10_feet_editor
-    global refrigerant_editor
-    global _230_1_FLA_editor
-    global _230_1_MCA_editor
-    global _230_1_MCO_editor
-    global _230_3_FLA_editor
-    global _230_3_MCA_editor
-    global _230_3_MCO_editor
-    global _460_3_FLA_editor
-    global _460_3_MCA_editor
-    global _460_3_MCO_editor
-    global _20F_editor
-    global _30F_editor
-    global _40F_editor
-
-    # --------------------------------Database Entries-----------------------------------------
-    model_editor = Entry(editor, width=30)
-    model_editor.grid(row=0, column=1, padx=5)
-    dimensions_editor = Entry(editor, width=30)
-    dimensions_editor.grid(row=1, column=1, padx=5)
-    frame_editor = Entry(editor, width=30)
-    frame_editor.grid(row=2, column=1, padx=5)
-    housing_editor = Entry(editor, width=30)
-    housing_editor.grid(row=3, column=1, padx=5)
-    tank_size_editor = Entry(editor, width=30)
-    tank_size_editor.grid(row=4, column=1, padx=5)
-    tank_mat_editor = Entry(editor, width=30)
-    tank_mat_editor.grid(row=5, column=1, padx=5)
-    compressor_hp_editor = Entry(editor, width=30)
-    compressor_hp_editor.grid(row=6, column=1, padx=5)
-    condenser_editor = Entry(editor, width=30)
-    condenser_editor.grid(row=7, column=1, padx=5)
-    process_pump_hp_editor = Entry(editor, width=30)
-    process_pump_hp_editor.grid(row=8, column=1, padx=5)
-    gpm_at_25psi_editor = Entry(editor, width=30)
-    gpm_at_25psi_editor.grid(row=9, column=1, padx=5)
-    weight_editor = Entry(editor, width=30)
-    weight_editor.grid(row=10, column=1, padx=5)
-    conn_size_editor = Entry(editor, width=30)
-    conn_size_editor.grid(row=0, column=3, padx=5)
-    conn_type_editor = Entry(editor, width=30)
-    conn_type_editor.grid(row=1, column=3, padx=5)
-    connection_size_editor = Entry(editor, width=30)
-    connection_size_editor.grid(row=2, column=3, padx=5)
-    chiller_pump_hp_editor = Entry(editor, width=30)
-    chiller_pump_hp_editor.grid(row=3, column=3, padx=5)
-    heat_exchanger_editor = Entry(editor, width=30)
-    heat_exchanger_editor.grid(row=4, column=3, padx=5)
-    controls_editor = Entry(editor, width=30)
-    controls_editor.grid(row=5, column=3, padx=5)
-    electrical_enclosure_editor = Entry(editor, width=30)
-    electrical_enclosure_editor.grid(row=6, column=3, padx=5)
-    shipping_weight_editor = Entry(editor, width=30)
-    shipping_weight_editor.grid(row=7, column=3, padx=5)
-    decibals_at_10_feet_editor = Entry(editor, width=30)
-    decibals_at_10_feet_editor.grid(row=8, column=3, padx=5)
-    refrigerant_editor = Entry(editor, width=30)
-    refrigerant_editor.grid(row=9, column=3, padx=5)
-    _230_1_FLA_editor = Entry(editor, width=30)
-    _230_1_FLA_editor.grid(row=10, column=3, padx=5)
-    _230_1_MCA_editor = Entry(editor, width=30)
-    _230_1_MCA_editor.grid(row=0, column=5, padx=5)
-    _230_1_MCO_editor = Entry(editor, width=30)
-    _230_1_MCO_editor.grid(row=1, column=5, padx=5)
-    _230_3_FLA_editor = Entry(editor, width=30)
-    _230_3_FLA_editor.grid(row=2, column=5, padx=5)
-    _230_3_MCA_editor = Entry(editor, width=30)
-    _230_3_MCA_editor.grid(row=3, column=5, padx=5)
-    _230_3_MCO_editor = Entry(editor, width=30)
-    _230_3_MCO_editor.grid(row=4, column=5, padx=5)
-    _460_3_FLA_editor = Entry(editor, width=30)
-    _460_3_FLA_editor.grid(row=5, column=5, padx=5)
-    _460_3_MCA_editor = Entry(editor, width=30)
-    _460_3_MCA_editor.grid(row=6, column=5, padx=5)
-    _460_3_MCO_editor = Entry(editor, width=30)
-    _460_3_MCO_editor.grid(row=7, column=5, padx=5)
-    _20F_editor = Entry(editor, width=30)
-    _20F_editor.grid(row=8, column=5, padx=5)
-    _30F_editor = Entry(editor, width=30)
-    _30F_editor.grid(row=9, column=5, padx=5)
-    _40F_editor = Entry(editor, width=30)
-    _40F_editor.grid(row=10, column=5, padx=5)
-    # ----------------------------Create text box labels-------------------------
-    model_editor_label = Label(editor, text="Model", pady=1)
-    model_editor_label.grid(row=0, column=0)
-    dimensions_editor_label = Label(editor, text="Dimensions", pady=1)
-    dimensions_editor_label.grid(row=1, column=0)
-    frame_editor_label = Label(editor, text="Frame", pady=1)
-    frame_editor_label.grid(row=2, column=0)
-    housing_editor_label = Label(editor, text="Housing", pady=1)
-    housing_editor_label.grid(row=3, column=0)
-    tank_size_editor_label = Label(editor, text="Tank Size", pady=1)
-    tank_size_editor_label.grid(row=4, column=0)
-    tank_mat_editor_label = Label(editor, text="Tank Material", pady=1)
-    tank_mat_editor_label.grid(row=5, column=0)
-    compressor_hp_editor_label = Label(editor, text="Compressor HP", pady=1)
-    compressor_hp_editor_label.grid(row=6, column=0)
-    condenser_editor_label = Label(editor, text="Condenser", pady=1)
-    condenser_editor_label.grid(row=7, column=0)
-    process_pump_hp_editor_label = Label(editor, text="Process Pump HP", pady=1)
-    process_pump_hp_editor_label.grid(row=8, column=0)
-    gpm_at_25psi_editor_label = Label(editor, text="GPM at 25 PSI", pady=1)
-    gpm_at_25psi_editor_label.grid(row=9, column=0)
-    weight_editor_label = Label(editor, text="Weight", pady=1)
-    weight_editor_label.grid(row=10, column=0)
-    conn_size_editor_label = Label(editor, text="ConnSize", pady=1)
-    conn_size_editor_label.grid(row=0, column=2)
-    conn_type_editor_label = Label(editor, text="Connection Type", pady=1)
-    conn_type_editor_label.grid(row=1, column=2)
-    connection_size_editor_label = Label(editor, text="Connection Size", pady=1)
-    connection_size_editor_label.grid(row=2, column=2)
-    chiller_pump_hp_editor_label = Label(editor, text="Chiller Pump HP", pady=1)
-    chiller_pump_hp_editor_label.grid(row=3, column=2)
-    heat_exchanger_editor_label = Label(editor, text="Heat Exchanger", pady=1)
-    heat_exchanger_editor_label.grid(row=4, column=2)
-    controls_editor_label = Label(editor, text="Controls", pady=1)
-    controls_editor_label.grid(row=5, column=2)
-    electrical_enclosure_editor_label = Label(
-        editor, text="Electrical Enclosure", pady=1
-    )
-    electrical_enclosure_editor_label.grid(row=6, column=2)
-    shipping_weight_editor_label = Label(editor, text="Shipping Weight", pady=1)
-    shipping_weight_editor_label.grid(row=7, column=2)
-    decibals_at_10_feet_editor_label = Label(editor, text="Decibals at 10 feet", pady=1)
-    decibals_at_10_feet_editor_label.grid(row=8, column=2)
-    refrigerant_editor_label = Label(editor, text="Refrigerant", pady=1)
-    refrigerant_editor_label.grid(row=9, column=2)
-    _230_1_FLA_editor_label = Label(editor, text="230-1-FLA", pady=1)
-    _230_1_FLA_editor_label.grid(row=10, column=2)
-    _230_1_MCA_editor_label = Label(editor, text="230-1-MCA", pady=1)
-    _230_1_MCA_editor_label.grid(row=0, column=4)
-    _230_1_MCO_editor_label = Label(editor, text="230-1-MCO", pady=1)
-    _230_1_MCO_editor_label.grid(row=1, column=4)
-    _230_3_FLA_editor_label = Label(editor, text="230-3-FLA", pady=1)
-    _230_3_FLA_editor_label.grid(row=2, column=4)
-    _230_3_MCA_editor_label = Label(editor, text="230-3-MCA", pady=1)
-    _230_3_MCA_editor_label.grid(row=3, column=4)
-    _230_3_MCO_editor_label = Label(editor, text="230-3-MCO", pady=1)
-    _230_3_MCO_editor_label.grid(row=4, column=4)
-    _460_3_FLA_editor_label = Label(editor, text="460-3-FLA", pady=1)
-    _460_3_FLA_editor_label.grid(row=5, column=4)
-    _460_3_MCA_editor_label = Label(editor, text="460-3-MCA", pady=1)
-    _460_3_MCA_editor_label.grid(row=6, column=4)
-    _460_3_MCO_editor_label = Label(editor, text="460-3-MCO", pady=1)
-    _460_3_MCO_editor_label.grid(row=7, column=4)
-    _20F_editor_label = Label(editor, text="20 F", pady=1)
-    _20F_editor_label.grid(row=8, column=4)
-    _30F_editor_label = Label(editor, text="30 F", pady=1)
-    _30F_editor_label.grid(row=9, column=4)
-    _40F_editor_label = Label(editor, text="40 F", pady=1)
-    _40F_editor_label.grid(row=10, column=4)
-    # ----------------------------Grabbing the info------------------------------
-    get_model = model_editor.get()
-    get_dimensions = dimensions_editor.get()
-    get_frame = frame_editor.get()
-    get_housing = housing_editor.get()
-    get_tank_size = tank_size_editor.get()
-    get_tank_mat = tank_mat_editor.get()
-    get_compressor_hp = compressor_hp_editor.get()
-    get_condenser = condenser_editor.get()
-    get_process_pump_hp = process_pump_hp_editor.get()
-    get_gpm_at_25psi = gpm_at_25psi_editor.get()
-    get_weight = weight_editor.get()
-    get_conn_size = conn_size_editor.get()
-    get_conn_type = conn_type_editor.get()
-    get_connection_size = connection_size_editor.get()
-    get_chiller_pump_hp = chiller_pump_hp_editor.get()
-    get_heat_exchanger = heat_exchanger_editor.get()
-    get_controls = controls_editor.get()
-    get_electrical_enclosure = electrical_enclosure_editor.get()
-    get_shipping_weight = shipping_weight_editor.get()
-    get_decibals_at_10_feet = decibals_at_10_feet_editor.get()
-    get_refrigerant = refrigerant_editor.get()
-    get_230_1_FLA = _230_1_FLA_editor.get()
-    get_230_1_MCA = _230_1_MCA_editor.get()
-    get_230_1_MCO = _230_1_MCO_editor.get()
-    get_230_3_FLA = _230_3_FLA_editor.get()
-    get_230_3_MCA = _230_3_MCA_editor.get()
-    get_230_3_MCO = _230_3_MCO_editor.get()
-    get_460_3_FLA = _460_3_FLA_editor.get()
-    get_460_3_MCA = _460_3_MCA_editor.get()
-    get_460_3_MCO = _460_3_MCO_editor.get()
-    get_20F = _20F_editor.get()
-    get_30F = _30F_editor.get()
-    get_40F = _40F_editor.get()
-    # ---------------------------------Save button----------------------------------
-    edit = "Save Editted Record"
-    edit_button = Button(editor, text=edit, command=editdb)
-    edit_button.grid(row=12, column=2, columnspan=2, pady=5, padx=5, ipadx=130)
 
 
 """
@@ -484,7 +218,8 @@ def delete():
             _30F.delete(0, END)
             _40F.delete(0, END)
             conn.commit()
-        except:
+        except Exception as e:
+            print(f"this is your error for delete: \n {e}")
             d_text = (
                 "Unable to delete entry from database. Make sure that the model name"
             )
@@ -492,8 +227,6 @@ def delete():
                 "G&D Chillers",
                 f"{d_text} matches a model name from the database. Email hank@gdchillers.com if you have issues.",
             )
-    else:
-        pass
 
 
 def add_to_csv():
@@ -532,13 +265,13 @@ def csv_to_postgres():
         csv_button.grid(row=3, column=3, columnspan=2, pady=5, padx=5, ipadx=66)
 
 
-def file_opener():
+def file_opener(event=None):
     # This is connected to csv_to_postgres
     # https://www.tutorialspoint.com/askopenfile-function-in-python-tkinter
     input = filedialog.askopenfile(
         initialdir="/", filetypes=[("CSV", "*.csv"), ("XLSX", "*.xlsx")]
     )
-    tb = "inv_testing3"
+    # tb = "inv_testing3"
     try:
         sql = f"""COPY {tb} FROM STDIN DELIMITER ',' CSV HEADER;"""
         with open(input.name) as f:
@@ -547,7 +280,8 @@ def file_opener():
         tkinter.messagebox.showinfo(
             "G&D Chillers", f"Your data has been imported from {input.name} to {tb}."
         )
-    except:
+    except Exception as e:
+        print(f"this is your error for file_opener: \n {e}")
         words = """It is likely because it doesn't have the same column names.
         Please check and if you can't resolve the issue email hank@gdchillers.com"""
         tkinter.messagebox.showinfo(
@@ -555,10 +289,18 @@ def file_opener():
         )
 
 
-def save_file():
+"""
+This is mostly replaced by csv_2_xlsx
+"""
+
+
+def save_file(event=None):
     # This is connected to add_to_csv
     # https://www.tutorialspoint.com/asksaveasfile-function-in-python-tkinter
     input = filedialog.asksaveasfilename(initialdir="/", filetypes=[("CSV", "*.csv")])
+    if input == "":
+        # This makes it so that the if they don't input a name it won't run the rest of the function.
+        return
     try:
         sql1 = """ SELECT * FROM {}""".format(tb)
         rows = cur.execute(sql1)
@@ -581,20 +323,25 @@ def save_file():
         tkinter.messagebox.showinfo(
             "G&D Chillers", f"Your data has been exported to {input}"
         )
-    except:
-        words = " If this continues please email hank@gdchillers.com"
+    except Exception as e:
+        print(f"this is your error for save_file: \n {e}")
+        words = "If this continues please email hank@gdchillers.com"
         tkinter.messagebox.showinfo(
             "G&D Chillers", f"There was an error downloading {input}.csv" + words
         )
 
 
-def csv_2_xlsx():
+def csv_2_xlsx(event=None):
     input = filedialog.asksaveasfilename(initialdir="/", filetypes=[("CSV", "*.csv")])
+    if input == "":
+        # This makes it so that the if they don't input a name it won't run the rest of the function.
+        return
     try:
-        from openpyxl import Workbook
         import csv
 
-        tb = "inv_testing3"
+        from openpyxl import Workbook
+
+        # tb = "inv_testing3"
         sql1 = """ SELECT * FROM {}""".format(tb)
         rows = cur.execute(sql1)
         col_headers = [i[0] for i in cur.description]
@@ -629,7 +376,8 @@ def csv_2_xlsx():
             tkinter.messagebox.showinfo(
                 "G&D Chillers", f"Your Excel file was saved at {xlsx_path}"
             )
-    except:
+    except Exception as e:
+        print(f"this is your error for csv_2_xlsx: \n {e}")
         tkinter.messagebox.showinfo(
             "G&D Chillers",
             f"You were unable to save your file {input}, {input}. If this issue continues please email hank@gdchillers.com",
@@ -641,388 +389,62 @@ Add a try and except and if it isn't an available option
 to autofill/autocomplete then list the available chillers
 that can be filled.
 
-For some reason this isn't working. 
+For some reason this isn't working. So right now it will run
+whatever is done and won't ever throw up the exception.
+It is also breaking in that if an entry doesn't have 
+an entry for each grid then it will break the connection 
+right there and stop filling out the columns.
+So I am going to get rid of the try and except for now.
 """
 
 
-def autofill():
-    print(model.get())
-    try:
-        if model.get() == "GD-1.5H" or model.get() == "gd-1.5h":
-            dimensions.insert(0, "30x30x30")
-            frame.insert(0, "Powder Coated Steel")
-            housing.insert(0, "Powder Coated Aluminum")
-            tank_size.insert(0, "12")
-            tank_mat.insert(0, "SST")
-            condenser.insert(0, "Air-Cooled")
-            compressor_hp.insert(0, 1)
-            process_pump_hp.insert(0, 0.5)
-            gpm_at_25psi.insert(0, 20)
-            weight.insert(0, 250)
-            conn_size.insert(0, '1"')
-            conn_type.insert(0, "FPT")
-            connection_size.insert(0, '1" FPT')
-            chiller_pump_hp.insert(0, 0)
-            heat_exchanger.insert(0, "Stainless Steel Brazed Plate")
-            controls.insert(0, "Single Stage Digital")
-            electrical_enclosure.insert(0, "NEMA 3R")
-            shipping_weight.insert(0, "")
-            decibals_at_10_feet.insert(0, 0)
-            refrigerant.insert(0, "")
-            _230_1_FLA.insert(0, 16)
-            _230_1_MCA.insert(0, 19)
-            _230_1_MCO.insert(0, 29)
-            _230_3_FLA.insert(0, 14)
-            _230_3_MCA.insert(0, 16)
-            _230_3_MCO.insert(0, 24)
-            _460_3_FLA.insert(0, 0)
-            _460_3_MCA.insert(0, 0)
-            _460_3_MCO.insert(0, 0)
-            _20F.insert(0, 8460)
-            _30F.insert(0, 10200)
-            _40F.insert(0, 12400)
+def autofill(event=None):
+    record_id = model.get()
+    sql = f"SELECT * FROM {tb} where model = '{model.get()}'"
+    print(sql)
+    # try:
+    cur.execute(sql)
+    records = cur.fetchall()
+    for record in records:
+        dimensions.insert(0, record[1])
+        frame.insert(0, record[2])
+        housing.insert(0, record[3])
+        tank_size.insert(0, record[4])
+        tank_mat.insert(0, record[5])
+        condenser.insert(0, record[6])
+        compressor_hp.insert(0, record[7])
+        process_pump_hp.insert(0, record[8])
+        gpm_at_25psi.insert(0, record[9])
+        weight.insert(0, record[10])
+        conn_size.insert(0, record[11])
+        conn_type.insert(0, record[12])
+        connection_size.insert(0, record[13])
+        chiller_pump_hp.insert(0, record[14])
+        heat_exchanger.insert(0, record[15])
+        controls.insert(0, record[16])
+        electrical_enclosure.insert(0, record[17])
+        shipping_weight.insert(0, record[18])
+        decibals_at_10_feet.insert(0, record[19])
+        refrigerant.insert(0, record[20])
+        _230_1_FLA.insert(0, record[21])
+        _230_1_MCA.insert(0, record[22])
+        _230_1_MCO.insert(0, record[23])
+        _230_3_FLA.insert(0, record[24])
+        _230_3_MCA.insert(0, record[25])
+        _230_3_MCO.insert(0, record[26])
+        _460_3_FLA.insert(0, record[27])
+        _460_3_MCA.insert(0, record[28])
+        _460_3_MCO.insert(0, record[29])
+        _20F.insert(0, record[30])
+        _30F.insert(0, record[31])
+        _40F.insert(0, record[32])
 
-        elif model.get() == "GD-3H" or model.get() == "gd-3h":
-            dimensions.insert(0, "32x48x35")
-            frame.insert(0, "Powder Coated Steel")
-            housing.insert(0, "Powder Coated Aluminum")
-            tank_size.insert(0, 30)
-            tank_mat.insert(0, "SST")
-            compressor_hp.insert(0, 3)
-            condenser.insert(0, "Air-Cooled")
-            process_pump_hp.insert(0, 0.75)
-            gpm_at_25psi.insert(0, 25)
-            weight.insert(0, 810)
-            conn_size.insert(0, '1"')
-            conn_type.insert(0, "FPT")
-            connection_size.insert(0, '1" FPT')
-            chiller_pump_hp.insert(0, 0)
-            heat_exchanger.insert(0, "Stainless Steel Brazed Plate")
-            controls.insert(0, "Single Stage Digital")
-            electrical_enclosure.insert(0, "NEMA 3R")
-            shipping_weight.insert(0, "700 lbs")
-            decibals_at_10_feet.insert(0, 62)
-            refrigerant.insert(0, "R404A")
-            _230_1_FLA.insert(0, 27)
-            _230_1_MCA.insert(0, 30)
-            _230_1_MCO.insert(0, 51)
-            _230_3_FLA.insert(0, 18)
-            _230_3_MCA.insert(0, 21)
-            _230_3_MCO.insert(0, 32)
-            _460_3_FLA.insert(0, 8)
-            _460_3_MCA.insert(0, 10)
-            _460_3_MCO.insert(0, 15)
-            _20F.insert(0, 17213)
-            _30F.insert(0, 21436)
-            _40F.insert(0, 26098)
-
-        elif model.get() == "GD-5H" or model.get() == "gd-5h":
-            dimensions.insert(0, "45x61x49")
-            frame.insert(0, "Powder Coated Steel")
-            housing.insert(0, "Powder Coated Aluminum")
-            tank_size.insert(0, 60)
-            tank_mat.insert(0, "SST")
-            compressor_hp.insert(0, 5)
-            condenser.insert(0, "Air-Cooled")
-            process_pump_hp.insert(0, 1.5)
-            gpm_at_25psi.insert(0, 40)
-            weight.insert(0, 1450)
-            conn_size.insert(0, '1"')
-            conn_type.insert(0, "FPT")
-            connection_size.insert(0, '1" FPT')
-            chiller_pump_hp.insert(0, 0)
-            heat_exchanger.insert(0, "Stainless Steel Brazed Plate")
-            controls.insert(0, "Single Stage Digital")
-            electrical_enclosure.insert(0, "NEMA 3R")
-            shipping_weight.insert(0, "1200 lbs")
-            decibals_at_10_feet.insert(0, 65)
-            refrigerant.insert(0, "R404A")
-            _230_1_FLA.insert(0, 48)
-            _230_1_MCA.insert(0, 56)
-            _230_1_MCO.insert(0, 90)
-            _230_3_FLA.insert(0, 33)
-            _230_3_MCA.insert(0, 38)
-            _230_3_MCO.insert(0, 58)
-            _460_3_FLA.insert(0, 8)
-            _460_3_MCA.insert(0, 10)
-            _460_3_MCO.insert(0, 15)
-            _20F.insert(0, 32717)
-            _30F.insert(0, 40850)
-            _40F.insert(0, 49965)
-
-        elif model.get() == "GD-7H" or model.get() == "gd-7h":
-            dimensions.insert(0, "45x61x49")
-            frame.insert(0, "Powder Coated Steel")
-            housing.insert(0, "Powder Coated Aluminum")
-            tank_size.insert(0, 60)
-            tank_mat.insert(0, "SST")
-            compressor_hp.insert(0, 7)
-            condenser.insert(0, "Air-Cooled")
-            process_pump_hp.insert(0, 1.5)
-            gpm_at_25psi.insert(0, 40)
-            weight.insert(0, 1450)
-            conn_size.insert(0, '1"')
-            conn_type.insert(0, "FPT")
-            connection_size.insert(0, '1" FPT')
-            chiller_pump_hp.insert(0, 0)
-            heat_exchanger.insert(0, "Stainless Steel Brazed Plate")
-            controls.insert(0, "Single Stage Digital")
-            electrical_enclosure.insert(0, "NEMA 3R")
-            shipping_weight.insert(0, "1200 lbs")
-            decibals_at_10_feet.insert(0, 65)
-            refrigerant.insert(0, "R404A")
-            _230_1_FLA.insert(0, 0)
-            _230_1_MCA.insert(0, 0)
-            _230_1_MCO.insert(0, 0)
-            _230_3_FLA.insert(0, 41)
-            _230_3_MCA.insert(0, 47)
-            _230_3_MCO.insert(0, 74)
-            _460_3_FLA.insert(0, 16)
-            _460_3_MCA.insert(0, 19)
-            _460_3_MCO.insert(0, 30)
-            _20F.insert(0, 41395)
-            _30F.insert(0, 51046)
-            _40F.insert(0, 61824)
-
-        elif model.get() == "GD-10H" or model.get() == "gd-10h":
-            dimensions.insert(0, "48x73x57")
-            frame.insert(0, "Powder Coated Steel")
-            housing.insert(0, "Powder Coated Aluminum")
-            tank_size.insert(0, 110)
-            tank_mat.insert(0, "SST")
-            compressor_hp.insert(0, 10)
-            condenser.insert(0, "Air-Cooled")
-            process_pump_hp.insert(0, 2)
-            gpm_at_25psi.insert(0, 65)
-            weight.insert(0, 2320)
-            conn_size.insert(0, '1.5"')
-            conn_type.insert(0, "FPT")
-            connection_size.insert(0, '1.5" FPT')
-            chiller_pump_hp.insert(0, 0)
-            heat_exchanger.insert(0, "Stainless Steel Brazed Plate")
-            controls.insert(0, "Single Stage Digital")
-            electrical_enclosure.insert(0, "NEMA 3R")
-            shipping_weight.insert(0, "1600 lbs")
-            decibals_at_10_feet.insert(0, 67)
-            refrigerant.insert(0, "R404A")
-            _230_1_FLA.insert(0, 0)
-            _230_1_MCA.insert(0, 0)
-            _230_1_MCO.insert(0, 0)
-            _230_3_FLA.insert(0, 49)
-            _230_3_MCA.insert(0, 58)
-            _230_3_MCO.insert(0, 92)
-            _460_3_FLA.insert(0, 25)
-            _460_3_MCA.insert(0, 29)
-            _460_3_MCO.insert(0, 46)
-            _20F.insert(0, 64218)
-            _30F.insert(0, 79372)
-            _40F.insert(0, 96495)
-
-        elif model.get() == "GD-13.5H" or model.get() == "gd-13.5h":
-            dimensions.insert(0, "48x73x57")
-            frame.insert(0, "Powder Coated Steel")
-            housing.insert(0, "Powder Coated Aluminum")
-            tank_size.insert(0, 110)
-            tank_mat.insert(0, "SST")
-            compressor_hp.insert(0, 13.5)
-            condenser.insert(0, "Air-Cooled")
-            process_pump_hp.insert(0, 2)
-            gpm_at_25psi.insert(0, 65)
-            weight.insert(0, 2370)
-            conn_size.insert(0, '1.5"')
-            conn_type.insert(0, "FPT")
-            connection_size.insert(0, '1.5" FPT')
-            chiller_pump_hp.insert(0, 0)
-            heat_exchanger.insert(0, "Stainless Steel Brazed Plate")
-            controls.insert(0, "Single Stage Digital")
-            electrical_enclosure.insert(0, "NEMA 3R")
-            shipping_weight.insert(0, "1650 lbs")
-            decibals_at_10_feet.insert(0, 68)
-            refrigerant.insert(0, "R404A")
-            _230_1_FLA.insert(0, 0)
-            _230_1_MCA.insert(0, 0)
-            _230_1_MCO.insert(0, 0)
-            _230_3_FLA.insert(0, 59)
-            _230_3_MCA.insert(0, 70)
-            _230_3_MCO.insert(0, 115)
-            _460_3_FLA.insert(0, 30)
-            _460_3_MCA.insert(0, 40)
-            _460_3_MCO.insert(0, 60)
-            _20F.insert(0, 77911)
-            _30F.insert(0, 95082)
-            _40F.insert(0, 114193)
-
-        elif model.get() == "GD-5x5H" or model.get() == "gd-5x5h":
-            dimensions.insert(0, "48x84x62")
-            frame.insert(0, "Powder Coated Steel")
-            housing.insert(0, "Powder Coated Aluminum")
-            tank_size.insert(0, 115)
-            tank_mat.insert(0, "SST")
-            compressor_hp.insert(0, "5(x2)")
-            condenser.insert(0, "Air-Cooled")
-            process_pump_hp.insert(0, 1.5)
-            gpm_at_25psi.insert(0, 40)
-            weight.insert(0, 2350)
-            conn_size.insert(0, '1.5"')
-            conn_type.insert(0, "FPT")
-            connection_size.insert(0, '1.5" FPT')
-            chiller_pump_hp.insert(0, 0)
-            heat_exchanger.insert(0, "Stainless Steel Brazed Plate")
-            controls.insert(0, "Multi Stage Digital")
-            electrical_enclosure.insert(0, "NEMA 3R")
-            shipping_weight.insert(0, "1850 lbs")
-            decibals_at_10_feet.insert(0, 65)
-            refrigerant.insert(0, "R404A")
-            _230_1_FLA.insert(0, 85)
-            _230_1_MCA.insert(0, 95)
-            _230_1_MCO.insert(0, 127)
-            _230_3_FLA.insert(0, 57)
-            _230_3_MCA.insert(0, 62)
-            _230_3_MCO.insert(0, 82)
-            _460_3_FLA.insert(0, 26)
-            _460_3_MCA.insert(0, 29)
-            _460_3_MCO.insert(0, 38)
-            _20F.insert(0, 65434)
-            _30F.insert(0, 81700)
-            _40F.insert(0, 99930)
-
-        elif model.get() == "GD-7x7H" or model.get() == "gd-7x7h":
-            dimensions.insert(0, "48x84x62")
-            frame.insert(0, "Powder Coated Steel")
-            housing.insert(0, "Powder Coated Aluminum")
-            tank_size.insert(0, 115)
-            tank_mat.insert(0, "SST")
-            compressor_hp.insert(0, "7(x2)")
-            condenser.insert(0, "Air-Cooled")
-            process_pump_hp.insert(0, 2)
-            gpm_at_25psi.insert(0, 65)
-            weight.insert(0, 2468)
-            conn_size.insert(0, '1.5"')
-            conn_type.insert(0, "FPT")
-            connection_size.insert(0, '1.5" FPT')
-            chiller_pump_hp.insert(0, 1.5)
-            heat_exchanger.insert(0, "Stainless Steel Brazed Plate")
-            controls.insert(0, "Multi Stage Digital")
-            electrical_enclosure.insert(0, "NEMA 3R")
-            shipping_weight.insert(0, "1850 lbs")
-            decibals_at_10_feet.insert(0, 65)
-            refrigerant.insert(0, "R404A")
-            _230_1_FLA.insert(0, 0)
-            _230_1_MCA.insert(0, 0)
-            _230_1_MCO.insert(0, 0)
-            _230_3_FLA.insert(0, 68)
-            _230_3_MCA.insert(0, 75)
-            _230_3_MCO.insert(0, 101)
-            _460_3_FLA.insert(0, 30)
-            _460_3_MCA.insert(0, 33)
-            _460_3_MCO.insert(0, 44)
-            _20F.insert(0, 82790)
-            _30F.insert(0, 102092)
-            _40F.insert(0, 123648)
-
-        elif model.get() == "GD-20H" or model.get() == "gd-20h":
-            dimensions.insert(0, "48x120x81")
-            frame.insert(0, "Powder Coated Steel")
-            housing.insert(0, "Powder Coated Aluminum")
-            tank_size.insert(0, 230)
-            tank_mat.insert(0, "PEX")
-            compressor_hp.insert(0, "10(x2)")
-            condenser.insert(0, "Air-Cooled")
-            process_pump_hp.insert(0, 5)
-            gpm_at_25psi.insert(0, 150)
-            weight.insert(0, 3910)
-            conn_size.insert(0, '2"')
-            conn_type.insert(0, "CTS Flange")
-            connection_size.insert(0, '2" CTS Flange')
-            chiller_pump_hp.insert(0, 1.5)
-            heat_exchanger.insert(0, "Stainless Steel Brazed Plate")
-            controls.insert(0, "Multi Stage Digital")
-            electrical_enclosure.insert(0, "NEMA 3R")
-            shipping_weight.insert(0, "2200 lbs")
-            decibals_at_10_feet.insert(0, 68)
-            refrigerant.insert(0, "R404A")
-            _230_1_FLA.insert(0, 0)
-            _230_1_MCA.insert(0, 0)
-            _230_1_MCO.insert(0, 0)
-            _230_3_FLA.insert(0, 101)
-            _230_3_MCA.insert(0, 110)
-            _230_3_MCO.insert(0, 145)
-            _460_3_FLA.insert(0, 52)
-            _460_3_MCA.insert(0, 55)
-            _460_3_MCO.insert(0, 72)
-            _20F.insert(0, 128436)
-            _30F.insert(0, 158744)
-            _40F.insert(0, 192990)
-
-        elif model.get() == "GD-27H" or model.get() == "gd-27h":
-            dimensions.insert(0, "48x120x81")
-            frame.insert(0, "Powder Coated Steel")
-            housing.insert(0, "Powder Coated Aluminum")
-            tank_size.insert(0, 230)
-            tank_mat.insert(0, "PEX")
-            compressor_hp.insert(0, "13.5(2)")
-            condenser.insert(0, "Air-Cooled")
-            process_pump_hp.insert(0, 5)
-            gpm_at_25psi.insert(0, 150)
-            weight.insert(0, 3960)
-            conn_size.insert(0, '2"')
-            conn_type.insert(0, "CTS Flange")
-            connection_size.insert(0, '2" CTS Flange')
-            chiller_pump_hp.insert(0, 1.5)
-            heat_exchanger.insert(0, "Stainless Steel Brazed Plate")
-            controls.insert(0, "Multi Stage Digital")
-            electrical_enclosure.insert(0, "NEMA 3R")
-            shipping_weight.insert(0, "2250 lbs")
-            decibals_at_10_feet.insert(0, 70)
-            refrigerant.insert(0, "R404A")
-            _230_1_FLA.insert(0, 0)
-            _230_1_MCA.insert(0, 0)
-            _230_1_MCO.insert(0, 0)
-            _230_3_FLA.insert(0, 122)
-            _230_3_MCA.insert(0, 133)
-            _230_3_MCO.insert(0, 178)
-            _460_3_FLA.insert(0, 62)
-            _460_3_MCA.insert(0, 68)
-            _460_3_MCO.insert(0, 91)
-            _20F.insert(0, 155822)
-            _30F.insert(0, 190164)
-            _40F.insert(0, 228386)
-        else:
-            available_models = [
-                "GD-1.5H",
-                "GD-3H",
-                "GD-5H",
-                "GD-7H",
-                "GD-10H",
-                "GD-13.5H",
-                "GD-5x5H",
-                "GD-7x7H",
-                "GD-20H",
-                "GD-27H",
-            ]
-            words = "Unable to auto complete the entries. Make sure you are spelling the model name properly"
-            model_name = f"Here is a list of available model names to auto complete {available_models}"
-            tkinter.messagebox.showinfo("G&D Chillers", f"{words}. {model_name}")
-
-    except:
-        available_models = [
-            "GD-1.5H",
-            "GD-3H",
-            "GD-5H",
-            "GD-7H",
-            "GD-10H",
-            "GD-13.5H",
-            "GD-5x5H",
-            "GD-7x7H",
-            "GD-20H",
-            "GD-27H",
-        ]
-        words = "Unable to auto complete the entries. Make sure you are spelling the model name properly"
-        model_name = f"Here is a list of available model names to auto complete {available_models}"
-        tkinter.messagebox.showinfo("G&D Chillers", f"{words}")
+    # except:
+    #    words = "Unable to auto complete the entries. Make sure you are spelling the model name properly"
+    #    tkinter.messagebox.showinfo("G&D Chillers", f"{words}")
 
 
-def delete_text():
+def delete_text(event=None):
     try:
         model.delete(0, END)
         dimensions.delete(0, END)
@@ -1057,11 +479,35 @@ def delete_text():
         _20F.delete(0, END)
         _30F.delete(0, END)
         _40F.delete(0, END)
-    except:
-        words = "Make sure there are entries before trying to delete. If this isn't working contact hank@gdchillers.com"
+    except Exception as e:
+        print(f"this is your error for delete_text: \n {e}")
+        words = "I have never been able to produce this result so if you see this message please contact me at hank@gdchillers.com"
         tkinter.messagebox.showinfo(
             "G&D Chillers", f"Unable to delete entries for some reason. {words}"
         )
+
+
+def contact_info(event=None):
+    contact_email = "Please contact Hank at hank@gdchillers.com"
+    tkinter.messagebox.showinfo("G&D Chillers", f"{contact_email}")
+
+
+"""
+Wanted to use a list here but there are issues printing lists to 
+tkinters messagebox.
+"""
+
+
+def keyboard_shortcuts(event=None):
+    ctrl_d = "Control+d = Delete Text \n"
+    ctrl_a = "Control+a = Autofill \n"
+    ctrl_s = "Control+s = Save to Excel \n"
+    ctrl_i = "Control+i = Import CSV \n"
+    ctrl_c = "Control+c = Contact Info \n"
+    keyboard_shortcut_list = (
+        f"A list of keyboard shortcuts: \n {ctrl_d} {ctrl_a} {ctrl_s} {ctrl_i} {ctrl_c}"
+    )
+    tkinter.messagebox.showinfo("G&D Chillers", f"{keyboard_shortcut_list}")
 
 
 # ----------------Testing proper entries for DB ------------------------------
@@ -1270,18 +716,42 @@ _30F_label.grid(row=9, column=4)
 _40F_label = Label(root, text="40 F", pady=1)
 _40F_label.grid(row=10, column=4)
 
-# ------------------Making a menu button for deleting entries-------------------
-"""
-Want to add contact info and import/exporting csv stuff here
-just so that there are multiple ways to do everything
-"""
 
+def change_dropdown(*args):
+    if db_choices.get() == "Compressors":
+        comp_db()
+        print("Calling comp_db")
+    if db_choices.get() == "Condensers":
+        cond_db()
+        print("Calling cond_db")
+    if db_choices.get() == "Parts":
+        parts_db()
+        print("Calling parts_db")
+
+
+# ------------------------Drop down menu---------------------------------------
+db_choices = StringVar(root)
+choices = {"Condensers", "Compressors", "Chillers", "Other", "Parts"}
+db_choices.set("Chillers")
+popup_menu = OptionMenu(root, db_choices, *choices)
+popup_menu.grid(row=20, column=0)
+db_choices.trace("w", change_dropdown)
+
+# [X] Adding a menubar in the window
 menubar = Menu(root)
-file = Menu(menubar, tearoff=0)
-menubar.add_cascade(label="Shortcuts", menu=file)
-file.add_command(label="Delete", command=delete_text)
-file.add_command(label="Export CSV", command=csv_2_xlsx)
-file.add_command(label="Import CSV", command=file_opener)
+files = Menu(menubar, tearoff=1)
+"""
+Might need to take this tearoff off.
+I can see the usecase with it but at the same time others might not.
+https://stackoverflow.com/questions/3485397/tkinter-dropdown-menu-with-keyboard-shortcuts
+"""
+menubar.add_cascade(label="Shortcuts", underline=0, menu=files)
+files.add_command(label="Delete Inputs", accelerator="ctrl+d", command=delete_text)
+files.add_command(label="Export CSV", accelerator="ctrl+s", command=csv_2_xlsx)
+files.add_command(label="Import CSV", accelerator="ctrl+i", command=file_opener)
+files.add_separator()
+files.add_command(label="Contact Info", accelerator="ctrl+c", command=contact_info)
+files.add_command(label="Keyboard Shortcuts", command=keyboard_shortcuts)
 
 # -------------Create buttons to submit data------------------------------------
 # Submits data to the database then clears the data.
@@ -1328,6 +798,15 @@ csv_button.grid(row=19, column=3, columnspan=2, pady=5, padx=5, ipadx=97.5)
 imp = "Import csv record to database"  # csv_to_postgres
 submit_button = Button(root, text=imp, command=file_opener)
 submit_button.grid(row=20, column=1, columnspan=4, pady=5, padx=5, ipadx=150)
+
+# --------------------Key Bindings link below -------------------------------------
+# https://stackoverflow.com/questions/56041280/accelerators-not-working-in-python-tkinter-how-to-fix
+root.bind_all("<Control-d>", delete_text)
+root.bind_all("<Control-a>", autofill)
+root.bind_all("<Control-s>", csv_2_xlsx)
+root.bind_all("<Control-i>", file_opener)
+root.bind_all("<Control-c>", contact_info)
+root.bind_all("<Control-e>", editing)
 
 # This will make it so the window can't be resized. Might be worth doing if I
 # Can't figure out how to make it change dynamically with grid.
