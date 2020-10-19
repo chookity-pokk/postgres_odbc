@@ -42,38 +42,16 @@ root.iconbitmap(
 root.geometry("1000x400")
 tb = "inv_testing3"
 
+con_path = r"C:\Users\Hank\Documents\Random Python Scripts\postgres-odbc\Archive"
+sys.path.insert(1, con_path)
 
-def connect_to_database(
-    databasename="testdb",
-    databaseIP="localhost",
-    databaseport="5432",
-    username="postgres",
-    password="postgres",
-):
-    """Module takes arguments to connect to a PostgreSQL database using PostgreSQL and returns a connection.
-   Args:
-       databasename: Name of the database to connect. Default livingdb
-       databaseIP: IP address of the database server.
-       databaseport: Port of the database server
-       username: DB username
-       password: User password
-   Returns:
-       connection: connection to the database
-       cursor: cursor for database connection
-   """
-    # Create the connection
-    connection = psycopg2.connect(
-        host=databaseIP, user=username, password=password, dbname=databasename
-    )
-    cursor = connection.cursor()
-    return connection, cursor
-
+from postgres_db import connect_to_database
 
 conn, cur = connect_to_database()
 
 
 def disconnect_from_db(dbconnection, cursor):
-    # closes connecttion to database
+    # closes connecttion to database, I am almost certain this is useless
     cursor.close()
     dbconnection.close()
 
@@ -243,7 +221,7 @@ def add_to_csv():
         r"C:\Users\Hank\Documents\Random Python Scripts\postgres-odbc\Icons\IconForTkinter.ico"
     )
     csv_lab = "Click here to export CSV file"
-    csv_button = Button(csv_exp, text=csv_lab, command=save_file)
+    csv_button = Button(csv_exp, text=csv_lab, command=csv_2_xlsx)
     csv_button.grid(row=3, column=3, columnspan=2, pady=5, padx=5, ipadx=66)
 
 
@@ -290,7 +268,7 @@ def file_opener(event=None):
 
 
 """
-This is mostly replaced by csv_2_xlsx
+This is mostly replaced by csv_2_xlsx, so feel free to delete this if you want.
 """
 
 
@@ -309,16 +287,6 @@ def save_file(event=None):
         df = pd.DataFrame(rows, columns=col_headers)
         print(df)
         df.sort_values("tank_size", inplace=True)
-        """
-        The two df.to_csv seem to either be working or not depending on how it is
-        feeling because it was working then I did something then it wasn't working
-        so I reverted back to the first df.to_csv (which I am not using because it is
-        requiring that '.csv' is added into it). After using that a few times though I
-        went and tried the second df.to_csv and it was magically working again.
-        They are both currently working but who knows how long that'll last.
-        Fucking tkinter doing me dirty.
-        """
-        # df.to_csv(input, index=False)
         df.to_csv(input + ".csv", index=False)
         tkinter.messagebox.showinfo(
             "G&D Chillers", f"Your data has been exported to {input}"
@@ -497,7 +465,6 @@ Wanted to use a list here but there are issues printing lists to
 tkinters messagebox.
 """
 
-
 def keyboard_shortcuts(event=None):
     ctrl_d = "Control+d = Delete Text \n"
     ctrl_a = "Control+a = Autofill \n"
@@ -660,7 +627,6 @@ connection_size_label.grid(row=2, column=2)
 
 chiller_pump_hp_label = Label(root, text="Chiller Pump HP", pady=1)
 chiller_pump_hp_label.grid(row=3, column=2)
-# From here I want to split the window. Either that or at 16 becuase it'll split it in half, or maybe thirds.
 
 heat_exchanger_label = Label(root, text="Heat Exchanger", pady=1)
 heat_exchanger_label.grid(row=4, column=2)

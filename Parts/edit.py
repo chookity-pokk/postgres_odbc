@@ -52,7 +52,9 @@ def editdb(event=None):
         #'last':l_name_editor.get()
         # }
         # )
-        # This whole setup in code above here is the same thing as my 'sql' line. One is a good coding practice and the other isn't.
+        # This whole setup in code above here is the same thing as my 'sql' line.(Actually it now is drastically
+        # different becuase the sql line above has like 33 entries and this one
+        # only has two entrier) One is a good coding practice and the other isn't.
         #   print("Working again")
         cur.execute(sql)
         print("Still working")
@@ -68,12 +70,6 @@ def editdb(event=None):
             "G&D Chillers",
             "You were unable to edit records. Make sure you have values for all the text boxes.",
         )
-
-"""
-NEED TO CHANGE THE SIZING FOR THIS WINDOW BECAUSE
-IT THE TEXT BOXES ARE TOO BIG BUT I CAN SHRINK THE
-SECTIONS FOR THE TEXT.
-"""
 
 def editing(event=None):
     print("This is working")

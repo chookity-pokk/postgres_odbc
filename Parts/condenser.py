@@ -6,12 +6,12 @@ import tkinter.messagebox
 import pandas as pd
 import psycopg2
 
-tb = "condenser_db"
-
 con_path = r"C:\Users\Hank\Documents\Random Python Scripts\postgres-odbc\Archive"
 sys.path.insert(1, con_path)
 
 from postgres_db import connect_to_database
+
+tb = "condenser_db"
 
 conn, cur = connect_to_database()
 
