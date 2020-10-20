@@ -6,8 +6,13 @@ I have currently added a gui version of it that is able to push, pull, edit and 
 
 All the code that is currently not being used but were just test scripts to see if/how certain function work are in the `Archive` folder and I moved all the different databases inside of the `Parts` folders to make the main script much smaller and cleaner. 
 
+## Work in progress:
+- Working on a way to view the data with `ttk.Treeview`. I need to figure out the scrollbar and how to change the box sizes within that becuase as of right now you can't really scroll over and view data past the first set because I haven't been able to get the scrollbar to work so once that is done and I figure out the box size and then it should be good to go. Also need to rename these to something like `view_db.py`
+
 ## Current issues:
-- The placement of the dropdown menu is pretty garbage.<br>
+- The placement of the dropdown menu is pretty garbage.
+- Scrollbar not working for `view2.py`
+- Box sizes too large on `view2.py`
 
 ## Resolved issues and how:
  - Fixed having more than one item opened from dropdown menu by adding `conn.commit()` which I totally spaced out on adding in and adding in `root.quit()` and `root.destroy()` where `root` is changed to the name of the tkinter window.
