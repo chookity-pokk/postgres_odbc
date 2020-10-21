@@ -31,12 +31,14 @@ print(f"Total Data Entries: {total}")
 
 win = Tk()
 frm = Frame(win)
-frm.pack(side=tk.LEFT, padx=20)
+#frm.pack(side=tk.LEFT, padx=20)
+frm.grid(row=2,column=3,padx=20)
 
 tv = ttk.Treeview(
     frm, columns=(1, 2, 3, 4, 5, 6, 7, 8, 9, 10), show="headings", selectmode="browse"
 )
-tv.pack()
+#tv.pack()
+tv.grid(row=4, column=1, padx=5)
 
 names = [
     "1st", "2nd", "3rd",
@@ -73,7 +75,8 @@ Here is info on what to do:
 https://stackoverflow.com/questions/41877848/python-treeview-scrollbar
 """
 
-# scrlbr = ttk.Scrollbar(win, orient="horizontal", command=tv.xview)
+scrlbr = ttk.Scrollbar(win, orient="horizontal", command=tv.xview)
+scrlbr.grid(row=10,column=3,padx=10, columnspan=5)
 # scrlbr.place(x=205, y=20, height=10)
 # scrlbr.pack(side='bottom', fill='x')
 # tv.configure(xscrollcommand=scrlbr.set)
