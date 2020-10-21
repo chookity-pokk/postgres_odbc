@@ -40,6 +40,9 @@ tv = ttk.Treeview(
 #tv.pack()
 tv.grid(row=4, column=1, padx=5)
 
+# https://docs.python.org/3/library/tkinter.ttk.html#scrollable-widget-options
+# https://docs.python.org/3/library/tkinter.ttk.html#column-identifiers
+# https://docs.python.org/3/library/tkinter.ttk.html
 names = [
     "1st", "2nd", "3rd",
     "4th", "5th", "6th",
@@ -66,14 +69,6 @@ for i in range(10):
 # tv.heading(8,text="aksdf")
 # tv.heading(9,text="s;df")
 # tv.heading(10,text="ljd")
-
-
-"""
-This place() needs to be worked on. As of right now it 
-isn't ideal and kind of sucks big time.
-Here is info on what to do:
-https://stackoverflow.com/questions/41877848/python-treeview-scrollbar
-"""
 
 scrlbr = ttk.Scrollbar(win, orient="horizontal", command=tv.xview)
 scrlbr.grid(row=10,column=3,padx=10, columnspan=5)
