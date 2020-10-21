@@ -33,19 +33,37 @@ win = Tk()
 frm = Frame(win)
 frm.pack(side=tk.LEFT, padx=20)
 
-tv = ttk.Treeview(frm, columns=(1,2,3,4,5,6,7,8,9,10), show="headings", selectmode="browse")
+tv = ttk.Treeview(
+    frm, columns=(1, 2, 3, 4, 5, 6, 7, 8, 9, 10), show="headings", selectmode="browse"
+)
 tv.pack()
 
-tv.heading(1,text="Name")
-tv.heading(2,text="Age")
-tv.heading(3,text="Email")
-tv.heading(4,text="Naem")
-tv.heading(5,text="sfld")
-tv.heading(6,text="120")
-tv.heading(7,text="jh")
-tv.heading(8,text="aksdf")
-tv.heading(9,text="s;df")
-tv.heading(10,text="ljd")
+names = [
+    "1st", "2nd", "3rd",
+    "4th", "5th", "6th",
+    "7th", "8th", "9th",
+    "10th", "a", "b", "c",
+    "d", "e", "f", "g",
+    "s", "w", "2", "a",
+    "4", "a", "b", "c",
+    "d", "e", "f", "g",
+    "s", "w", "2", "4",
+]
+
+for i in range(10):
+    tv.heading(i + 1, text=names[i])
+# Actually using my head for once and just making the for loop above and using that instead of defining each thing individually.
+
+# tv.heading(1,text="Name")
+# tv.heading(2,text="Age")
+# tv.heading(3,text="Email")
+# tv.heading(4,text="Naem")
+# tv.heading(5,text="sfld")
+# tv.heading(6,text="120")
+# tv.heading(7,text="jh")
+# tv.heading(8,text="aksdf")
+# tv.heading(9,text="s;df")
+# tv.heading(10,text="ljd")
 
 
 """
@@ -55,16 +73,16 @@ Here is info on what to do:
 https://stackoverflow.com/questions/41877848/python-treeview-scrollbar
 """
 
-#scrlbr = ttk.Scrollbar(win, orient="horizontal", command=tv.xview)
-#scrlbr.place(x=205, y=20, height=10)
-#scrlbr.pack(side='bottom', fill='x')
-#tv.configure(xscrollcommand=scrlbr.set)
+# scrlbr = ttk.Scrollbar(win, orient="horizontal", command=tv.xview)
+# scrlbr.place(x=205, y=20, height=10)
+# scrlbr.pack(side='bottom', fill='x')
+# tv.configure(xscrollcommand=scrlbr.set)
 
 for i in rows:
-    tv.insert('','end', values=i)
+    tv.insert("", "end", values=i)
 
 win.title("Customer Data")
 win.geometry("300x300")
 
-#win.resizable(False, False)
+# win.resizable(False, False)
 win.mainloop()
