@@ -32,7 +32,7 @@ print(f"Total Data Entries: {total}")
 win = Tk()
 frm = Frame(win)
 # frm.pack(side=tk.LEFT, padx=20)
-frm.grid(row=2, column=3, padx=20)
+frm.grid(row=5, column=0)
 
 # ---------------------Trying to style the Treeview--------------------
 style = ttk.Style()
@@ -50,42 +50,13 @@ style.layout(
 tv = ttk.Treeview(
     frm,
     columns=(
-        1,
-        2,
-        3,
-        4,
-        5,
-        6,
-        7,
-        8,
-        9,
-        10,
-        11,
-        12,
-        13,
-        14,
-        15,
-        16,
-        17,
-        18,
-        19,
-        20,
-        21,
-        22,
-        23,
-        24,
-        25,
-        26,
-        27,
-        28,
-        29,
-        30,
-        31,
-        32,
-        33,
+        1,2,3,4,5,6,7,8,9,10,11,
+        12,13,14,15,16,17,18,19,20,21,22,
+        23,24,25,26,27,28,29,30,31,32,33,
     ),
+    displaycolumns="#all",
     show="headings",
-    selectmode="browse",
+    selectmode="extended",
     style="mystyle.Treeview",
 )
 # tv.pack()
