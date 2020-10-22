@@ -31,32 +31,109 @@ print(f"Total Data Entries: {total}")
 
 win = Tk()
 frm = Frame(win)
-#frm.pack(side=tk.LEFT, padx=20)
-frm.grid(row=2,column=3,padx=20)
+# frm.pack(side=tk.LEFT, padx=20)
+frm.grid(row=2, column=3, padx=20)
+
+# ---------------------Trying to style the Treeview--------------------
+style = ttk.Style()
+style.configure(
+    "mystyle.Treeview", highlightthickness=0.5, bd=0, font=("Calibri", 11)
+)  # Modify the font of the body
+style.configure(
+    "mystyle.Treeview.Heading", font=("Calibri", 13, "bold")
+)  # Modify the heading font
+style.layout(
+    "mystyle.Treeview", [("mystyle.Treeview.treearea", {"sticky": "nswe"})]
+)  # Remove borders
+# ---------------------------------------------------------------------
 
 tv = ttk.Treeview(
-    frm, columns=(1, 2, 3, 4, 5, 6, 7, 8, 9, 10), show="headings", selectmode="browse"
+    frm,
+    columns=(
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31,
+        32,
+        33,
+    ),
+    show="headings",
+    selectmode="browse",
+    style="mystyle.Treeview",
 )
-#tv.pack()
+# tv.pack()
 tv.grid(row=4, column=1, padx=5)
 
 # https://docs.python.org/3/library/tkinter.ttk.html#scrollable-widget-options
 # https://docs.python.org/3/library/tkinter.ttk.html#column-identifiers
 # https://docs.python.org/3/library/tkinter.ttk.html
+# https://docs.python.org/3/library/tkinter.ttk.html#treeview
 names = [
-    "1st", "2nd", "3rd",
-    "4th", "5th", "6th",
-    "7th", "8th", "9th",
-    "10th", "a", "b", "c",
-    "d", "e", "f", "g",
-    "s", "w", "2", "a",
-    "4", "a", "b", "c",
-    "d", "e", "f", "g",
-    "s", "w", "2", "4",
+    "1st",
+    "2nd",
+    "3rd",
+    "4th",
+    "5th",
+    "6th",
+    "7th",
+    "8th",
+    "9th",
+    "10th",
+    "a",
+    "b",
+    "c",
+    "d",
+    "e",
+    "f",
+    "g",
+    "s",
+    "w",
+    "2",
+    "a",
+    "4",
+    "a",
+    "b",
+    "c",
+    "d",
+    "e",
+    "f",
+    "g",
+    "s",
+    "w",
+    "2",
+    "4",
 ]
 
-for i in range(10):
+for i in range(33):
     tv.heading(i + 1, text=names[i])
+    tv.column(i + 1, minwidth=0, width=150, stretch=NO)
 # Actually using my head for once and just making the for loop above and using that instead of defining each thing individually.
 
 # tv.heading(1,text="Name")
@@ -71,7 +148,7 @@ for i in range(10):
 # tv.heading(10,text="ljd")
 
 scrlbr = ttk.Scrollbar(win, orient="horizontal", command=tv.xview)
-scrlbr.grid(row=10,column=3,padx=10, columnspan=5)
+scrlbr.grid(row=10, column=3, columnspan=5)
 # scrlbr.place(x=205, y=20, height=10)
 # scrlbr.pack(side='bottom', fill='x')
 # tv.configure(xscrollcommand=scrlbr.set)
@@ -80,7 +157,7 @@ for i in rows:
     tv.insert("", "end", values=i)
 
 win.title("Customer Data")
-win.geometry("300x300")
+win.geometry("700x300")
 
 # win.resizable(False, False)
 win.mainloop()
