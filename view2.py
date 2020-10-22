@@ -67,44 +67,14 @@ tv.grid(row=4, column=1, padx=5)
 # https://docs.python.org/3/library/tkinter.ttk.html
 # https://docs.python.org/3/library/tkinter.ttk.html#treeview
 names = [
-    "1st",
-    "2nd",
-    "3rd",
-    "4th",
-    "5th",
-    "6th",
-    "7th",
-    "8th",
-    "9th",
-    "10th",
-    "a",
-    "b",
-    "c",
-    "d",
-    "e",
-    "f",
-    "g",
-    "s",
-    "w",
-    "2",
-    "a",
-    "4",
-    "a",
-    "b",
-    "c",
-    "d",
-    "e",
-    "f",
-    "g",
-    "s",
-    "w",
-    "2",
-    "4",
+    "1st", "2nd", "3rd", "4th", "5th", "6th", "7th", "8th", "9th", "10th", "a",
+    "b", "c", "d", "e", "f", "g", "s", "w", "2", "a", "4",
+    "a", "b", "c", "d", "e", "f", "g", "s", "w", "2", "last",
 ]
 
 for i in range(33):
     tv.heading(i + 1, text=names[i])
-    tv.column(i + 1, minwidth=0, width=150, stretch=NO)
+    tv.column(i + 1, minwidth=0, width=80, stretch=NO)
 # Actually using my head for once and just making the for loop above and using that instead of defining each thing individually.
 
 # tv.heading(1,text="Name")
@@ -118,7 +88,7 @@ for i in range(33):
 # tv.heading(9,text="s;df")
 # tv.heading(10,text="ljd")
 
-scrlbr = ttk.Scrollbar(win, orient="horizontal", command=tv.xview)
+scrlbr = ttk.Scrollbar(frm, orient="horizontal", command=tv.xview)
 scrlbr.grid(row=10, column=3, columnspan=5)
 # scrlbr.place(x=205, y=20, height=10)
 # scrlbr.pack(side='bottom', fill='x')
