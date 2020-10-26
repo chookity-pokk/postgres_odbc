@@ -17,3 +17,5 @@ All the code that is currently not being used but were just test scripts to see 
 ## Resolved issues and how:
  - Fixed having more than one item opened from dropdown menu by adding `conn.commit()` which I totally spaced out on adding in and adding in `root.quit()` and `root.destroy()` where `root` is changed to the name of the tkinter window.
  - Fixed the auto complete for the edit menu with the error `name 'dimensions' is not defined in line 335` by changing the names to `name_editor` which is what it is called earlier. Not sure how that slipped through the cracks because I feel like I have tested that before.
+ - Scrollbar not working for `view2.py`, fixed by getting rid of the `frame` which for some reason would make the bar super small and make it so you realistically couldn't scroll over within a reasonable amount of time because it look like 10 seconds to go over one column and there are 33 of them so it would take like 5 minutes just to get to the end.
+ - Box sizes too large on `view2.py`, fixed by setting a `width`.
