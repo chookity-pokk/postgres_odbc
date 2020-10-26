@@ -47,7 +47,7 @@ total = cur.rowcount
 #row = cur.fetchall()
 num_fields = len(cur.description)
 field_names = [i[0] for i in cur.description]
-print(field_names)
+#print(field_names)
 
 win = Tk()
 #frm = Frame(win)
@@ -87,10 +87,11 @@ tree.pack()
 # https://docs.python.org/3/library/tkinter.ttk.html
 # https://docs.python.org/3/library/tkinter.ttk.html#treeview
 names = [
-    "1st", "2nd", "3rd", "4th", "5th", "6th", "7th", "8th", "9th", "10th", "a",
-    "b", "c", "d", "e", "f", "g", "s", "w", "2", "a", "4",
-    "a", "b", "c", "d", "e", "f", "g", "s", "w", "2", "last",
-]
+    'model', 'dimensions','frame','housing','tank size','tank material','compressor hp','condenser',
+    'process pump hp','gpm @ 25 psi','weight','conn size','conn type','connection size','chiller pump hp',
+    'heat exchanger','controls','electrical enclosure','shipping weight','decibals @ 10 feet','refrigerant',
+    '230 1 FLA','230 1 MCA','230 1 MCO ','230 3 FLA','230 3 MCA','230 3 MCO','460 3 FLA','460 3 MCA','460 3 MCO',
+    '20f','30f','40f']
 
 """
 This might be the way to name the columns because they
@@ -101,8 +102,8 @@ the info as of right now.
 """
 
 
-#for i in range(33):
-#    tree.heading(i + 1, text=names[i])
+for i in range(len(names)):
+    tree.heading(i + 1, text=names[i])
     #tree.column(i + 1, minwidth=0, width=80, stretch=NO)
 # Actually using my head for once and just making the for loop above and using that instead of defining each thing individually.
 
@@ -130,14 +131,16 @@ for i in rows:
 #    print(field_names)
     #tree.heading(i, text=field_names[i])
 
-for i in range(len(field_names)):
-    if i <= 32:
-        tree.heading(i, text=field_names[i-1])
-        print(i)
-    elif i > 32:
-        tree.heading(i, text=field_names[i])
-        print(i)
-    print(field_names[i])
+"""
+So the for loop below is used to grab the column 
+names from the sql database and making it the header 
+names for the Treeview
+"""
+
+    
+#for i in range(len(field_names)):
+#    tree.heading(i, text=field_names[i-1])
+#    print(field_names[i])
 
     
 win.title("Customer Data")
