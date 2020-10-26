@@ -21,13 +21,33 @@ it isn't working.
 """
 
 
+"""
+I want to add the optiont to grab the headings
+from the database and give the option to choose different 
+databases so you can see them live.
+
+select *
+from inv_testing3
+where false;
+
+The above command will grab column names from the db.
+"""
+
+
 tb = "inv_testing3"
 
 sql = f"SELECT * from {tb}"
 cur.execute(sql)
 rows = cur.fetchall()
 total = cur.rowcount
-print(f"Total Data Entries: {total}")
+#print(f"Total Data Entries: {total}")
+
+#col_names = f"select * from {tb} where false;"
+#cur.execute(col_names)
+#row = cur.fetchall()
+num_fields = len(cur.description)
+field_names = [i[0] for i in cur.description]
+print(field_names)
 
 win = Tk()
 #frm = Frame(win)
@@ -72,8 +92,17 @@ names = [
     "a", "b", "c", "d", "e", "f", "g", "s", "w", "2", "last",
 ]
 
-for i in range(33):
-    tree.heading(i + 1, text=names[i])
+"""
+This might be the way to name the columns because they
+are named differently in PostgreSQL because of how 
+they need to be named for SQL. Either way though,
+I am using a for loop towards the bottom to grab 
+the info as of right now.
+"""
+
+
+#for i in range(33):
+#    tree.heading(i + 1, text=names[i])
     #tree.column(i + 1, minwidth=0, width=80, stretch=NO)
 # Actually using my head for once and just making the for loop above and using that instead of defining each thing individually.
 
@@ -97,6 +126,20 @@ tree.configure(xscrollcommand=scrlbr.set)
 for i in rows:
     tree.insert("", "end", values=i)
 
+#for i in field_names:
+#    print(field_names)
+    #tree.heading(i, text=field_names[i])
+
+for i in range(len(field_names)):
+    if i <= 32:
+        tree.heading(i, text=field_names[i-1])
+        print(i)
+    elif i > 32:
+        tree.heading(i, text=field_names[i])
+        print(i)
+    print(field_names[i])
+
+    
 win.title("Customer Data")
 win.geometry("700x300")
 
