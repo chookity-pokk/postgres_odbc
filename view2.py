@@ -13,34 +13,13 @@ from postgres_db import connect_to_database
 
 conn, cur = connect_to_database()
 
-"""
-This is in alpha mode right now because 
-I still need to get the scrollbar to work.
-Not sure exactly what is going on and why
-it isn't working.
-"""
-
-
-"""
-I want to add the optiont to grab the headings
-from the database and give the option to choose different 
-databases so you can see them live.
-
-select *
-from inv_testing3
-where false;
-
-The above command will grab column names from the db.
-"""
-
-
 tb = "inv_testing3"
 
 sql = f"SELECT * from {tb}"
 cur.execute(sql)
 rows = cur.fetchall()
 total = cur.rowcount
-# print(f"Total Data Entries: {total}")
+print(f"Total Data Entries: {total}")
 
 # col_names = f"select * from {tb} where false;"
 # cur.execute(col_names)
@@ -163,19 +142,7 @@ the info as of right now.
 
 for i in range(len(names)):
     tree.heading(i + 1, text=names[i])
-    # tree.column(i + 1, minwidth=0, width=80, stretch=NO)
-# Actually using my head for once and just making the for loop above and using that instead of defining each thing individually.
-
-# tree.heading(1,text="Name")
-# tree.heading(2,text="Age")
-# tree.heading(3,text="Email")
-# tree.heading(4,text="Naem")
-# tree.heading(5,text="sfld")
-# tree.heading(6,text="120")
-# tree.heading(7,text="jh")
-# tree.heading(8,text="aksdf")
-# tree.heading(9,text="s;df")
-# tree.heading(10,text="ljd")
+    # tree.column(i + 1, minwidth=0, width=80, stretch=NO) #This might be uncommented soon
 
 scrlbr = ttk.Scrollbar(win, orient="horizontal", command=tree.xview)
 # scrlbr.grid(row=10, column=3, columnspan=5)
@@ -185,10 +152,6 @@ tree.configure(xscrollcommand=scrlbr.set)
 
 for i in rows:
     tree.insert("", "end", values=i)
-
-# for i in field_names:
-#    print(field_names)
-# tree.heading(i, text=field_names[i])
 
 """
 So the for loop below is used to grab the column 
@@ -200,7 +163,6 @@ names for the Treeview
 # for i in range(len(field_names)):
 #    tree.heading(i, text=field_names[i-1])
 #    print(field_names[i])
-
 
 win.title("Customer Data")
 win.geometry("700x300")
