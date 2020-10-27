@@ -108,9 +108,43 @@ def tree(tb):
     treeview... and just make an individual treeview
     for each of the different databases.
     """
+    names = [
+        "model",
+        "dimensions",
+        "frame",
+        "housing",
+        "tank size",
+        "tank material",
+        "compressor hp",
+        "condenser",
+        "process pump hp",
+        "gpm @ 25 psi",
+        "weight",
+        "conn size",
+        "conn type",
+        "connection size",
+        "chiller pump hp",
+        "heat exchanger",
+        "controls",
+        "electrical enclosure",
+        "shipping weight",
+        "decibals @ 10 feet",
+        "refrigerant",
+        "230 1 FLA",
+        "230 1 MCA",
+        "230 1 MCO",
+        "230 3 FLA",
+        "230 3 MCA",
+        "230 3 MCO",
+        "460 3 FLA",
+        "460 3 MCA",
+        "460 3 MCO",
+        "20f",
+        "30f",
+        "40f",
+    ]
 
     if tb == "inv_testing3":
-        
         tree = ttk.Treeview(
             win,
             columns=(
@@ -147,100 +181,36 @@ def tree(tb):
                 31,
                 32,
                 33,
-                ),
+            ),
             displaycolumns="#all",
             show="headings",
             selectmode="extended",
             style="mystyle.Treeview",
-           )
+        )
         tree.pack()
-    
-        names = [
-            "model",
-            "dimensions",
-            "frame",
-            "housing",
-            "tank size",
-            "tank material",
-            "compressor hp",
-            "condenser",
-            "process pump hp",
-            "gpm @ 25 psi",
-            "weight",
-            "conn size",
-            "conn type",
-            "connection size",
-            "chiller pump hp",
-            "heat exchanger",
-            "controls",
-            "electrical enclosure",
-            "shipping weight",
-            "decibals @ 10 feet",
-            "refrigerant",
-            "230 1 FLA",
-            "230 1 MCA",
-            "230 1 MCO",
-            "230 3 FLA",
-            "230 3 MCA",
-            "230 3 MCO",
-            "460 3 FLA",
-            "460 3 MCA",
-            "460 3 MCO",
-            "20f",
-            "30f",
-            "40f",
-        ]
+
     elif tb == "compressor_db":
         tree = ttk.Treeview(
             win,
-            columns=(
-                1,
-                2,
-                3
-                ),
+            columns=(1, 2, 3),
             displaycolumns="#all",
             show="headings",
             selectmode="extended",
             style="mystyle.Treeview",
-           )
-        tree.pack(side='left')
-    
-        names = [
-            "model",
-            "dimensions",
-            "frame",
-            "housing",
-            "tank size",
-            "tank material",
-            "compressor hp",
-            "condenser",
-            "process pump hp",
-            "gpm @ 25 psi",
-            "weight",
-            "conn size",
-            "conn type",
-            "connection size",
-            "chiller pump hp",
-            "heat exchanger",
-            "controls",
-            "electrical enclosure",
-            "shipping weight",
-            "decibals @ 10 feet",
-            "refrigerant",
-            "230 1 FLA",
-            "230 1 MCA",
-            "230 1 MCO ",
-            "230 3 FLA",
-            "230 3 MCA",
-            "230 3 MCO",
-            "460 3 FLA",
-            "460 3 MCA",
-            "460 3 MCO",
-            "20f",
-            "30f",
-            "40f",
-        ]
-        pass
+        )
+        tree.pack(side="left")
+
+    elif tb == "condenser_db":
+        tree = ttk.Treeview(
+            win,
+            columns=(1, 2, 3),
+            displaycolumns="#all",
+            show="headings",
+            selectmode="extended",
+            style="mystyle.Treeview",
+        )
+        tree.pack(side="left")
+        
     """
     This might be the way to name the columns because they
     are named differently in PostgreSQL because of how 
