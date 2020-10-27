@@ -88,6 +88,3 @@ def cond_save():
             cond.destroy()
         except Exception as e:
             print(f"This is what is happening with this bad boy: \n {e}")
-            
-    else:
-        pass
