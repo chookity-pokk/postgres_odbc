@@ -57,24 +57,6 @@ def csv_to_postgres():
 
 
 # csv_to_postgres()
-"""
-Just FINALLY fixed this, jeez this was an absolute hassel.
-"""
-
-
-def blck_test():
-    list = []
-    x = 13
-    while x < 20:
-        x += 1
-        list.append(x)
-        print(list)
-    print(f"This is each added value to x: {list}")
-
-
-# blck_test()
-# The above function only exists so that I can test the blacken function in Emacs. 11:36 8/14/2020 STATUS: Not working. 8/17/2020 Still not working
-# 8/21/2020, working, just need to hit M-x elpy-black-fix-code(In Emacs of course.)
 
 """
 https://www.youtube.com/watch?v=A7E18apPQJs

@@ -64,18 +64,6 @@ def main():
 
 
 # main()
-def test_func():
-    list = []
-    x = 13
-    while x < 20:
-        x += 1
-        list.append(x)
-        print(list)
-    bl = "function is working in emacs "
-    print("I am using this to test if the blacken " + bl, "\n")
-
-
-# test_func()
 
 # =======================================================================
 # Converts a CSV to XLSX(Excel) files.
