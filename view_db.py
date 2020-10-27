@@ -13,6 +13,9 @@ from postgres_db import connect_to_database
 
 conn, cur = connect_to_database()
 
+#https://docs.python.org/3/library/tkinter.ttk.html#treeview
+#For treeview documentation
+
 """
 I am using pack() here instead of grid()
 because grid() was giving me some issues.
@@ -24,20 +27,24 @@ function that is calling the tb name and
 the dropdown menu makes it so that they are
 rerunning the function  but with a new 
 database being called.
+
+SO THIS IS HALFWAY WORKING BUT THE COLUMN
+HEADERS IS STILL THE SAME AS THE FIRST ONE
+ie chiller heading.
 """
 
 #NEed to add this SQL stuff into the function
 
-tbl = "inv_testing3"
-
-sql = f"SELECT * from {tbl}"
-cur.execute(sql)
-rows = cur.fetchall()
-total = cur.rowcount
-print(f"Total Data Entries: {total}")
-
-num_fields = len(cur.description)
-field_names = [i[0] for i in cur.description]
+#tbl = "inv_testing3"
+#
+#sql = f"SELECT * from {tbl}"
+#cur.execute(sql)
+#rows = cur.fetchall()
+#total = cur.rowcount
+#print(f"Total Data Entries: {total}")
+#
+#num_fields = len(cur.description)
+#field_names = [i[0] for i in cur.description]
 
 win = Tk()
 
@@ -79,11 +86,14 @@ style.layout(
 # ---------------------------------------------------------------------
 
 def tree(tb):
-    #win.title("G&D Chillers")
-    #win.geometry("700x300")
-    #win.iconbitmap(
-    #    r"C:\Users\Hank\Documents\Random Python Scripts\postgres-odbc\Icons\IconForTkinter.ico"
-        #)
+    sql = f"SELECT * from {tb}"
+    cur.execute(sql)
+    rows = cur.fetchall()
+    total = cur.rowcount
+    print(f"Total Data Entries: {total}")
+    
+    num_fields = len(cur.description)
+    field_names = [i[0] for i in cur.description]
 
     tree = ttk.Treeview(
         win,
@@ -173,9 +183,9 @@ def tree(tb):
     the info as of right now.
     """
     
-    for i in range(len(names)):
-        tree.heading(i + 1, text=names[i])
-        # tree.column(i + 1, minwidth=0, width=80, stretch=NO) #This might be uncommented soon
+    #for i in range(len(names)):
+    #    tree.heading(i + 1, text=names[i])
+    #    # tree.column(i + 1, minwidth=0, width=80, stretch=NO) #This might be uncommented soon
     
     scrlbr = ttk.Scrollbar(win, orient="horizontal", command=tree.xview)
     scrlbr.pack(side="bottom", fill="x")
@@ -190,9 +200,9 @@ def tree(tb):
     names for the Treeview
     """
     
-    #for i in range(len(field_names)+1):
-    #   tree.heading(i, text=field_names[i-1])
-tree(tbl)
+    for i in range(len(field_names)+1):
+       tree.heading(i, text=field_names[i-1])
+tree("inv_testing3")
     
 win.title("G&D Chillers")
 win.geometry("700x300")
