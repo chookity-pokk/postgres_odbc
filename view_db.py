@@ -85,6 +85,14 @@ style.layout(
 )  # Remove borders
 # ---------------------------------------------------------------------
 
+"""
+This works but it also keeps the naming convention of the SQL database so it isn't ideal. 
+The column number would also have to be changed for each db. So I can either hard code in 
+the column header names or leave it how it is. The number of columns may also need to be 
+dynamically changed. Maybe something like `if tb == comp`...`columns=(1,2,3)` or something.
+"""
+
+
 def tree(tb):
     sql = f"SELECT * from {tb}"
     cur.execute(sql)
@@ -94,6 +102,11 @@ def tree(tb):
     
     num_fields = len(cur.description)
     field_names = [i[0] for i in cur.description]
+    """
+    could add here something like if tb == name:
+    treeview... and just make an individual treeview
+    for each of the different databases.
+    """
 
     tree = ttk.Treeview(
         win,

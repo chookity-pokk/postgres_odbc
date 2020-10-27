@@ -11,6 +11,7 @@ All the code that is currently not being used but were just test scripts to see 
 
 ## Current issues:
 - The placement of the dropdown menu is pretty garbage.
+- Need to adjust the treeview for the `view_db.py` script because it is currently the same headings for each of the different databases even though they are all different sizes and whatnot.
 
 ## Resolved issues and how:
  - Fixed having more than one item opened from dropdown menu by adding `conn.commit()` which I totally spaced out on adding in and adding in `root.quit()` and `root.destroy()` where `root` is changed to the name of the tkinter window.
