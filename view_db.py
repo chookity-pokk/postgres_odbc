@@ -21,18 +21,6 @@ I am using pack() here instead of grid()
 because grid() was giving me some issues.
 """
 
-"""
-What I am thinking is making this one big
-function that is calling the tb name and
-the dropdown menu makes it so that they are
-rerunning the function  but with a new 
-database being called.
-
-SO THIS IS HALFWAY WORKING BUT THE COLUMN
-HEADERS IS STILL THE SAME AS THE FIRST ONE
-ie chiller heading.
-"""
-
 win = Tk()
 
 
