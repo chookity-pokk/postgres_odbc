@@ -149,9 +149,8 @@ names from the sql database and making it the header
 names for the Treeview
 """
 
-# for i in range(len(field_names)):
-#    tree.heading(i, text=field_names[i-1])
-#    print(field_names[i])
+#for i in range(len(field_names)+1):
+#   tree.heading(i, text=field_names[i-1])
 
 win.title("G&D Chillers")
 win.geometry("700x300")
